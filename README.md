@@ -202,29 +202,54 @@ The development process for this project was carefully planned and documented to
 
 ## Project Planning and Documentation Using GitHub
 GitHub Issues were used to document the development steps undertaken in the project. 
-Two issue templates were created: one for [User Epics]() and another for [User Stories]().
-A variety of labels were applied to categorise issue types, such as Bugs, User Epics, User Stories, and Style.
+Two issue templates were created: one for [User Epics](https://github.com/MFS4711/Restaurant-Web-App/issues/new?assignees=&labels=&projects=&template=user-epic.md&title=USER+EPIC+%3A+%3CTITLE%3E) and another for [User Stories](https://github.com/MFS4711/Restaurant-Web-App/issues/new?assignees=&labels=&projects=&template=user-story.md&title=USER+STORY+%3A+%3CTITLE%3E).
+A variety of labels were applied to categorise issue types, such as Bugs, User Epics and User Stories, with the parent epic and child story being associated with the same label for easy identificaion.
 MoSCoW prioritisation was applied using the labels must-have, should-have, and could-have.
-<!-- change labels listed as required -->
 
 The project was broken down into manageable sprints using GitHub Projects, which provided a Kanban board. Issues were posted to the board and moved from "Todo" to "In Progress" to "Done" as they were completed.
 
 The iterations are documented here :
-    - [Iteration 1](link)
+    - [Prerequisites](https://github.com/users/MFS4711/projects/6/views/1)
+    - [Iteration 1](https://github.com/users/MFS4711/projects/5)
     - [Iteration 2](link)
     - ...
 
 The User Epics and their related User Stories are as follows:
-- Epic : [Epic Name](add_link_to_issue_in_github)
-    - Story : [User Story title/description](add_link_to_issue_in_github)
-    - Story : [User Story title/description](add_link_to_issue_in_github)
-    - etc
-- Epic : [Epic Name](add_link_to_issue_in_github)
-    - Story : [User Story title/description](add_link_to_issue_in_github)
-    - Story : [User Story title/description](add_link_to_issue_in_github)
-    - etc
-- etc.
-<!-- repeat based on number of epics and stories - maybe display MoSCoW here - although will show in GitHub -->
+- Epic : [Set up User Authentication with Django Allauth](https://github.com/MFS4711/Restaurant-Web-App/issues/1)
+    - Story : [Implement Email Verification for New Users](https://github.com/MFS4711/Restaurant-Web-App/issues/2)
+    - Story : [Configure User Roles (Customer, Staff, Admin](https://github.com/MFS4711/Restaurant-Web-App/issues/3)
+    - Story : [Implement Email Verification for New Users](https://github.com/MFS4711/Restaurant-Web-App/issues/4)
+- Epic : [Implement Booking Management System](https://github.com/MFS4711/Restaurant-Web-App/issues/5)
+    - Story : [Allow Customers to Create, View, and Cancel Bookings](https://github.com/MFS4711/Restaurant-Web-App/issues/6)
+    - Story : [Allow Staff to View, Approve, and Reject Bookings](https://github.com/MFS4711/Restaurant-Web-App/issues/7)
+    - Story : [Prevent Double Bookings by Validating Date/Time](https://github.com/MFS4711/Restaurant-Web-App/issues/8)
+- Epic : [Implement Menu Display System](https://github.com/MFS4711/Restaurant-Web-App/issues/9)
+    - Story : [Display Menu Items](https://github.com/MFS4711/Restaurant-Web-App/issues/10)
+    - Story : [Add Dietary Tags to Menu Items](https://github.com/MFS4711/Restaurant-Web-App/issues/11)
+- Epic : [Implement Table Assignment and Availability Management](https://github.com/MFS4711/Restaurant-Web-App/issues/12)
+    - Story : [Allow Staff to Assign Bookings to Tables](https://github.com/MFS4711/Restaurant-Web-App/issues/13)
+    - Story : [Automatically Mark Tables as Occupied When Assigned to a Booking](https://github.com/MFS4711/Restaurant-Web-App/issues/14)
+    - Story : [Automatically Make Tables Available After Booking Ends](https://github.com/MFS4711/Restaurant-Web-App/issues/15)
+    - Story : [Prevent Double Booking of the Same Table](https://github.com/MFS4711/Restaurant-Web-App/issues/16)
+    - Story : [Display Available Tables in Staff Dashboard](https://github.com/MFS4711/Restaurant-Web-App/issues/17)
+    - Story : [Allow Admin to Manage Table Configurations](https://github.com/MFS4711/Restaurant-Web-App/issues/18)
+- Epic : [Implement Customer Order Management System](https://github.com/MFS4711/Restaurant-Web-App/issues/19)
+    - Story : [Allow Customers to Add Menu Items to Order](https://github.com/MFS4711/Restaurant-Web-App/issues/20)
+    - Story : [Allow Customers to Modify Their Orders](https://github.com/MFS4711/Restaurant-Web-App/issues/21)
+    - Story : [Allow Customers to View Order Status](https://github.com/MFS4711/Restaurant-Web-App/issues/22)
+    - Story : [Allow Customers to Apply Discount Codes to Orders](https://github.com/MFS4711/Restaurant-Web-App/issues/29)
+    - Story : [Allow Customers to Add Special Instructions](https://github.com/MFS4711/Restaurant-Web-App/issues/30)
+- Epic : [Implement Staff Order Management System](https://github.com/MFS4711/Restaurant-Web-App/issues/23)
+    - Story : [Allow Staff to View and Approve Orders](https://github.com/MFS4711/Restaurant-Web-App/issues/24)
+    - Story : [Allow Staff to Update Order Status](https://github.com/MFS4711/Restaurant-Web-App/issues/25)
+    - Story : [Allow Staff to Leave Internal Notes on Orders](https://github.com/MFS4711/Restaurant-Web-App/issues/31)
+- Epic : [Implement Menu Availability and Stock Management](https://github.com/MFS4711/Restaurant-Web-App/issues/26)
+    - Story : [Allow Staff to Mark Menu Items as Out of Stock](https://github.com/MFS4711/Restaurant-Web-App/issues/27)
+    - Story : [Allow Staff to Revert Items Back to Stock](https://github.com/MFS4711/Restaurant-Web-App/issues/28)
+    - Story : [Allow Staff to Set Prices for Menu Items Dynamically](https://github.com/MFS4711/Restaurant-Web-App/issues/32)
+- Epic : [Implement Real-Time Order Status Updates](https://github.com/MFS4711/Restaurant-Web-App/issues/33)
+    - Story : [Implement Real-Time Order Status Updates via WebSockets](https://github.com/MFS4711/Restaurant-Web-App/issues/34)
+    - Story : [Send SMS or Email Notifications for Order Status Updates](https://github.com/MFS4711/Restaurant-Web-App/issues/35)
 
 <!-- Include this section and add depth if time at the end -->
 ## Search Engine Optimization
