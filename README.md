@@ -1,9 +1,9 @@
-# Add Title Here
+# Cedar & Flame
 <!-- Maybe create a header with html and css and use screenshot  -->
 
-Single line description of project
+A Restaurant Web-App created using Django
 
-Source code can be found [here](Add link)
+Source code can be found [here](https://github.com/MFS4711/Restaurant-Web-App)
 
 The live project can be viewed [here](Add link)
 
@@ -57,8 +57,12 @@ The live project can be viewed [here](Add link)
 ---
 
 # Purpose of Project
-The aim of the project is to ...
-The website consists of ...
+
+The Restaurant Web App is designed to streamline the management of reservations, menu items, and customer orders for a restaurant. It aims to enhance the dining experience for customers by providing an intuitive platform for booking tables and placing orders, while simplifying restaurant operations for staff and administrators. The app is built to improve efficiency, reduce errors, and foster better communication between customers, staff, and management, ultimately creating a smoother, more enjoyable restaurant experience.
+
+The primary users of the Restaurant Web App are customers, staff, and restaurant administrators. Customers use the platform to easily manage their reservations, browse menu items, place orders, and track their order status. Staff members interact with the app to manage and update reservations, track orders, and ensure that menu items are available. Administrators and managers utilize the app to oversee operations, manage user accounts, and analyze restaurant performance. Each group is provided with tailored functionality based on their role to ensure smooth and efficient restaurant operations.
+
+<!-- Paragraph may change based on functionality achieved at the end -->
 
 <!-- Photo from responsiveness website - check file path -->
 ![responsivenes_screenshot](/static/doc_images/responsiveness_screenshot.png)
@@ -76,7 +80,7 @@ The following pages are visible to all users, logged in or not.
 
 <!-- Create dropdowns for different sections following below format -->
 <details>
-<summary>Welcome Page (landing page)</summary>
+<summary>Homepage (landing page)</summary>
 
 - The landing page presents the user with a choice of ... actions:
     <!-- List actions -->
