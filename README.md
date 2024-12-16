@@ -181,16 +181,275 @@ The following colour palette was used in the project
 <!-- Maybe add colour contrast images for accessibility? -->
 
 ### Wireframes
-These wireframes outline how each page was intended to be displayed on Mobile, Tablet, Desktops and Larger Screens.
+These wireframes outline how each page was intended to be displayed on Mobile, Tablet, Desktops and Larger Screens. Generally speaking, the layout is very similar across all viewports, the only difference being the additional space being taken advantage of.
 
-#### _Welcome Page (Landing Page)_
+#### _Homepage (Landing Page)_
+
+<details>
+<summary>Mobile</summary>
+
+<!-- Add image path -->
 
 ![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
 
-<!-- Repeat for each page as above/below -->
-#### _Another Page_
+</details>
 
-![another_page wireframe](/static/doc_images/SOME_FILE_PATH)
+<details>
+<summary>Tablet</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Desktop</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Larger Screens</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+#### _Menu Page_
+
+<details>
+<summary>Mobile</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Tablet</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Desktop</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Larger Screens</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+#### _Contact Page_
+
+<details>
+<summary>Mobile</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Tablet</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Desktop</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Larger Screens</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+#### _Booking Page_
+
+<details>
+<summary>Mobile</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Tablet</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Desktop</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Larger Screens</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+#### _Customer Dashboard_
+
+<details>
+<summary>Mobile</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Tablet</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Desktop</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Larger Screens</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+#### _Staff Dashboard_
+
+<details>
+<summary>Mobile</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Tablet</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Desktop</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Larger Screens</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+#### _Admin Dashboard_
+
+<details>
+<summary>Mobile</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Tablet</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Desktop</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<details>
+<summary>Larger Screens</summary>
+
+<!-- Add image path -->
+
+![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+
+</details>
+
+<!-- Maybe add login/out/register/404 page -->
 
 ---
 
