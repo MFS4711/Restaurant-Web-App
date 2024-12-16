@@ -25,8 +25,13 @@ SECRET_KEY = 'django-insecure-q(!)#q-@!8v-ji20%1km@#pgsut1mu03)szbmbvw9sbi^hi!#k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-mfs4711-restaurantwebap-7yvo737kte4.ws.codeinstitute-ide.net']
+ALLOWED_HOSTS = [
+    '8000-mfs4711-restaurantwebap-7yvo737kte4.ws.codeinstitute-ide.net', '.herokuapp.com']
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.codeinstitute-ide.net/",
+    "https://*.herokuapp.com"
+]
 
 # Application definition
 
