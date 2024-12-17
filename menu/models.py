@@ -4,7 +4,7 @@ from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
-class Menu(models.Model):
+class MenuItem(models.Model):
     """
 
     """
