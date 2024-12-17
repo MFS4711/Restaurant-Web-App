@@ -1,3 +1,35 @@
-h1 {
-    color: red;
+/* import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+/* ----------------- Global Styles --------------------- */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #F5F5F5;
+    color: #2C2C2C;
+    margin: 0;
+    padding: 0;
+}
+
+/* --------------------- Header Styling --------------------- */
+header {
+    background-color: #212121;
+    padding: 10px 0;
+}
+
+.navbar-brand {
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 1.5rem;
+    color: #D32F2F; 
+    text-transform: uppercase;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1rem;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #D32F2F;
 }
