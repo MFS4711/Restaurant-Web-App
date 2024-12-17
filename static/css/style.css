@@ -113,3 +113,46 @@ header {
 .hero-content h1, .hero-content p {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
+
+/* ------------------- Footer Section ---------------------- */
+footer {
+    background-color: #212121;
+    color: #fff;
+    padding: 40px 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+}
+
+footer h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+footer p,
+footer ul {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+footer ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+footer .navbar-brand img {
+    max-width: 150px;
+}
+
+footer .social-media a {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+footer .social-media a:hover {
+    color: #D32F2F;
+}

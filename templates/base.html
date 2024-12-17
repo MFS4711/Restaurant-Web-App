@@ -63,6 +63,9 @@
                             <a class="nav-link" href="#">Menu</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#">Book a Table</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
                         </li>
                         {% if user.is_authenticated %}
@@ -87,9 +90,9 @@
     </header>
 
     <!-- Main Content -->
-        {% block content %}
+    {% block content %}
 
-        {% endblock %}
+    {% endblock %}
 
     <footer class="bg-dark text-light pt-5 pb-3">
         <div class="container">
