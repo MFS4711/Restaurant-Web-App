@@ -33,3 +33,14 @@ header {
 .navbar-nav .nav-link:hover {
     color: #D32F2F;
 }
+
+.navbar-nav .nav-link.active {
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.navbar-toggler {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
