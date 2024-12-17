@@ -509,6 +509,10 @@ The User Epics and their related User Stories are as follows:
 - Epic : [Implement Real-Time Order Status Updates](https://github.com/MFS4711/Restaurant-Web-App/issues/33)
     - Story : [Implement Real-Time Order Status Updates via WebSockets](https://github.com/MFS4711/Restaurant-Web-App/issues/34)
     - Story : [Send SMS or Email Notifications for Order Status Updates](https://github.com/MFS4711/Restaurant-Web-App/issues/35)
+- Epic : [Admin Can Manage Menu Items](https://github.com/MFS4711/Restaurant-Web-App/issues/40)
+    - Story : [Admin Can Add New Menu Items](https://github.com/MFS4711/Restaurant-Web-App/issues/41)
+    - Story : [Admin Can Modify Existing Menu Items](https://github.com/MFS4711/Restaurant-Web-App/issues/42)
+    - Story : [Admin Can Remove Menu Items](https://github.com/MFS4711/Restaurant-Web-App/issues/43)
 
 <!-- Include this section and add depth if time at the end -->
 ## Search Engine Optimization
