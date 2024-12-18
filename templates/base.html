@@ -1,6 +1,7 @@
 {% load static %}
 
 {% url 'home' as home_url %}
+{% url 'menu' as menu_url %}
 
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
@@ -60,7 +61,8 @@
                         {% endif %}
                         <!-- All User Links -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Menu</a>
+                            <a class="nav-link {% if request.path == menu_url %}active" aria-current="page{% endif %}"
+                                href="{% url 'menu' %}">Menu</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Book a Table</a>
