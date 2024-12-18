@@ -170,7 +170,9 @@ This section details the key elements of the user experience (UX) design for the
 
 ### Fonts
 <!-- description in style below -->
-The ... font was used throughout the project. It's a simple, very ligible sans-serif font, with a rounded appearance, particularly on headings and larger fonts
+The Montserrat font was used throughout the project for headings and prominent text. It's a clean, modern sans-serif font with a strong, professional look, making it ideal for a refined restaurant like Cedar and Flame. Its bold, uppercase styling helps convey a sense of sophistication and presence.
+
+For body text, Open Sans was chosen due to its simplicity and high legibility, providing a comfortable reading experience for users. Its versatility and neutral design make it well-suited for longer content while maintaining a polished, cohesive aesthetic across the site.
 
 ### Colour
 The following colour palette was used in the project
