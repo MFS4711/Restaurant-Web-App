@@ -231,3 +231,8 @@ h1 {
     color: #777;
     font-style: italic;
 }
+
+/* Hide form */
+.hidden {
+    display: none;
+}

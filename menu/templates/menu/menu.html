@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% load static %}
 
 {% load crispy_forms_tags %}
+
+{% block content %}
 
 <div class="container">
 
@@ -12,17 +14,17 @@
 
     {% if user.is_authenticated and user.is_superuser %}
     <div>
-        <a href="#" class="btn btn-success add-btn">
-            <i class="fas fa-plus"></i> Add Menu Item
+        <a href="#" class="btn btn-success add-btn" id="addMenuItemButton">
+            <i class="fas fa-plus"></i> Add New Menu Item
         </a>
     </div>
 
-    <form method="POST" id="menuItemForm">
+    <!-- Form to add menu item, initially hidden by the 'hidden' class -->
+    <form method="POST" id="menuItemForm" class="hidden">
         {{ menu_item_form | crispy }}
         {% csrf_token %}
-        <button id="submitButton" type="submit"
-          class="btn btn-signup btn-lg">Submit</button>
-      </form>
+        <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+    </form>
 
     {% endif %}
 
@@ -66,3 +68,7 @@
 </div>
 
 {% endblock content %}
+
+{% block extras %}
+<script src="{% static 'js/menu.js' %}"></script>
+{% endblock %}
