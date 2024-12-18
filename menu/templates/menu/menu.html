@@ -6,15 +6,44 @@
 
     <h1>Our Menu</h1>
 
+    {% if user.is_authenticated and user.is_superuser %}
+    <div>
+        <a href="#" class="btn btn-success add-btn">
+            <i class="fas fa-plus"></i> Add Menu Item
+        </a>
+    </div>
+    {% endif %}
+
     {% for category_label, category_items in categorised_items %}
-    <div class="category-section">
+    <div class="category-section mb-4">
         <h2>{{ category_label }}</h2>
 
         {% for menu_item in category_items %}
-        <div class="menu-item">
-            <h4>{{ menu_item.name }}</h4>
-            <p>{{ menu_item.description }}</p>
-            <p>Price: £{{ menu_item.price }}</p>
+        <div class="menu-item row">
+            <div class="col-9 col-sm-10">
+                <h4>{{ menu_item.name }}</h4>
+                <p>{{ menu_item.description }}</p>
+                <p>Price: £{{ menu_item.price }}</p>
+            </div>
+
+            {% if user.is_authenticated and user.is_superuser %}
+            <div class="col-3 col-sm-2">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <a href="#" class="btn btn-warning btn-sm edit-btn">
+                            <i class="fas fa-cogs"></i> Edit
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <a href="#" class="btn btn-danger btn-sm delete-btn">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
         {% empty %}
         <p>No items available in this category.</p>
