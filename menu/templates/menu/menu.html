@@ -8,7 +8,7 @@
 
 <div class="container">
 
-    <h1>Our Menu</h1> 
+    <h1>Our Menu</h1>
 
     <!-- NEED TO AMEND BOOTSTRAP CLASSES WITH IF/ELSE FOR USER TYPE -->
 
@@ -20,11 +20,15 @@
     </div>
 
     <!-- Form to add menu item, initially hidden by the 'hidden' class -->
-    <form method="POST" id="menuItemForm" class="hidden">
-        {{ menu_item_form | crispy }}
-        {% csrf_token %}
-        <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
-    </form>
+    <div class="row">
+        <div class="col-12 offset-md-2 col-md-8">
+            <form method="POST" id="menuItemForm" class="hidden">
+                {{ menu_item_form | crispy }}
+                {% csrf_token %}
+                <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+            </form>
+        </div>
+    </div>
 
     {% endif %}
 

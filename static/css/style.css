@@ -232,7 +232,66 @@ h1 {
     font-style: italic;
 }
 
+/* ----------- Form Styles -------------- */
 /* Hide form */
 .hidden {
     display: none;
+}
+
+/* Form container */
+#menuItemForm {
+    background-color: #fff;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Input fields and textareas */
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+/* Focus on inputs */
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    border-color: #D32F2F;
+    outline: none;
+}
+
+/* Submit button */
+#submitButton {
+    background-color: #D32F2F;
+    color: #fff;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Submit button hover */
+#submitButton:hover {
+    background-color: #B71C1C;
 }
