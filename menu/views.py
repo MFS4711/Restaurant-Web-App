@@ -31,9 +31,13 @@ def menu(request):
     
     # Handle Post request from Menu Item Form
     if request.method == "POST":
+        # Retrieve the hidden category from the form submission
+        category = request.POST.get('category')
         menu_item_form = MenuItemForm(data=request.POST)
         if menu_item_form.is_valid():
-            menu_item = menu_item_form.save()
+            menu_item = menu_item_form.save(commit=False)
+            menu_item.category = category
+            menu_item.save()
             messages.add_message(
                 request, messages.SUCCESS,
                 'New Menu Item Created'
