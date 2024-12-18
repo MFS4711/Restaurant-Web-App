@@ -773,6 +773,7 @@ This section provides a step-by-step guide for deploying your project to Heroku,
 <!-- Add any specific research that was beneficial -->
 
 - [Stack Overflow - How can I display a tuple field from a model to a template in Django?](https://stackoverflow.com/questions/67227949/how-can-i-display-a-tuple-field-from-a-model-to-a-template-in-django)
+- [Learn how to use the forEach method in JS!](https://dev.to/ziratsu/learn-how-to-use-the-foreach-method-in-js-3im)
 
 # Acknowledgements
 <!-- Add a paragraph to show appreciation -->
