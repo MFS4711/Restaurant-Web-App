@@ -8,7 +8,7 @@ class MenuItemAdmin(admin.ModelAdmin):
     """
 
     """
-    list_display = ('name', 'category', 'is_available')
+    list_display = ('name', 'category', 'is_available', 'created_at', 'updated_at',)
     search_fields = ['name', 'category']
     list_filter = ('category',)
 
