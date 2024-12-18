@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from .models import MenuItem
+from .forms import MenuItemForm
 
 def homepage(request):
     """
@@ -28,8 +29,12 @@ def menu(request):
         category_items = menu_items.filter(category=category_value)
         categorised_items.append((category_label, category_items))
 
+    # Display form
+    menu_item_form = MenuItemForm
+
     context = {
         'categorised_items': categorised_items,
+        'menu_item_form': menu_item_form,
     }
 
     return render(request, "menu/menu.html", context)
