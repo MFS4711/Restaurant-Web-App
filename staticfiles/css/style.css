@@ -48,6 +48,50 @@ header {
     border-radius: 5px;
 }
 
+/* ------------------- Footer Section ---------------------- */
+footer {
+    background-color: #212121;
+    color: #fff;
+    padding: 40px 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+}
+
+footer h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+footer p,
+footer ul {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+footer ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+footer .navbar-brand img {
+    max-width: 150px;
+}
+
+footer .social-media a {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+footer .social-media a:hover {
+    color: #D32F2F;
+}
+
+/* -------------------------------- Homepage Specific ----------------------------------- */
 /* ------------------- Hero Section ---------------------- */
 
 /* Hero Section */
@@ -114,45 +158,74 @@ header {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
-/* ------------------- Footer Section ---------------------- */
-footer {
-    background-color: #212121;
-    color: #fff;
-    padding: 40px 0;
-    height: 100vh;
+/* -------------------- Features Section (Cards) ------------------- */
+.features .card {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    height: 300px;
+}
+
+.features .card-body {
+    padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;  
 }
 
-footer h5 {
+.features .card-title {
     font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: #D32F2F;
     font-weight: 600;
-    text-transform: uppercase;
     margin-bottom: 20px;
 }
 
-footer p,
-footer ul {
+.features .card-text {
     font-size: 1rem;
+    color: #333;
     line-height: 1.5;
 }
 
-footer ul {
-    padding-left: 0;
-    list-style-type: none;
+/* Card Hover Effect */
+.features .card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-footer .navbar-brand img {
-    max-width: 150px;
+/* -------------------------------- Menu Specific ----------------------------------- */
+
+h1 {
+    text-align: center;
 }
 
-footer .social-media a {
-    font-size: 1.5rem;
-    margin-right: 15px;
+/* Menu item styles */
+.menu-item {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-footer .social-media a:hover {
+/* Menu item title styles */
+.menu-item h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
     color: #D32F2F;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+/* General text styles for description and price */
+.menu-item p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Empty category text */
+.category-section p {
+    color: #777;
+    font-style: italic;
 }
