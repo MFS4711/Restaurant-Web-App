@@ -7,24 +7,21 @@
     <h1>Our Menu</h1>
 
     {% for category_label, category_items in categorised_items %}
-    <div>
+    <div class="category-section">
         <h2>{{ category_label }}</h2>
 
-        <div>
-            {% for menu_item in category_items %}
-            <div>
-                <h4>{{ menu_item.name }}</h4>
-                <p>{{ menu_item.description }}</p>
-                <p><strong>Price:</strong> £{{ menu_item.price }}</p>
-            </div>
-            {% empty %}
-            <p>No items available in this category.</p>
-            {% endfor %}
+        {% for menu_item in category_items %}
+        <div class="menu-item">
+            <h4>{{ menu_item.name }}</h4>
+            <p>{{ menu_item.description }}</p>
+            <p>Price: £{{ menu_item.price }}</p>
         </div>
+        {% empty %}
+        <p>No items available in this category.</p>
+        {% endfor %}
     </div>
     {% endfor %}
 
 </div>
-
 
 {% endblock content %}

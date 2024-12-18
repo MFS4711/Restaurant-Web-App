@@ -192,3 +192,40 @@ footer .social-media a:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* -------------------------------- Menu Specific ----------------------------------- */
+
+h1 {
+    text-align: center;
+}
+
+/* Menu item styles */
+.menu-item {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Menu item title styles */
+.menu-item h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #D32F2F;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+/* General text styles for description and price */
+.menu-item p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Empty category text */
+.category-section p {
+    color: #777;
+    font-style: italic;
+}
