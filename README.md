@@ -770,6 +770,8 @@ This section provides a step-by-step guide for deploying your project to Heroku,
 <!-- Add any image credits -->
 <!-- Add any specific research that was beneficial -->
 
+- [Stack Overflow - How can I display a tuple field from a model to a template in Django?](https://stackoverflow.com/questions/67227949/how-can-i-display-a-tuple-field-from-a-model-to-a-template-in-django)
+
 # Acknowledgements
 <!-- Add a paragraph to show appreciation -->
 
