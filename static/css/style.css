@@ -232,6 +232,17 @@ h1 {
     font-style: italic;
 }
 
+/* Amend when adding image */
+/* .image-container {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.image-container > img {
+    max-width: 100px;
+    max-height: 100px;
+} */
+
 /* ----------- Form Styles -------------- */
 /* Hide form */
 .hidden {

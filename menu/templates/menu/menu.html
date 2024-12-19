@@ -21,7 +21,9 @@
             <div class="col-9 col-sm-10">
                 <h4 id="menu-item-name-{{ menu_item.id }}">{{ menu_item.name }}</h4>
                 <p id="menu-item-description-{{ menu_item.id }}">{{ menu_item.description }}</p>
-                <p class="hidden" id="menu-item-image-{{ menu_item.id }}">{{ menu_item.image.url }}</p>
+                <!-- <div class="image-container hidden" id="menu-item-image-{{ menu_item.id }}">
+                    <img src="{{ menu_item.image.url }}" alt="{{ item.name }} image" width="200">
+                </div> -->
                 <p>Price: £<span id="menu-item-price-{{ menu_item.id }}">{{ menu_item.price }}</span></p>
                 <p class="hidden" id="menu-item-is-available-{{ menu_item.id }}">{{ menu_item.is_available }}</p>
             </div>
@@ -50,7 +52,7 @@
                     <form method="POST" action="{% url 'edit_menu_item' menu_item.id %}" class="menu-item-form hidden">
                         {% csrf_token %}
                         {{ menu_item_form | crispy }}
-                        <!-- Assuming `menu_item_form` will be populated in the view -->
+                        <!-- The crispy form automatically adds the correct input fields with appropriate names -->
                         <button type="submit" class="btn btn-signup btn-submit btn-lg">Save Changes</button>
                     </form>
                 </div>

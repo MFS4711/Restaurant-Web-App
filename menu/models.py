@@ -34,7 +34,7 @@ class MenuItem(models.Model):
 
     name = models.CharField(max_length=200)
     description = models.TextField()
-    image = CloudinaryField('image', default='placeholder')
+    image = CloudinaryField('image', default='https://res.cloudinary.com/dnbghptqu/image/upload/v1734616582/placeholder_zwevjg.jpg')
     category = models.CharField(
         max_length=20,
         choices=CATEGORY_CHOICES,
