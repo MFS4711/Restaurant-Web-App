@@ -19,16 +19,19 @@
         {% for menu_item in category_items %}
         <div class="menu-item row">
             <div class="col-9 col-sm-10">
-                <h4>{{ menu_item.name }}</h4>
-                <p>{{ menu_item.description }}</p>
-                <p>Price: £{{ menu_item.price }}</p>
+                <h4 id="menu-item-name-{{ menu_item.id }}">{{ menu_item.name }}</h4>
+                <p id="menu-item-description-{{ menu_item.id }}">{{ menu_item.description }}</p>
+                <p class="hidden" id="menu-item-image-{{ menu_item.id }}">{{ menu_item.image.url }}</p>
+                <p id="menu-item-price-{{ menu_item.id }}">Price: £{{ menu_item.price }}</p>
+                <p class="hidden" id="menu-item-is-available-{{ menu_item.id }}">{{ menu_item.is_available }}</p>
             </div>
 
             {% if user.is_authenticated and user.is_superuser %}
             <div class="col-3 col-sm-2">
+                <!-- Edit Button -->
                 <div class="row mb-2">
                     <div class="col-12">
-                        <a href="#" class="btn btn-warning btn-sm edit-btn">
+                        <a href="#" class="btn btn-warning btn-sm edit-btn" data-menu-item-id="{{ menu_item.id }}">
                             <i class="fas fa-cogs"></i> Edit
                         </a>
                     </div>
@@ -39,6 +42,17 @@
                             <i class="fas fa-trash-alt"></i> Delete
                         </a>
                     </div>
+                </div>
+            </div>
+            <!-- Edit Form (Initially hidden) -->
+            <div class="row edit-form-row" id="edit-form-{{ menu_item.id }}">
+                <div class="col-12 offset-md-2 col-md-8">
+                    <form method="POST" action="{% url 'edit_menu_item' menu_item.id %}" class="menu-item-form hidden">
+                        {% csrf_token %}
+                        {{ menu_item_form | crispy }}
+                        <!-- Assuming `menu_item_form` will be populated in the view -->
+                        <button type="submit" class="btn btn-signup btn-submit btn-lg">Save Changes</button>
+                    </form>
                 </div>
             </div>
             {% endif %}
@@ -60,7 +74,7 @@
                 <form method="POST" class="menu-item-form hidden">
                     {{ menu_item_form | crispy }}
                     {% csrf_token %}
-                    <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+                    <button type="submit" class="btn btn-signup btn-submit btn-lg">Submit</button>
                     <input type="hidden" name="category" value="{{ category_label | lower }}">
                 </form>
             </div>

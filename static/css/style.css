@@ -279,7 +279,7 @@ textarea:focus {
 }
 
 /* Submit button */
-#submitButton {
+.btn-submit {
     background-color: #D32F2F;
     color: #fff;
     font-weight: bold;
@@ -292,6 +292,6 @@ textarea:focus {
 }
 
 /* Submit button hover */
-#submitButton:hover {
+.btn-submit:hover {
     background-color: #B71C1C;
 }
