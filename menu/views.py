@@ -59,7 +59,7 @@ def menu(request):
 
 def edit_menu_item(request, menu_item_id):
     """
-    view to edit a task
+    view to edit a item
     """
     # get object you want to edit
     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
@@ -81,4 +81,19 @@ def edit_menu_item(request, menu_item_id):
         menu_item_form = MenuItemForm(instance=menu_item)
 
     # Below with the view to run - and in args - the necessary parameter (if applicable)
+    return HttpResponseRedirect(reverse('menu'))
+
+def delete_menu_item(request, menu_item_id):
+    """
+    view to delete a item
+    """
+    # get object you want to edit
+    menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
+
+    if request.user.is_authenticated and (request.user.is_superuser):
+        menu_item.delete()
+        messages.add_message(request, messages.SUCCESS, 'Menu Item deleted!')
+    else:
+        messages.add_message(request, messages.ERROR, 'There was an error deleting the Item. Please try again.')
+
     return HttpResponseRedirect(reverse('menu'))
