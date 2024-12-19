@@ -49,9 +49,18 @@
             <!-- Edit Form (Initially hidden) -->
             <div class="row edit-form-row" id="edit-form-{{ menu_item.id }}">
                 <div class="col-12 offset-md-2 col-md-8">
-                    <form method="POST" action="{% url 'edit_menu_item' menu_item.id %}" class="menu-item-form hidden">
+                    <form method="POST" action="{% url 'edit_menu_item' menu_item.id %}" class="menu-item-form hidden" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ menu_item_form | crispy }}
+
+                        <!-- Display the current image -->
+                        <div class="form-group">
+                            <label for="id_image">Current Image:</label>
+                            <div class="image-container">
+                                <img src="{{ menu_item.image.url }}" alt="{{ menu_item.name }} image" width="200">
+                            </div>
+                        </div>
+
                         <!-- The crispy form automatically adds the correct input fields with appropriate names -->
                         <button type="submit" class="btn btn-signup btn-submit btn-lg">Save Changes</button>
                     </form>
@@ -76,8 +85,8 @@
                 <form method="POST" class="menu-item-form hidden">
                     {{ menu_item_form | crispy }}
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-signup btn-submit btn-lg">Submit</button>
                     <input type="hidden" name="category" value="{{ category_label | lower }}">
+                    <button type="submit" class="btn btn-signup btn-submit btn-lg">Submit</button>
                 </form>
             </div>
         </div>

@@ -70,9 +70,7 @@ def edit_menu_item(request, menu_item_id):
         # form validation and authentication check
         if menu_item_form.is_valid():
             # save the form with updated data
-            menu_item = menu_item_form.save(commit=False)
-            menu_item.category = category
-            menu_item.save()
+            menu_item = menu_item_form.save()
             messages.add_message(request, messages.SUCCESS,
                                  'Menu Item Successfully Updated!')
         else:
