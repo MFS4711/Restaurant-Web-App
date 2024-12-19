@@ -66,13 +66,15 @@ def edit_menu_item(request, menu_item_id):
 
     if request.method == "POST":
         # iniitialises form with instance of MenuItem pre-filled
-        menu_item_form = MenuItemForm(data=request.POST, instance=menu_item)
+        menu_item_form = MenuItemForm(data=request.POST, files=request.FILES, instance=menu_item)
         # form validation and authentication check
         if menu_item_form.is_valid():
             # save the form with updated data
             menu_item = menu_item_form.save()
             messages.add_message(request, messages.SUCCESS,
                                  'Menu Item Successfully Updated!')
+            # Redirect to menu page
+            return redirect('menu')
         else:
             messages.add_message(
                 request, messages.ERROR, 'There was an error updating the Menu Item. Please try again.')
