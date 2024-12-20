@@ -3,7 +3,7 @@ from cloudinary.forms import CloudinaryFileField
 from .models import MenuItem
 
 class MenuItemForm(forms.ModelForm):
-    image = CloudinaryFileField()
+    # image = CloudinaryFileField()
 
     class Meta:
         model = MenuItem

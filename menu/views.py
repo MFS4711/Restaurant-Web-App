@@ -57,33 +57,56 @@ def menu(request):
     return render(request, "menu/menu.html", context)
 
 
+# def edit_menu_item(request, menu_item_id):
+#     """
+#     view to edit a item
+#     """
+#     # get object you want to edit
+#     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
+
+#     if request.method == "POST":
+#         # iniitialises form with instance of MenuItem pre-filled
+#         menu_item_form = MenuItemForm(data=request.POST, files=request.FILES, instance=menu_item)
+#         # form validation and authentication check
+#         if menu_item_form.is_valid():
+#             # save the form with updated data
+#             menu_item = menu_item_form.save()
+#             messages.add_message(request, messages.SUCCESS,
+#                                  'Menu Item Successfully Updated!')
+#             # Redirect to menu page
+#             return redirect('menu')
+#         else:
+#             messages.add_message(
+#                 request, messages.ERROR, 'There was an error updating the Menu Item. Please try again.')
+    
+#     else:
+#         menu_item_form = MenuItemForm(instance=menu_item)
+
+#     # Below with the view to run - and in args - the necessary parameter (if applicable)
+#     return HttpResponseRedirect(reverse('menu'))
+
 def edit_menu_item(request, menu_item_id):
-    """
-    view to edit a item
-    """
-    # get object you want to edit
     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
 
     if request.method == "POST":
-        # iniitialises form with instance of MenuItem pre-filled
         menu_item_form = MenuItemForm(data=request.POST, files=request.FILES, instance=menu_item)
-        # form validation and authentication check
         if menu_item_form.is_valid():
-            # save the form with updated data
-            menu_item = menu_item_form.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 'Menu Item Successfully Updated!')
-            # Redirect to menu page
+            # Retain the current image if no new one is uploaded
+            if not request.FILES.get('image'):
+                menu_item_form.cleaned_data['image'] = menu_item.image
+            menu_item_form.save()
+            messages.success(request, 'Menu Item Successfully Updated!')
             return redirect('menu')
         else:
-            messages.add_message(
-                request, messages.ERROR, 'There was an error updating the Menu Item. Please try again.')
-    
+            messages.error(request, 'Error updating Menu Item. Please try again.')
+
     else:
         menu_item_form = MenuItemForm(instance=menu_item)
 
-    # Below with the view to run - and in args - the necessary parameter (if applicable)
-    return HttpResponseRedirect(reverse('menu'))
+    return render(request, 'menu.html', {
+        'menu_item_form': menu_item_form,
+    })
+
 
 def delete_menu_item(request, menu_item_id):
     """

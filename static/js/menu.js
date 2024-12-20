@@ -31,17 +31,29 @@ editButtons.forEach((button) => {
     const menuItemId = e.target.getAttribute("data-menu-item-id");
 
     // Retrieve the data for this menu item
-    const menuItemNameValue = document.getElementById(`menu-item-name-${menuItemId}`).innerText;
-    const menuItemDescriptionValue = document.getElementById(`menu-item-description-${menuItemId}`).innerText;
-    const menuItemPriceValue = document.getElementById(`menu-item-price-${menuItemId}`).innerText;
-    const menuItemIsAvailableValue = document.getElementById(`menu-item-is-available-${menuItemId}`).innerText;
+    const menuItemNameValue = document.getElementById(
+      `menu-item-name-${menuItemId}`
+    ).innerText;
+    const menuItemDescriptionValue = document.getElementById(
+      `menu-item-description-${menuItemId}`
+    ).innerText;
+    const menuItemPriceValue = document.getElementById(
+      `menu-item-price-${menuItemId}`
+    ).innerText;
+    const menuItemIsAvailableValue = document.getElementById(
+      `menu-item-is-available-${menuItemId}`
+    ).innerText;
 
     // Find the specific form fields for this menu item
     const editForm = document.getElementById(`edit-form-${menuItemId}`);
     const menuItemNameInput = editForm.querySelector("input[name='name']");
-    const menuItemDescriptionInput = editForm.querySelector("textarea[name='description']");
+    const menuItemDescriptionInput = editForm.querySelector(
+      "textarea[name='description']"
+    );
     const menuItemPriceInput = editForm.querySelector("input[name='price']");
-    const menuItemIsAvailableInput = editForm.querySelector("input[name='is_available']");
+    const menuItemIsAvailableInput = editForm.querySelector(
+      "input[name='is_available']"
+    );
 
     // Populate the form fields with the current values
     menuItemNameInput.value = menuItemNameValue;
@@ -55,6 +67,35 @@ editButtons.forEach((button) => {
   });
 });
 
+// Function to handle image preview
+function handleImagePreview(input) {
+  const file = input.files[0]; // Get the file from the input field
+  const previewImage = document.getElementById("image-preview"); // Get the preview image element
+
+  // Check if a file is selected
+  if (file) {
+    const reader = new FileReader(); // Create a FileReader to read the file
+
+    reader.onload = function (e) {
+      // Set the src of the preview image to the file's URL
+      previewImage.src = e.target.result;
+      previewImage.classList.remove("hidden"); // Show the preview image
+    };
+
+    reader.readAsDataURL(file); // Read the image as a data URL
+  } else {
+    previewImage.classList.add("hidden"); // Hide the preview if no file is selected
+  }
+}
+
+// Add event listener to the image input field in the form
+const imageInput = document.querySelector("input[name='image']"); // Get the file input field
+
+if (imageInput) {
+  imageInput.addEventListener("change", function () {
+    handleImagePreview(this); // Call the function to update the image preview
+  });
+}
 
 // JS for bootstrap Modal:
 const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));

@@ -239,15 +239,15 @@ h1 {
 }
 
 /* Amend when adding image */
-/* .image-container {
-    max-width: 100px;
-    max-height: 100px;
+.image-container {
+    max-width: 200px;
+    max-height: 200px;
 }
 
-.image-container > img {
-    max-width: 100px;
-    max-height: 100px;
-} */
+.image-container img {
+    max-width: 200px;
+    max-height: 200px;
+}
 
 /* ----------- Form Styles -------------- */
 /* Hide form */
