@@ -686,7 +686,7 @@ To generate the coverage HTML report, use the following commands:
 This section provides an overview of the bugs encountered during development, along with their resolutions. Any remaining issues or notable fixes are also tracked for reference.
 
 Several bugs encountered during development and their solutions are documented in the GitHub issues tracker. Some notable examples include:
-- [BUG NOT STRICTLY RELATED TO USER STORY](GITHUB_ISSUE_LINK)
+- [BUG - Form not submitting without modifying image field](GITHUB_ISSUE_LINK)
 - [ANOTHER BUG](GITHUB_ISSUE_LINK)
 - etc.
 
