@@ -10,6 +10,11 @@ body {
     padding: 0;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+
 /* --------------------- Header Styling --------------------- */
 header {
     position: sticky;
@@ -61,9 +66,9 @@ footer {
 }
 
 footer h5 {
-    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
     font-weight: 600;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     margin-bottom: 20px;
 }
 
@@ -123,12 +128,12 @@ footer .social-media a:hover {
 
 /* Brand Logo */
 .hero-content h1 {
-    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
     font-size: 3rem;
     font-weight: 600;
     letter-spacing: 2px;
     margin-bottom: 20px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: #D32F2F;
 }
 
@@ -174,7 +179,7 @@ footer .social-media a:hover {
 }
 
 .features .card-title {
-    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
     font-size: 1.5rem;
     color: #D32F2F;
     font-weight: 600;
@@ -212,6 +217,7 @@ h1 {
 /* Menu item title styles */
 .menu-item h4 {
     font-size: 1.25rem;
+    text-transform: none;
     font-weight: bold;
     color: #D32F2F;
     margin-bottom: 10px;
