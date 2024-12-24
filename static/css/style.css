@@ -66,13 +66,13 @@ header {
 }
 
 .navbar-nav .nav-link.active {
-    color: #F5F5F5;
+    color: #FFD700;
     font-weight: 600;
     text-decoration: underline;
 }
 
 .navbar-toggler {
-    background-color: #F5F5F5;
+    background-color: #0b0b0b;
     border-radius: 5px;
 }
 
@@ -207,6 +207,28 @@ footer .social-media a:hover {
 /* No hover effect on cards */
 .features .card:hover {
     box-shadow: none;
+}
+
+/* --------------------- About Section (Card Style) ------------------- */
+.our-story-card {
+    background-color: #444444;  
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.our-story-card h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #FFD700;
+    margin-bottom: 20px;
+}
+
+.our-story-card p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: #F5F5F5;
+    margin-bottom: 15px;
 }
 
 /* -------------------------------- Menu Specific ----------------------------------- */
