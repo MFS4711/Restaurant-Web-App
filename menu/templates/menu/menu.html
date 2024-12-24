@@ -18,11 +18,15 @@
 
         {% for menu_item in category_items %}
         <div class="menu-item row">
-            <div class="col-9 col-sm-10">
-                <h4 id="menu-item-name-{{ menu_item.id }}">{{ menu_item.name }}</h4>
+            <div class="col-12">
+                <h4 id="menu-item-name-{{ menu_item.id }}" class="menu-item-title" data-bs-toggle="modal"
+                    data-bs-target="#menuItemModal-{{ menu_item.id }}">
+                    {{ menu_item.name }}
+                </h4>
                 <p id="menu-item-description-{{ menu_item.id }}">{{ menu_item.description }}</p>
+
                 <!-- cloudinary -->
-                <div class="image-container">
+                <div class="image-container hidden">
                     {% if 'placeholder' in menu_item.image.url %}
                     <img src="{% static 'images/placeholder.jpg' %}" class="scale" alt="placeholder image">
                     {% else %}
@@ -34,18 +38,39 @@
                 <p class="hidden" id="menu-item-is-available-{{ menu_item.id }}">{{ menu_item.is_available }}</p>
             </div>
 
+            <!-- Modal for each menu item -->
+            <div class="modal fade" id="menuItemModal-{{ menu_item.id }}" tabindex="-1"
+                aria-labelledby="menuItemModalLabel-{{ menu_item.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="menuItemModalLabel-{{ menu_item.id }}">{{ menu_item.name }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{{ menu_item.image.url }}" alt="{{ menu_item.name }}" class="img-fluid">
+                            <h5>Description:</h5>
+                            <p>{{ menu_item.description }}</p>
+                            <h5>Price:</h5>
+                            <p>£{{ menu_item.price }}</p>
+                            <!-- <h5>Available:</h5>
+                            <p>{{ menu_item.is_available|yesno:"Yes,No" }}</p> -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {% if user.is_authenticated and user.is_superuser %}
-            <div class="col-3 col-sm-2">
+            <div>
                 <!-- Edit Button -->
                 <div class="row mb-2">
                     <div class="col-12">
                         <a href="#" class="btn btn-warning btn-sm edit-btn" data-menu-item-id="{{ menu_item.id }}">
                             <i class="fas fa-cogs"></i> Edit
                         </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
                         <a href="#" class="btn btn-danger btn-sm delete-btn" data-menu-item-id="{{ menu_item.id }}">
                             <i class="fas fa-trash-alt"></i> Delete
                         </a>

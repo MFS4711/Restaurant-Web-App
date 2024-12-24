@@ -120,3 +120,37 @@ for (let button of deleteButtons) {
     deleteModal.show(); // Show the confirmation modal
   });
 }
+
+// Modal to view menu item details
+// Get all menu item titles that will trigger the modal
+const menuItemTitles = document.querySelectorAll('.menu-item-title');
+
+// Loop through all menu item titles and add click event listeners
+menuItemTitles.forEach((title) => {
+    title.addEventListener('click', (e) => {
+        const menuItemId = e.target.getAttribute('data-bs-target').split('-')[1]; // Extract menu item ID from the modal target
+
+        // Get the menu item data
+        const menuItemName = document.getElementById(`menu-item-name-${menuItemId}`).innerText;
+        const menuItemDescription = document.getElementById(`menu-item-description-${menuItemId}`).innerText;
+        const menuItemPrice = document.getElementById(`menu-item-price-${menuItemId}`).innerText;
+        const menuItemIsAvailable = document.getElementById(`menu-item-is-available-${menuItemId}`).innerText;
+
+        // Update the modal content dynamically
+        const modal = document.getElementById(`menuItemModal-${menuItemId}`);
+        const modalTitle = modal.querySelector('.modal-title');
+        const modalBody = modal.querySelector('.modal-body');
+        const modalFooter = modal.querySelector('.modal-footer');
+
+        modalTitle.innerText = menuItemName;
+        modalBody.innerHTML = `
+            <img src="${document.getElementById(`menu-item-image-${menuItemId}`).src}" alt="${menuItemName}" class="img-fluid">
+            <h5>Description:</h5>
+            <p>${menuItemDescription}</p>
+            <h5>Price:</h5>
+            <p>£${menuItemPrice}</p>
+            <h5>Available:</h5>
+            <p>${menuItemIsAvailable === 'True' ? 'Yes' : 'No'}</p>
+        `;
+    });
+});

@@ -243,6 +243,8 @@ footer .social-media a:hover {
 }
 
 /* -------------------------------- Menu Specific ----------------------------------- */
+
+
 .menu-item {
     background-color: #444444;
     padding: 20px;
@@ -348,6 +350,11 @@ textarea:focus {
 .btn-submit:hover {
     background-color: #333;
     color: #FFD700;
+}
+
+/* Modal */
+.modal-content {
+    background-color: #444444;
 }
 
 /* ------------------------------------- Media Queries -------------------------------------- */
