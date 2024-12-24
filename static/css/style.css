@@ -29,11 +29,14 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     text-decoration: none;
     border-radius: 5px;
+    border: 2px solid transparent; /* Transparent border initially */
+    box-sizing: border-box; /* Include padding and border in element's total size */
 }
 
 .buttons .btn:hover {
     background-color: #333;
     color: #FFD700;
+    border: 2px solid #FFD700;
 }
 
 /* --------------------- Header Styling --------------------- */
@@ -209,7 +212,7 @@ footer .social-media a:hover {
     box-shadow: none;
 }
 
-/* --------------------- About Section (Card Style) ------------------- */
+/* --------------------- About Section ------------------- */
 .our-story-card {
     background-color: #444444;  
     border-radius: 10px;
@@ -229,6 +232,13 @@ footer .social-media a:hover {
     line-height: 1.6;
     color: #F5F5F5;
     margin-bottom: 15px;
+}
+
+/* --------------------- Button Section ------------------- */
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
 /* -------------------------------- Menu Specific ----------------------------------- */
