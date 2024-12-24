@@ -87,7 +87,8 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;  
+    align-items: center;
+    text-align: center;
 }
 
 footer h5 {
@@ -195,7 +196,7 @@ footer .social-media a:hover {
 }
 
 .features .card-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: #FFD700;
     font-weight: 600;
     margin-bottom: 20px;
@@ -228,7 +229,7 @@ footer .social-media a:hover {
 }
 
 .our-story-card p {
-    font-size: 1.125rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: #F5F5F5;
     margin-bottom: 15px;
@@ -347,4 +348,15 @@ textarea:focus {
 .btn-submit:hover {
     background-color: #333;
     color: #FFD700;
+}
+
+/* ------------------------------------- Media Queries -------------------------------------- */
+
+/* --------------- Tablet (768px and up) */
+@media (min-width:768px) {
+
+    /* Footer */
+    footer {
+        text-align: left;
+    }
 }
