@@ -274,7 +274,7 @@ footer .social-media a:hover {
 }
 
 /* Image Container */
-.image-container {
+/* .image-container {
     max-width: 200px;
     max-height: 200px;
 }
@@ -282,7 +282,7 @@ footer .social-media a:hover {
 .image-container img {
     max-width: 200px;
     max-height: 200px;
-}
+} */
 
 /* ----------- Form Styles -------------- */
 .hidden {
