@@ -4,18 +4,37 @@ from django.http import Http404, HttpResponseRedirect
 from .models import MenuItem
 from .forms import MenuItemForm
 
+
 def homepage(request):
     """
+    Display the homepage.
 
+    **Context:**
+
+    None
+
+    **Template:**
+
+    :template:`menu/index.html`
     """
-
     return render(request, "menu/index.html")
+
 
 def menu(request):
     """
+    Display the menu page with all menu items grouped by categories.
+    
+    **Context:**
 
+    ``categorised_items``
+        A list of tuples where each tuple contains a category label and a queryset of MenuItems in that category.
+    ``menu_item_form``
+        An instance of :form:`menu.MenuItemForm` to add a new menu item.
+
+    **Template:**
+
+    :template:`menu/menu.html`
     """
-
     # Get all Menu Items
     menu_items = MenuItem.objects.all()
 
@@ -24,12 +43,12 @@ def menu(request):
 
     # Create a list to store categories and their items
     categorised_items = []
-    
+
     for category_value, category_label in categories:
         # Get menu items for the current category
         category_items = menu_items.filter(category=category_value)
         categorised_items.append((category_label, category_items))
-    
+
     # Handle Post request from Menu Item Form
     if request.method == "POST":
         # Retrieve the hidden category from the form submission
@@ -57,39 +76,24 @@ def menu(request):
     return render(request, "menu/menu.html", context)
 
 
-# def edit_menu_item(request, menu_item_id):
-#     """
-#     view to edit a item
-#     """
-#     # get object you want to edit
-#     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
-
-#     if request.method == "POST":
-#         # iniitialises form with instance of MenuItem pre-filled
-#         menu_item_form = MenuItemForm(data=request.POST, files=request.FILES, instance=menu_item)
-#         # form validation and authentication check
-#         if menu_item_form.is_valid():
-#             # save the form with updated data
-#             menu_item = menu_item_form.save()
-#             messages.add_message(request, messages.SUCCESS,
-#                                  'Menu Item Successfully Updated!')
-#             # Redirect to menu page
-#             return redirect('menu')
-#         else:
-#             messages.add_message(
-#                 request, messages.ERROR, 'There was an error updating the Menu Item. Please try again.')
-    
-#     else:
-#         menu_item_form = MenuItemForm(instance=menu_item)
-
-#     # Below with the view to run - and in args - the necessary parameter (if applicable)
-#     return HttpResponseRedirect(reverse('menu'))
-
 def edit_menu_item(request, menu_item_id):
+    """
+    Edit an existing menu item.
+
+    **Context:**
+
+    ``menu_item_form``
+        An instance of :form:`menu.MenuItemForm` pre-filled with the details of the item being edited.
+
+    **Template:**
+
+    :template:`menu/menu.html`
+    """
     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
 
     if request.method == "POST":
-        menu_item_form = MenuItemForm(data=request.POST, files=request.FILES, instance=menu_item)
+        menu_item_form = MenuItemForm(
+            data=request.POST, files=request.FILES, instance=menu_item)
         if menu_item_form.is_valid():
             # Retain the current image if no new one is uploaded
             if not request.FILES.get('image'):
@@ -98,19 +102,30 @@ def edit_menu_item(request, menu_item_id):
             messages.success(request, 'Menu Item Successfully Updated!')
             return redirect('menu')
         else:
-            messages.error(request, 'Error updating Menu Item. Please try again.')
+            messages.error(
+                request, 'Error updating Menu Item. Please try again.')
 
     else:
         menu_item_form = MenuItemForm(instance=menu_item)
-
-    return render(request, 'menu.html', {
+    
+    context = {
         'menu_item_form': menu_item_form,
-    })
+    }
+
+    return render(request, 'menu.html', context)
 
 
 def delete_menu_item(request, menu_item_id):
     """
-    view to delete a item
+    Delete a menu item.
+
+    **Context:**
+
+    None
+
+    **Template:**
+
+    :template:`menu/menu.html`
     """
     # get object you want to edit
     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
@@ -119,6 +134,7 @@ def delete_menu_item(request, menu_item_id):
         menu_item.delete()
         messages.add_message(request, messages.SUCCESS, 'Menu Item deleted!')
     else:
-        messages.add_message(request, messages.ERROR, 'There was an error deleting the Item. Please try again.')
+        messages.add_message(
+            request, messages.ERROR, 'There was an error deleting the Item. Please try again.')
 
     return HttpResponseRedirect(reverse('menu'))
