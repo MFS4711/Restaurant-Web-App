@@ -775,6 +775,7 @@ This section provides a step-by-step guide for deploying your project to Heroku,
 - [Stack Overflow - How can I display a tuple field from a model to a template in Django?](https://stackoverflow.com/questions/67227949/how-can-i-display-a-tuple-field-from-a-model-to-a-template-in-django)
 - [Learn how to use the forEach method in JS!](https://dev.to/ziratsu/learn-how-to-use-the-foreach-method-in-js-3im)
 - [Manage images in a Django app](https://cloudinary.com/documentation/django_helper_methods_tutorial)
+- [Model Meta Options](https://docs.djangoproject.com/en/5.1/ref/models/options/)
 
 # Acknowledgements
 <!-- Add a paragraph to show appreciation -->
