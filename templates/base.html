@@ -2,6 +2,7 @@
 
 {% url 'home' as home_url %}
 {% url 'menu' as menu_url %}
+{% url 'booking' as booking_url %}
 
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
@@ -65,7 +66,8 @@
                                 href="{% url 'menu' %}">Menu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Book a Table</a>
+                            <a class="nav-link {% if request.path == booking_url %}active"
+                                aria-current="page{% endif %}" href="{% url 'booking' %}">Book a Table</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
