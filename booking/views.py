@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.http import Http404, HttpResponseRedirect
 from .models import Table, Booking
-from .forms import BookingForm
+from .forms import BookingForm, StaffBookingForm
 
 # Create your views here.
 
@@ -49,10 +49,12 @@ def manage_bookings(request):
 
     """
     # Fetch pending bookings that do not have a table assigned
-    pending_bookings = Booking.objects.filter(status=Booking.PENDING, table__isnull=True)
-    
+    pending_bookings = Booking.objects.filter(
+        status=Booking.PENDING, table__isnull=True)
+
     # Fetch confirmed bookings that have a table assigned
-    confirmed_bookings = Booking.objects.filter(status=Booking.CONFIRMED).exclude(table__isnull=True)
+    confirmed_bookings = Booking.objects.filter(
+        status=Booking.CONFIRMED).exclude(table__isnull=True)
 
     context = {
         'pending_bookings': pending_bookings,
@@ -60,3 +62,25 @@ def manage_bookings(request):
     }
 
     return render(request, 'booking/manage_bookings.html', context)
+
+
+def edit_booking(request, booking_id):
+    """
+
+    """
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    if request.method == 'POST':
+        form = StaffBookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Booking updated successfully!")
+            return redirect('manage_bookings')
+    else:
+        form = StaffBookingForm(instance=booking)
+
+    context = {
+        'form': form,
+        'booking': booking,
+    }
+    return render(request, 'booking/edit_booking.html', context)

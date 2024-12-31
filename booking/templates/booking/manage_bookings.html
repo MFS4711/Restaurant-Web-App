@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% load static %}
-
 {% block content %}
 <div class="container">
     <h1>Manage Bookings</h1>
@@ -19,6 +17,7 @@
                 <th>Additional Notes</th>
                 <th>Status</th>
                 <th>Table</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -38,10 +37,13 @@
                     Not Assigned
                     {% endif %}
                 </td>
+                <td>
+                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="8">No pending bookings found.</td>
+                <td colspan="9">No pending bookings found.</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -60,6 +62,7 @@
                 <th>Additional Notes</th>
                 <th>Status</th>
                 <th>Table</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -73,13 +76,16 @@
                 <td>{{ booking.additional_notes }}</td>
                 <td>{{ booking.status }}</td>
                 <td>{{ booking.table.table_number }}</td>
+                <td>
+                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="7">No confirmed bookings found.</td>
+                <td colspan="9">No confirmed bookings found.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-{% endblock content %}
+{% endblock %}

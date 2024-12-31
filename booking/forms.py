@@ -45,3 +45,17 @@ class BookingForm(forms.ModelForm):
             }
         )
     )
+
+class StaffBookingForm(forms.ModelForm):
+    """
+
+    """
+    class Meta:
+        model = Booking
+        fields = ['table', 'status']  # Only allow status and table for staff
+    
+    # Custom widget for the table selection
+    table = forms.ModelChoiceField(
+        queryset=Table.objects.filter(is_available=True),  # Only available tables
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
