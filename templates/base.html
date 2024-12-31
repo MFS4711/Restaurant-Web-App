@@ -3,6 +3,7 @@
 {% url 'home' as home_url %}
 {% url 'menu' as menu_url %}
 {% url 'book_table' as book_table_url %}
+{% url 'manage_bookings' as manage_bookings_url %}
 
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
@@ -69,6 +70,12 @@
                             <a class="nav-link {% if request.path == book_table_url %}active"
                                 aria-current="page{% endif %}" href="{% url 'book_table' %}">Book a Table</a>
                         </li>
+                        {% if user.is_authenticated and user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == manage_bookings_url %}active"
+                                aria-current="page{% endif %}" href="{% url 'manage_bookings' %}">Manage Bookings</a>
+                        </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
                         </li>

@@ -42,3 +42,10 @@ def booking_success(request):
 
     """
     return render(request, 'booking/booking_success.html')
+
+
+def manage_bookings(request):
+    """
+
+    """
+    return render(request, 'booking/manage_bookings.html')
