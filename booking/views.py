@@ -48,4 +48,15 @@ def manage_bookings(request):
     """
 
     """
-    return render(request, 'booking/manage_bookings.html')
+    # Fetch pending bookings that do not have a table assigned
+    pending_bookings = Booking.objects.filter(status=Booking.PENDING, table__isnull=True)
+    
+    # Fetch confirmed bookings that have a table assigned
+    confirmed_bookings = Booking.objects.filter(status=Booking.CONFIRMED).exclude(table__isnull=True)
+
+    context = {
+        'pending_bookings': pending_bookings,
+        'confirmed_bookings': confirmed_bookings,
+    }
+
+    return render(request, 'booking/manage_bookings.html', context)

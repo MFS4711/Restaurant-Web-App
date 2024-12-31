@@ -5,6 +5,81 @@
 {% block content %}
 <div class="container">
     <h1>Manage Bookings</h1>
-</div>
 
+    <!-- Table for Pending Bookings -->
+    <h2>Pending Bookings (Awaiting Table Assignment)</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Number of People</th>
+                <th>Additional Notes</th>
+                <th>Status</th>
+                <th>Table</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in pending_bookings %}
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.time }}</td>
+                <td>{{ booking.number_of_people }}</td>
+                <td>{{ booking.additional_notes }}</td>
+                <td>{{ booking.status }}</td>
+                <td>
+                    {% if booking.table %}
+                    {{ booking.table.table_number }}
+                    {% else %}
+                    Not Assigned
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8">No pending bookings found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Table for Confirmed Bookings -->
+    <h2>Confirmed Bookings (With Table Assigned)</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Number of People</th>
+                <th>Additional Notes</th>
+                <th>Status</th>
+                <th>Table</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in confirmed_bookings %}
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.time }}</td>
+                <td>{{ booking.number_of_people }}</td>
+                <td>{{ booking.additional_notes }}</td>
+                <td>{{ booking.status }}</td>
+                <td>{{ booking.table.table_number }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No confirmed bookings found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock content %}
