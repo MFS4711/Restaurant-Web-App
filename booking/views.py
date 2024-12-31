@@ -5,7 +5,7 @@ from .models import Table, Booking
 from .forms import BookingForm
 
 # Create your views here.
-def booking(request):
+def book_table(request):
     """
 
     """
