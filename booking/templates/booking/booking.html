@@ -9,12 +9,25 @@
 <div class="container">
     <h1>Book a Table</h1>
 
-    <form method="POST">
-        {{ booking_form | crispy }}
-        {% csrf_token %}
-        <button type="submit" class="btn btn-signup btn-submit btn-lg">Submit</button>
-    </form>
-
+    {% if user.is_authenticated %}
+        <!-- If the user is authenticated, display the booking form -->
+        <form method="POST">
+            {{ booking_form | crispy }}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-signup btn-submit btn-lg">Submit</button>
+        </form>
+    {% else %}
+        <!-- If the user is not authenticated, display a login prompt -->
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Please log in or sign up to book a table!</h4>
+            <p>You need to be logged in to book a table. Please log in or sign up if you don't have an account.</p>
+            <hr>
+            <div class="d-flex justify-content-center">
+                <a href="{% url 'account_login' %}" class="btn btn-primary btn-lg me-3">Log In</a>
+                <a href="{% url 'account_signup' %}" class="btn btn-success btn-lg">Sign Up</a>
+            </div>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock content %}
