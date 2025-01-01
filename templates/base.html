@@ -1,6 +1,7 @@
 {% load static %}
 
 {% url 'home' as home_url %}
+{% url 'customer_dashboard' as customer_dashboard_url %}
 {% url 'menu' as menu_url %}
 {% url 'book_table' as book_table_url %}
 {% url 'manage_bookings' as manage_bookings_url %}
@@ -48,7 +49,8 @@
                         {% if not user.is_staff and not user.is_superuser %}
                         <!-- Authenticated Customer Links -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Customer Dashboard</a>
+                            <a class="nav-link {% if request.path == customer_dashboard_url %}active" aria-current="page{% endif %}"
+                                href="{% url 'customer_dashboard' user.id %}">Customer Dashboard</a>
                         </li>
                         {% elif user.is_staff and not user.is_superuser%}
                         <!-- Staff Dashboard -->
