@@ -28,7 +28,7 @@
                     <td>{{ booking.number_of_people }}</td>
                     <td>{{ booking.status }}</td>
                     <td>
-                        <a href="#" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning">Edit</a>
                         <a href="#" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
