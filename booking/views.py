@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
+from django.urls import reverse
 from .models import Table, Booking
 from .forms import BookingForm, StaffBookingForm
 
@@ -119,3 +120,24 @@ def edit_booking(request, booking_id):
             'is_customer': False,  # Flag to indicate it's a staff edit
         }
         return render(request, 'booking/edit_booking.html', context)
+
+
+def delete_booking(request, booking_id):
+    """
+
+    """
+    # Get the booking object you want to delete
+    booking = get_object_or_404(Booking, pk=booking_id)
+
+    # Check if the user is the one who made the booking or if the user is a staff member
+    if booking.user == request.user or request.user.is_staff:
+        # Delete the booking
+        booking.delete()
+        messages.add_message(request, messages.SUCCESS, 'Booking successfully deleted!')
+    else:
+        messages.add_message(request, messages.ERROR, 'You do not have permission to delete this booking.')
+
+    # Redirect the user to the appropriate page based on their role (staff or customer)
+    if request.user.is_staff:
+        return redirect('manage_bookings')  # Redirect staff to the manage bookings page
+    return redirect('customer_dashboard', user_id=request.user.id)  # Redirect customer to their dashboard
