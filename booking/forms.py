@@ -55,7 +55,19 @@ class StaffBookingForm(forms.ModelForm):
         fields = ['table', 'status']  # Only allow status and table for staff
     
     # Custom widget for the table selection
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Exclude tables that are already booked for the same date and time
+        if self.instance and self.instance.id:
+            self.fields['table'].queryset = Table.objects.filter(is_available=True).exclude(
+                bookings__date=self.instance.date,
+                bookings__time=self.instance.time
+            )
+        else:
+            self.fields['table'].queryset = Table.objects.filter(is_available=True)
+
     table = forms.ModelChoiceField(
-        queryset=Table.objects.filter(is_available=True),  # Only available tables
+        queryset=Table.objects.all(),  # Default queryset, will be filtered on initialization
         widget=forms.Select(attrs={'class': 'form-control'})
     )
