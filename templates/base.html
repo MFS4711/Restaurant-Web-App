@@ -110,8 +110,8 @@
                 <div class="alert
                             {% if message.tags == 'success' %}
                                 alert-success
-                            {% else %}
-                                {{ message.tags }}
+                            {% elif message.tags == 'error' %}
+                                alert-danger
                             {% endif %}
                             alert-dismissible fade show" id="msg" role="alert">
                     {{ message|safe }}

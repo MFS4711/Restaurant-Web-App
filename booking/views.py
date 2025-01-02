@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
+from django.db import IntegrityError
 from .models import Table, Booking
 from .forms import BookingForm, StaffBookingForm
 
@@ -108,9 +109,17 @@ def edit_booking(request, booking_id):
         if request.method == 'POST':
             staff_form = StaffBookingForm(request.POST, instance=booking)
             if staff_form.is_valid():
-                staff_form.save()
-                messages.success(request, "Booking updated successfully.")
-                return redirect('manage_bookings')
+                updated_booking = staff_form.save(commit=False)
+
+                try:
+                    updated_booking.save()
+                    messages.success(request, "Booking updated successfully.")
+                    return redirect('manage_bookings')
+                
+                except IntegrityError:
+                    # Catch duplicate booking error
+                    messages.error(request, "This table is already booked for the selected date and time. Please choose another table.")
+                    return redirect('edit_booking', booking_id=booking.id)
         else:
             staff_form = StaffBookingForm(instance=booking)
 
