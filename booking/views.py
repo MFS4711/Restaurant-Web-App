@@ -120,6 +120,10 @@ def edit_booking(request, booking_id):
                     # Catch duplicate booking error
                     messages.error(request, "This table is already booked for the selected date and time. Please choose another table.")
                     return redirect('edit_booking', booking_id=booking.id)
+                except Exception as e:
+                    # Catch any unexpected errors
+                    messages.error(request, f"An unexpected error occurred: {str(e)}")
+                    return redirect('edit_booking', booking_id=booking.id)
         else:
             # Pass the number_of_people to the form's initial data to filter the tables accordingly
             staff_form = StaffBookingForm(instance=booking, initial={'number_of_people': booking.number_of_people})

@@ -1,4 +1,6 @@
 from django import forms
+from datetime import datetime, timedelta
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from .models import Table, Booking
 
@@ -52,7 +54,19 @@ class StaffBookingForm(forms.ModelForm):
     """
     class Meta:
         model = Booking
-        fields = ['table', 'status']  # Only allow status and table for staff
+        fields = ['time', 'table', 'status']  # Only allow status and table for staff
+
+    # Custom widget for the time field
+    time = forms.TimeField(
+        widget=forms.TimeInput(
+            format='%H:%M',  # Format to match the HTML5 time input format
+            attrs={
+                'type': 'time', 
+                'class': 'form-control',
+                'step': 900,
+            }
+        )
+    )
     
     # Custom widget for the table selection
     def __init__(self, *args, **kwargs):
@@ -80,7 +94,52 @@ class StaffBookingForm(forms.ModelForm):
             capacity__gte=number_of_people
         )
 
-    table = forms.ModelChoiceField(
-        queryset=Table.objects.all(),  # Default queryset, will be filtered on initialization
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
+    def clean_table(self):
+        # Access cleaned data (table and time)
+        table = self.cleaned_data['table']
+        booking_time = self.cleaned_data['time']
+
+        # Get the date for this booking
+        booking_date = self.instance.date if self.instance and self.instance.id else self.cleaned_data['date']
+
+        # Calculate the new booking's start and end times
+        new_start_time = timezone.make_aware(datetime.combine(booking_date, booking_time))
+        new_end_time = new_start_time + timedelta(hours=2)
+
+        # 2-hour delta for comparison
+        delta = timedelta(hours=2)
+
+        # Fetch all bookings for the selected table on the selected date
+        conflicting_bookings = Booking.objects.filter(
+            table=table,
+            date=booking_date
+        ).exclude(id=self.instance.id if self.instance else None)  # Exclude the current booking if updating
+
+        # Check for time conflicts
+        for booking in conflicting_bookings:
+            existing_start_time = timezone.make_aware(datetime.combine(booking.date, booking.time))
+            existing_end_time = existing_start_time + timedelta(hours=2)
+
+            # If the new booking overlaps within the 2-hour window, raise an error
+            if (new_start_time < existing_end_time and new_end_time > existing_start_time):
+                raise ValidationError(f"This table is already booked within 2 hours of the selected time. Please choose another time.")
+
+        return table
+
+    def clean(self):
+        # We are overriding `clean` to ensure the form can't submit if any field is invalid
+        cleaned_data = super().clean()
+
+        # Perform a final validation check on the table and time overlap
+        table = cleaned_data.get('table')
+        time = cleaned_data.get('time')
+        date = cleaned_data.get('date')
+
+        # If any field is missing or incorrect, don't allow the form to be saved
+        if table and time and date:
+            # We are already handling this in `clean_table` so there's no need for duplicate validation here.
+            pass
+        else:
+            raise ValidationError("There was an issue with the booking. Please check the details.")
+
+        return cleaned_data
