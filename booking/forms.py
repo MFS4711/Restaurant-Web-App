@@ -2,6 +2,7 @@ from django import forms
 from datetime import datetime, timedelta
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from django.utils.timezone import make_aware
 from .models import Table, Booking
 
 
@@ -83,21 +84,39 @@ class StaffBookingForm(forms.ModelForm):
             number_of_people = kwargs.get(
                 'initial', {}).get('number_of_people', 1)
 
-        # Filter tables that:
-        # - Are available (is_available=True)
-        # - Have sufficient capacity for the number of people
-        # - Are not already booked at the same date/time (if it's not a new booking)
-        self.fields['table'].queryset = Table.objects.filter(
-            is_available=True,
-            # Ensure table capacity is greater or equal to the number of people
-            capacity__gte=number_of_people
-        ).exclude(
-            bookings__date=self.instance.date,
-            bookings__time=self.instance.time
-        ) if self.instance and self.instance.id else Table.objects.filter(
-            is_available=True,
-            capacity__gte=number_of_people
-        )
+        # Get the date for the current booking (either from instance or cleaned data)
+        booking_date = self.instance.date if self.instance and self.instance.id else kwargs.get(
+            'initial', {}).get('date')
+
+        # Calculate the new start and end times for the proposed booking
+        if self.instance and self.instance.id:
+            booking_time = self.instance.time
+        else:
+            booking_time = kwargs.get('initial', {}).get('time', None)
+
+        if booking_date and booking_time:
+            new_start_time = make_aware(
+                datetime.combine(booking_date, booking_time))
+            new_end_time = new_start_time + timedelta(hours=2)
+
+            # Extend the window to 2 hours before and after the selected time
+            conflicting_time_range_start = new_start_time - timedelta(hours=2)
+            conflicting_time_range_end = new_end_time + timedelta(hours=2)
+
+            # Filter tables that:
+            # - Are available (is_available=True)
+            # - Have sufficient capacity for the number of people
+            # - Are not already booked at the same date/time (if it's not a new booking)
+            self.fields['table'].queryset = Table.objects.filter(
+                is_available=True,
+                capacity__gte=number_of_people
+            ).exclude(
+                bookings__date=booking_date,
+                # Exclude bookings starting after the window
+                bookings__time__gte=conflicting_time_range_start.time(),
+                # Exclude bookings ending before the window
+                bookings__time__lt=conflicting_time_range_end.time()
+            )
 
     def clean_table(self):
         # Access cleaned data (table and time)
