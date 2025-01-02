@@ -115,18 +115,21 @@ def edit_booking(request, booking_id):
                     updated_booking.save()
                     messages.success(request, "Booking updated successfully.")
                     return redirect('manage_bookings')
-                
+
                 except IntegrityError:
                     # Catch duplicate booking error
-                    messages.error(request, "This table is already booked for the selected date and time. Please choose another table.")
+                    messages.error(
+                        request, "This table is already booked for the selected date and time. Please choose another table.")
                     return redirect('edit_booking', booking_id=booking.id)
                 except Exception as e:
                     # Catch any unexpected errors
-                    messages.error(request, f"An unexpected error occurred: {str(e)}")
+                    messages.error(
+                        request, f"An unexpected error occurred: {str(e)}")
                     return redirect('edit_booking', booking_id=booking.id)
         else:
             # Pass the number_of_people to the form's initial data to filter the tables accordingly
-            staff_form = StaffBookingForm(instance=booking, initial={'number_of_people': booking.number_of_people})
+            staff_form = StaffBookingForm(instance=booking, initial={
+                                          'number_of_people': booking.number_of_people})
 
         context = {
             'staff_form': staff_form,
@@ -147,11 +150,15 @@ def delete_booking(request, booking_id):
     if booking.user == request.user or request.user.is_staff:
         # Delete the booking
         booking.delete()
-        messages.add_message(request, messages.SUCCESS, 'Booking successfully deleted!')
+        messages.add_message(request, messages.SUCCESS,
+                             'Booking successfully deleted!')
     else:
-        messages.add_message(request, messages.ERROR, 'You do not have permission to delete this booking.')
+        messages.add_message(
+            request, messages.ERROR, 'You do not have permission to delete this booking.')
 
     # Redirect the user to the appropriate page based on their role (staff or customer)
     if request.user.is_staff:
-        return redirect('manage_bookings')  # Redirect staff to the manage bookings page
-    return redirect('customer_dashboard', user_id=request.user.id)  # Redirect customer to their dashboard
+        # Redirect staff to the manage bookings page
+        return redirect('manage_bookings')
+    # Redirect customer to their dashboard
+    return redirect('customer_dashboard', user_id=request.user.id)
