@@ -58,14 +58,27 @@ class StaffBookingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Exclude tables that are already booked for the same date and time
+        # Check if the instance exists and number_of_people is available
         if self.instance and self.instance.id:
-            self.fields['table'].queryset = Table.objects.filter(is_available=True).exclude(
-                bookings__date=self.instance.date,
-                bookings__time=self.instance.time
-            )
+            number_of_people = self.instance.number_of_people
         else:
-            self.fields['table'].queryset = Table.objects.filter(is_available=True)
+            # Default to 0 if it's a new booking
+            number_of_people = kwargs.get('initial', {}).get('number_of_people', 1)
+        
+        # Filter tables that:
+        # - Are available (is_available=True)
+        # - Have sufficient capacity for the number of people
+        # - Are not already booked at the same date/time (if it's not a new booking)
+        self.fields['table'].queryset = Table.objects.filter(
+            is_available=True,
+            capacity__gte=number_of_people  # Ensure table capacity is greater or equal to the number of people
+        ).exclude(
+            bookings__date=self.instance.date,
+            bookings__time=self.instance.time
+        ) if self.instance and self.instance.id else Table.objects.filter(
+            is_available=True,
+            capacity__gte=number_of_people
+        )
 
     table = forms.ModelChoiceField(
         queryset=Table.objects.all(),  # Default queryset, will be filtered on initialization

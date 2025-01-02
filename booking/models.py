@@ -16,7 +16,7 @@ class Table(models.Model):
     is_available = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Table {self.table_number}"
+        return f"Table {self.table_number} --- {self.capacity} seats"
 
 
 # Booking model
