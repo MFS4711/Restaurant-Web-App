@@ -6,9 +6,6 @@ from .models import Table, Booking
 
 
 class BookingForm(forms.ModelForm):
-    """
-
-    """
     class Meta:
         model = Booking
         fields = ['date', 'time', 'number_of_people', 'additional_notes',]
@@ -138,22 +135,3 @@ class StaffBookingForm(forms.ModelForm):
                     f"This table is already booked within 2 hours of the selected time. Please choose another time.")
 
         return table
-
-    def clean(self):
-        # We are overriding `clean` to ensure the form can't submit if any field is invalid
-        cleaned_data = super().clean()
-
-        # Perform a final validation check on the table and time overlap
-        table = cleaned_data.get('table')
-        time = cleaned_data.get('time')
-        date = cleaned_data.get('date')
-
-        # If any field is missing or incorrect, don't allow the form to be saved
-        if table and time and date:
-            # We are already handling this in `clean_table` so there's no need for duplicate validation here.
-            pass
-        else:
-            raise ValidationError(
-                "There was an issue with the booking. Please check the details.")
-
-        return cleaned_data
