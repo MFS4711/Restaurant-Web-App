@@ -776,6 +776,8 @@ This section provides a step-by-step guide for deploying your project to Heroku,
 - [Learn how to use the forEach method in JS!](https://dev.to/ziratsu/learn-how-to-use-the-foreach-method-in-js-3im)
 - [Manage images in a Django app](https://cloudinary.com/documentation/django_helper_methods_tutorial)
 - [Model Meta Options](https://docs.djangoproject.com/en/5.1/ref/models/options/)
+- [Time zones](https://docs.djangoproject.com/en/5.1/topics/i18n/timezones/)
+- [Form and field validation](https://docs.djangoproject.com/en/5.1/ref/forms/validation/)
 
 # Acknowledgements
 <!-- Add a paragraph to show appreciation -->
