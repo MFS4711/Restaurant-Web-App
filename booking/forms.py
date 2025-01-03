@@ -4,6 +4,44 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.timezone import make_aware
 from .models import Table, Booking
+from django.utils.safestring import mark_safe
+
+# Custom Time Input Widget
+class FifteenMinuteIntervalTimeWidget(forms.TimeInput):
+    """
+
+    """
+    def __init__(self, *args, **kwargs):
+        kwargs['attrs'] = kwargs.get('attrs', {})
+        super().__init__(*args, **kwargs)
+
+    def render(self, name, value, attrs=None, renderer=None):
+        # Generate the list of available times (15-minute intervals) for the current day
+        available_times = self.generate_available_times()
+
+        # Get the HTML render of the widget itself (input field)
+        html = super().render(name, value, attrs, renderer)
+        
+        # Build the datalist
+        datalist = f'<datalist id="{name}_times">'
+        for time in available_times:
+            datalist += f'<option value="{time}">{time}</option>'
+        datalist += '</datalist>'
+        
+        # Insert the datalist into the widget (link it with the input field)
+        input_html = html.replace('>', f' list="{name}_times">')
+        
+        # Return the input field and the datalist
+        return mark_safe(input_html + datalist)
+
+    def generate_available_times(self):
+        # Generate available times from 00:00 to 23:45 in 15-minute intervals
+        times = []
+        start_time = datetime.strptime("00:00", "%H:%M")
+        for i in range(96):  # 24 hours * 4 intervals per hour = 96 possible intervals
+            time = start_time + timedelta(minutes=i * 15)
+            times.append(time.strftime("%H:%M"))
+        return times
 
 
 class BookingForm(forms.ModelForm):
@@ -25,7 +63,7 @@ class BookingForm(forms.ModelForm):
 
     # Custom widget for the time field
     time = forms.TimeField(
-        widget=forms.TimeInput(
+        widget=FifteenMinuteIntervalTimeWidget(
             format='%H:%M',  # Format to match the HTML5 time input format
             attrs={
                 'type': 'time',
@@ -62,7 +100,7 @@ class StaffBookingForm(forms.ModelForm):
 
     # Custom widget for the time field
     time = forms.TimeField(
-        widget=forms.TimeInput(
+        widget=FifteenMinuteIntervalTimeWidget(
             format='%H:%M',  # Format to match the HTML5 time input format
             attrs={
                 'type': 'time',
