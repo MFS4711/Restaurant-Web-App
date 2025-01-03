@@ -12,11 +12,12 @@ class FifteenMinuteIntervalTimeWidget(forms.TimeInput):
 
     """
     def __init__(self, *args, **kwargs):
+        self.selected_date = kwargs.pop('selected_date', None)  # Capture the selected date
         kwargs['attrs'] = kwargs.get('attrs', {})
         super().__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None, renderer=None):
-        # Generate the list of available times (15-minute intervals) for the current day
+        # Generate the list of available times (15-minute intervals) based on the selected date
         available_times = self.generate_available_times()
 
         # Get the HTML render of the widget itself (input field)
@@ -35,12 +36,33 @@ class FifteenMinuteIntervalTimeWidget(forms.TimeInput):
         return mark_safe(input_html + datalist)
 
     def generate_available_times(self):
-        # Generate available times from 00:00 to 23:45 in 15-minute intervals
+        if not self.selected_date:
+            return []  # If no date is provided, return empty list
+
+        # Get the day of the week for the selected date (0 = Monday, 6 = Sunday)
+        selected_day = self.selected_date.weekday()
+
+        # Define the start and end times based on the selected day of the week
+        if selected_day in [0, 1, 2, 3]:  # Monday to Thursday
+            start_time_str = "17:00"  # Start at 5:00 PM
+            end_time_str = "20:30"    # End at 8:30 PM
+        elif selected_day in [4, 5]:  # Friday and Saturday
+            start_time_str = "16:00"  # Start at 4:00 PM
+            end_time_str = "22:00"    # End at 10:00 PM
+        else:  # Sunday
+            start_time_str = "16:00"  # Start at 4:00 PM
+            end_time_str = "21:00"    # End at 9:00 PM
+
+        # Convert start and end times to datetime objects
+        start_time = datetime.strptime(start_time_str, "%H:%M")
+        end_time = datetime.strptime(end_time_str, "%H:%M")
+        
+        # Generate times in 15-minute intervals
         times = []
-        start_time = datetime.strptime("00:00", "%H:%M")
-        for i in range(96):  # 24 hours * 4 intervals per hour = 96 possible intervals
-            time = start_time + timedelta(minutes=i * 15)
-            times.append(time.strftime("%H:%M"))
+        while start_time <= end_time:
+            times.append(start_time.strftime("%H:%M"))
+            start_time += timedelta(minutes=15)
+        
         return times
 
 
@@ -88,6 +110,14 @@ class BookingForm(forms.ModelForm):
         )
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Pass the selected date to the time widget if it's present
+        selected_date = self.initial.get('date') or self.instance.date
+        if selected_date:
+            self.fields['time'].widget.selected_date = selected_date
+
 
 class StaffBookingForm(forms.ModelForm):
     """
@@ -113,6 +143,11 @@ class StaffBookingForm(forms.ModelForm):
     # Custom widget for the table selection
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # Pass the selected date to the time widget if it's present
+        selected_date = self.initial.get('date') or self.instance.date
+        if selected_date:
+            self.fields['time'].widget.selected_date = selected_date
 
         # Check if the instance exists and number_of_people is available
         if self.instance and self.instance.id:
