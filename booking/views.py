@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 from django.utils import timezone
@@ -8,6 +9,10 @@ from .models import Table, Booking
 from .forms import BookingForm, StaffBookingForm, CustomerConfirmationForm
 
 # Create your views here.
+
+# Custom decorator to check if the user is a staff member
+def is_staff(user):
+    return user.is_staff
 
 
 def book_table(request):
@@ -47,13 +52,14 @@ def booking_success(request):
     return render(request, 'booking/booking_success.html')
 
 
+@login_required(login_url='/login/')  # redirect to login page if not authenticated
+@user_passes_test(is_staff, login_url='/unauthorized/')
 def manage_bookings(request):
     """
 
     """
     # Fetch all confirmed bookings and sort them by date and time (closest first)
-    confirmed_bookings = Booking.objects.filter(
-        status=Booking.CONFIRMED).order_by('date', 'time')
+    confirmed_bookings = Booking.objects.filter(status=Booking.CONFIRMED).order_by('date', 'time')
 
     # Check if the confirmed booking's end time has passed and update status to "No Show"
     for booking in confirmed_bookings:
@@ -64,24 +70,19 @@ def manage_bookings(request):
             booking.save()
 
     # Fetch pending bookings that do not have a table assigned and sort by date and time
-    pending_bookings = Booking.objects.filter(
-        status=Booking.PENDING, table__isnull=True).order_by('date', 'time')
+    pending_bookings = Booking.objects.filter(status=Booking.PENDING, table__isnull=True).order_by('date', 'time')
 
     # Fetch confirmed bookings that have a table assigned and sort by date and time
-    confirmed_bookings_with_table = Booking.objects.filter(
-        status=Booking.CONFIRMED).exclude(table__isnull=True).order_by('date', 'time')
+    confirmed_bookings_with_table = Booking.objects.filter(status=Booking.CONFIRMED).exclude(table__isnull=True).order_by('date', 'time')
 
     # Fetch cancelled bookings and sort by date and time
-    cancelled_bookings = Booking.objects.filter(
-        status=Booking.CANCELLED).order_by('date', 'time')
+    cancelled_bookings = Booking.objects.filter(status=Booking.CANCELLED).order_by('date', 'time')
 
     # Fetch completed bookings and sort by date and time
-    completed_bookings = Booking.objects.filter(
-        status=Booking.COMPLETED).order_by('date', 'time')
+    completed_bookings = Booking.objects.filter(status=Booking.COMPLETED).order_by('date', 'time')
 
     # Fetch no-show bookings and sort by date and time
-    no_show_bookings = Booking.objects.filter(
-        status=Booking.NO_SHOW).order_by('date', 'time')
+    no_show_bookings = Booking.objects.filter(status=Booking.NO_SHOW).order_by('date', 'time')
 
     # Fetch customer confirmation required bookings and sort by date and time
     customer_confirmation_required_bookings = Booking.objects.filter(
@@ -122,12 +123,10 @@ def edit_booking(request, booking_id):
 
                 if customer_confirmation_form.is_valid():
                     customer_confirmation_form.save()
-                    messages.success(
-                        request, "Your booking status has been updated.")
+                    messages.success(request, "Your booking status has been updated.")
                     return redirect('customer_dashboard', user_id=request.user.id)
             else:
-                customer_confirmation_form = CustomerConfirmationForm(
-                    instance=booking)
+                customer_confirmation_form = CustomerConfirmationForm(instance=booking)
 
             context = {
                 'booking_form': customer_confirmation_form,
@@ -135,7 +134,7 @@ def edit_booking(request, booking_id):
                 'is_customer': True,  # Flag to indicate it's a customer edit
             }
             return render(request, 'booking/edit_booking.html', context)
-
+        
         # Handle the regular booking form for customers when status is not 'Customer Confirmation Required'
         if request.method == 'POST':
             booking_form = BookingForm(request.POST, instance=booking)
@@ -147,8 +146,7 @@ def edit_booking(request, booking_id):
                     updated_booking.status = Booking.PENDING
 
                 updated_booking.save()
-                messages.success(
-                    request, "Your booking has been updated successfully.")
+                messages.success(request, "Your booking has been updated successfully.")
                 return redirect('customer_dashboard', user_id=request.user.id)
         else:
             booking_form = BookingForm(instance=booking)
