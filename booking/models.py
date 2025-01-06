@@ -28,12 +28,16 @@ class Booking(models.Model):
     CONFIRMED = 'confirmed'
     CANCELLED = 'cancelled'
     COMPLETED = 'completed'
+    NO_SHOW = 'no_show'
+    CUSTOMER_CONFIRMATION_REQUIRED = 'customer_confirmation_required'
 
     STATUS_CHOICES = [
         (PENDING, 'Pending'),
         (CONFIRMED, 'Confirmed'),
         (CANCELLED, 'Cancelled'),
         (COMPLETED, 'Completed'),
+        (NO_SHOW, 'No Show'),
+        (CUSTOMER_CONFIRMATION_REQUIRED, 'Customer Confirmation Required'),
     ]
 
     user = models.ForeignKey(
@@ -43,7 +47,7 @@ class Booking(models.Model):
     number_of_people = models.IntegerField()
     additional_notes = models.TextField(blank=True, null=True)
     status = models.CharField(
-        max_length=10, choices=STATUS_CHOICES, default=PENDING)
+        max_length=30, choices=STATUS_CHOICES, default=PENDING)
     table = models.ForeignKey(
         Table, on_delete=models.CASCADE, related_name='bookings', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
