@@ -51,16 +51,31 @@ def manage_bookings(request):
 
     """
     # Fetch pending bookings that do not have a table assigned
-    pending_bookings = Booking.objects.filter(
-        status=Booking.PENDING, table__isnull=True)
+    pending_bookings = Booking.objects.filter(status=Booking.PENDING, table__isnull=True)
 
     # Fetch confirmed bookings that have a table assigned
-    confirmed_bookings = Booking.objects.filter(
-        status=Booking.CONFIRMED).exclude(table__isnull=True)
+    confirmed_bookings = Booking.objects.filter(status=Booking.CONFIRMED).exclude(table__isnull=True)
+
+    # Fetch cancelled bookings
+    cancelled_bookings = Booking.objects.filter(status=Booking.CANCELLED)
+
+    # Fetch completed bookings
+    completed_bookings = Booking.objects.filter(status=Booking.COMPLETED)
+
+    # Fetch no-show bookings
+    no_show_bookings = Booking.objects.filter(status=Booking.NO_SHOW)
+
+    # Fetch customer confirmation required bookings
+    customer_confirmation_required_bookings = Booking.objects.filter(
+        status=Booking.CUSTOMER_CONFIRMATION_REQUIRED)
 
     context = {
         'pending_bookings': pending_bookings,
         'confirmed_bookings': confirmed_bookings,
+        'cancelled_bookings': cancelled_bookings,
+        'completed_bookings': completed_bookings,  # Added completed bookings here
+        'no_show_bookings': no_show_bookings,
+        'customer_confirmation_required_bookings': customer_confirmation_required_bookings,
     }
 
     return render(request, 'booking/manage_bookings.html', context)
