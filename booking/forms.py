@@ -89,6 +89,18 @@ class BookingForm(forms.ModelForm):
         )
     )
 
+    # Custom validation for the date field
+    def clean_date(self):
+        date = self.cleaned_data.get("date")
+        
+        if self.instance.user and not self.instance.user.is_staff:  # Non-staff users
+            # Get the current date and ensure the booking date is at least 2 days later
+            now = timezone.now().date()  # Current date without the time
+            if date < now + timedelta(days=2):
+                raise ValidationError("You cannot book a table for less than 2 days from today.")
+        
+        return date
+
 
 class StaffBookingForm(forms.ModelForm):
     """

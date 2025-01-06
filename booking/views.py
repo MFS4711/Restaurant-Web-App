@@ -51,8 +51,9 @@ def manage_bookings(request):
     """
 
     """
-    # Fetch all confirmed bookings
-    confirmed_bookings = Booking.objects.filter(status=Booking.CONFIRMED)
+    # Fetch all confirmed bookings and sort them by date and time (closest first)
+    confirmed_bookings = Booking.objects.filter(
+        status=Booking.CONFIRMED).order_by('date', 'time')
 
     # Check if the confirmed booking's end time has passed and update status to "No Show"
     for booking in confirmed_bookings:
@@ -61,31 +62,37 @@ def manage_bookings(request):
         if end_time <= timezone.now():
             booking.status = Booking.NO_SHOW
             booking.save()
-    
-    # Fetch pending bookings that do not have a table assigned
-    pending_bookings = Booking.objects.filter(status=Booking.PENDING, table__isnull=True)
 
-    # Fetch confirmed bookings that have a table assigned
-    confirmed_bookings = Booking.objects.filter(status=Booking.CONFIRMED).exclude(table__isnull=True)
+    # Fetch pending bookings that do not have a table assigned and sort by date and time
+    pending_bookings = Booking.objects.filter(
+        status=Booking.PENDING, table__isnull=True).order_by('date', 'time')
 
-    # Fetch cancelled bookings
-    cancelled_bookings = Booking.objects.filter(status=Booking.CANCELLED)
+    # Fetch confirmed bookings that have a table assigned and sort by date and time
+    confirmed_bookings_with_table = Booking.objects.filter(
+        status=Booking.CONFIRMED).exclude(table__isnull=True).order_by('date', 'time')
 
-    # Fetch completed bookings
-    completed_bookings = Booking.objects.filter(status=Booking.COMPLETED)
+    # Fetch cancelled bookings and sort by date and time
+    cancelled_bookings = Booking.objects.filter(
+        status=Booking.CANCELLED).order_by('date', 'time')
 
-    # Fetch no-show bookings
-    no_show_bookings = Booking.objects.filter(status=Booking.NO_SHOW)
+    # Fetch completed bookings and sort by date and time
+    completed_bookings = Booking.objects.filter(
+        status=Booking.COMPLETED).order_by('date', 'time')
 
-    # Fetch customer confirmation required bookings
+    # Fetch no-show bookings and sort by date and time
+    no_show_bookings = Booking.objects.filter(
+        status=Booking.NO_SHOW).order_by('date', 'time')
+
+    # Fetch customer confirmation required bookings and sort by date and time
     customer_confirmation_required_bookings = Booking.objects.filter(
-        status=Booking.CUSTOMER_CONFIRMATION_REQUIRED)
+        status=Booking.CUSTOMER_CONFIRMATION_REQUIRED).order_by('date', 'time')
 
     context = {
         'pending_bookings': pending_bookings,
         'confirmed_bookings': confirmed_bookings,
+        'confirmed_bookings_with_table': confirmed_bookings_with_table,
         'cancelled_bookings': cancelled_bookings,
-        'completed_bookings': completed_bookings,  # Added completed bookings here
+        'completed_bookings': completed_bookings,
         'no_show_bookings': no_show_bookings,
         'customer_confirmation_required_bookings': customer_confirmation_required_bookings,
     }
@@ -115,10 +122,12 @@ def edit_booking(request, booking_id):
 
                 if customer_confirmation_form.is_valid():
                     customer_confirmation_form.save()
-                    messages.success(request, "Your booking status has been updated.")
+                    messages.success(
+                        request, "Your booking status has been updated.")
                     return redirect('customer_dashboard', user_id=request.user.id)
             else:
-                customer_confirmation_form = CustomerConfirmationForm(instance=booking)
+                customer_confirmation_form = CustomerConfirmationForm(
+                    instance=booking)
 
             context = {
                 'booking_form': customer_confirmation_form,
@@ -126,7 +135,7 @@ def edit_booking(request, booking_id):
                 'is_customer': True,  # Flag to indicate it's a customer edit
             }
             return render(request, 'booking/edit_booking.html', context)
-        
+
         # Handle the regular booking form for customers when status is not 'Customer Confirmation Required'
         if request.method == 'POST':
             booking_form = BookingForm(request.POST, instance=booking)
@@ -138,7 +147,8 @@ def edit_booking(request, booking_id):
                     updated_booking.status = Booking.PENDING
 
                 updated_booking.save()
-                messages.success(request, "Your booking has been updated successfully.")
+                messages.success(
+                    request, "Your booking has been updated successfully.")
                 return redirect('customer_dashboard', user_id=request.user.id)
         else:
             booking_form = BookingForm(instance=booking)
