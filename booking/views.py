@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
+from django.utils import timezone
 from django.db import IntegrityError
 from .models import Table, Booking
 from .forms import BookingForm, StaffBookingForm
@@ -50,6 +51,17 @@ def manage_bookings(request):
     """
 
     """
+    # Fetch all confirmed bookings
+    confirmed_bookings = Booking.objects.filter(status=Booking.CONFIRMED)
+
+    # Check if the confirmed booking's end time has passed and update status to "No Show"
+    for booking in confirmed_bookings:
+        end_time = booking.get_end_time()
+        # If the booking's end time has passed, change its status to "No Show"
+        if end_time <= timezone.now():
+            booking.status = Booking.NO_SHOW
+            booking.save()
+    
     # Fetch pending bookings that do not have a table assigned
     pending_bookings = Booking.objects.filter(status=Booking.PENDING, table__isnull=True)
 
