@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import Http404, HttpResponseRedirect
 from django.utils import timezone
@@ -7,11 +8,16 @@ from booking.models import Table, Booking
 
 # Create your views here.
 
-
+@login_required
 def customer_dashboard(request, user_id):
     """
 
     """
+    # Check if the logged-in user is the same as the user_id in the URL
+    if request.user.id != int(user_id):
+        # If they are not the same, redirect to a different page, for example, a 404 or the homepage
+        raise Http404("You are not authorized to view this page.")
+    
     user = get_object_or_404(User, id=user_id)
 
     # Get current date and time for comparisons
