@@ -152,7 +152,7 @@ class StaffBookingForm(forms.ModelForm):
 
             # Extend the window to 2 hours before and after the selected time
             conflicting_time_range_start = new_start_time - timedelta(hours=2)
-            conflicting_time_range_end = new_end_time + timedelta(hours=2)
+            conflicting_time_range_end = new_end_time # + timedelta(hours=2)
 
             # Filter tables that:
             # - Are available (is_available=True)
@@ -162,11 +162,11 @@ class StaffBookingForm(forms.ModelForm):
                 is_available=True,
                 capacity__gte=number_of_people
             ).exclude(
-                # bookings__date=booking_date,
+                bookings__date=booking_date,
                 # # Exclude bookings starting after the window
-                # bookings__time__gte=conflicting_time_range_start.time(),
+                bookings__time__gte=conflicting_time_range_start.time(),
                 # # Exclude bookings ending before the window
-                # bookings__time__lt=conflicting_time_range_end.time()
+                bookings__time__lt=conflicting_time_range_end.time()
             )
 
     def clean_table(self):

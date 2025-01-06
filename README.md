@@ -781,7 +781,7 @@ This section provides a step-by-step guide for deploying your project to Heroku,
 
 # Acknowledgements
 <!-- Add a paragraph to show appreciation -->
-
+- SME Kevin - particularly for reviewing and resolving a UX feature related to table filtering
 ---
 
 [Return to top](#Add_Title_Here)
