@@ -65,6 +65,14 @@ class Booking(models.Model):
         # Assuming all bookings last 2 hours (you can replace this with dynamic duration if needed)
         end_time = start_time + timedelta(hours=2)
         return end_time
+    
+    def save(self, *args, **kwargs):
+        # If the booking status is being set to 'Cancelled', clear the assigned table
+        if self.status == Booking.CANCELLED:
+            self.table = None
+
+        # Now proceed with saving the booking
+        super().save(*args, **kwargs)
 
     # Ensure no two bookings can occupy the same table at the same time
     class Meta:
