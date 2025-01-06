@@ -10,13 +10,18 @@ body {
     padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     color: #FFD700;
 }
 
-.page-heading {
+.centered-content {
     text-align: center;
 }
 
@@ -29,8 +34,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     text-decoration: none;
     border-radius: 5px;
-    border: 2px solid transparent; /* Transparent border initially */
-    box-sizing: border-box; /* Include padding and border in element's total size */
+    border: 2px solid transparent;
+    /* Transparent border initially */
+    box-sizing: border-box;
+    /* Include padding and border in element's total size */
 }
 
 .buttons .btn:hover {
@@ -53,7 +60,7 @@ header {
 }
 
 .navbar-brand {
-    font-family: 'Montserrat', sans-serif; 
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.5rem;
     color: #FFD700;
 }
@@ -120,6 +127,48 @@ footer .social-media a:hover {
     color: #FFD700;
 }
 
+/* -------------------------------- Sign up Specific ----------------------------------- */
+.signup input[type="text"],
+.signup input[type="email"],
+.signup input[type="password"],
+.signup textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.signup input[type="text"]:focus,
+.signup input[type="email"]:focus,
+.signup input[type="password"]:focus,
+.signup textarea:focus {
+    border-color: #FFD700;
+    outline: none;
+}
+
+/* -------------------------------- Login Specific ----------------------------------- */
+.login input[type="text"],
+.login input[type="email"],
+.login input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.login input[type="text"]:focus,
+.login input[type="email"]:focus,
+.login input[type="password"]:focus {
+    border-color: #FFD700;
+    outline: none;
+}
+
 /* -------------------------------- Homepage Specific ----------------------------------- */
 /* ------------------- Hero Section ---------------------- */
 .hero {
@@ -174,7 +223,8 @@ footer .social-media a:hover {
     color: #FFD700;
 } */
 
-.hero-content h1, .hero-content p {
+.hero-content h1,
+.hero-content p {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
@@ -215,7 +265,7 @@ footer .social-media a:hover {
 
 /* --------------------- About Section ------------------- */
 .our-story-card {
-    background-color: #444444;  
+    background-color: #444444;
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -274,7 +324,7 @@ footer .social-media a:hover {
 }
 
 /* Image Container */
-.image-container {
+/* .image-container {
     max-width: 200px;
     max-height: 200px;
 }
@@ -282,7 +332,7 @@ footer .social-media a:hover {
 .image-container img {
     max-width: 200px;
     max-height: 200px;
-}
+} */
 
 /* ----------- Form Styles -------------- */
 .hidden {
