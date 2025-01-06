@@ -25,10 +25,15 @@ def customer_dashboard(request, user_id):
     past_bookings = Booking.objects.filter(user=user, date__lt=current_time.date(
     ), status='completed').order_by('-date', '-time')
 
+    # Fetch customer action required bookings (status 'customer_confirmation_required')
+    customer_action_required_bookings = Booking.objects.filter(
+        user=user, status=Booking.CUSTOMER_CONFIRMATION_REQUIRED).order_by('date', 'time')
+
     context = {
         'user': user,
         'upcoming_bookings': upcoming_bookings,
-        'past_bookings': past_bookings
+        'past_bookings': past_bookings,
+        'customer_action_required_bookings': customer_action_required_bookings,
     }
 
     return render(request, 'dashboard/customer_dashboard.html', context)

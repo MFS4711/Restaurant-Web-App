@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.db import IntegrityError
 from .models import Table, Booking
-from .forms import BookingForm, StaffBookingForm
+from .forms import BookingForm, StaffBookingForm, CustomerConfirmationForm
 
 # Create your views here.
 
@@ -104,9 +104,30 @@ def edit_booking(request, booking_id):
         messages.error(request, "You cannot edit this booking.")
         return redirect('customer_dashboard', user_id=request.user.id)
 
-    # If the user is a customer, use the BookingForm for them to modify their booking
+    # If the user is a customer, handle customer-specific logic
     if not request.user.is_staff and request.user == booking.user:
-        # Only allow customers to modify their own bookings
+        # Check if the booking status requires customer confirmation
+        if booking.status == Booking.CUSTOMER_CONFIRMATION_REQUIRED:
+            # Handle customer confirmation (show only the status field)
+            if request.method == 'POST':
+                customer_confirmation_form = CustomerConfirmationForm(
+                    request.POST, instance=booking)
+
+                if customer_confirmation_form.is_valid():
+                    customer_confirmation_form.save()
+                    messages.success(request, "Your booking status has been updated.")
+                    return redirect('customer_dashboard', user_id=request.user.id)
+            else:
+                customer_confirmation_form = CustomerConfirmationForm(instance=booking)
+
+            context = {
+                'booking_form': customer_confirmation_form,
+                'booking': booking,
+                'is_customer': True,  # Flag to indicate it's a customer edit
+            }
+            return render(request, 'booking/edit_booking.html', context)
+        
+        # Handle the regular booking form for customers when status is not 'Customer Confirmation Required'
         if request.method == 'POST':
             booking_form = BookingForm(request.POST, instance=booking)
 
@@ -117,11 +138,9 @@ def edit_booking(request, booking_id):
                     updated_booking.status = Booking.PENDING
 
                 updated_booking.save()
-                messages.success(
-                    request, "Your booking has been updated successfully.")
+                messages.success(request, "Your booking has been updated successfully.")
                 return redirect('customer_dashboard', user_id=request.user.id)
         else:
-            # Display the booking form with pre-filled data
             booking_form = BookingForm(instance=booking)
 
         context = {

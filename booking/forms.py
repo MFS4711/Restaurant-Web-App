@@ -193,3 +193,19 @@ class StaffBookingForm(forms.ModelForm):
                     f"This table is already booked within 2 hours of the selected time. Please choose another time.")
 
         return table
+
+
+class CustomerConfirmationForm(forms.ModelForm):
+    """
+
+    """
+    class Meta:
+        model = Booking
+        # Only allow status - as all other fields confirmed
+        fields = ['status']
+    
+    # Restrict the available status choices to only 'Confirmed' and 'Cancelled'
+    status = forms.ChoiceField(
+        choices=Booking.STATUS_CHOICES[1:3],  # Index 1 and 2 corresponds to 'Confirmed' and 'Cancelled'
+        widget=forms.Select(attrs={'class': 'form-control'})  # Optional: adds a bootstrap class for styling
+    )
