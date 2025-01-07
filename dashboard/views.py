@@ -100,12 +100,18 @@ def staff_dashboard(request):
         # Add table availability to the list
         table_availability.append(availability)
 
+    # Fetch bookings for today (Confirmed and Pending)
+    today_bookings = Booking.objects.filter(
+        date=today, status__in=[Booking.CONFIRMED]
+    ).order_by('time')  # Order bookings by time for better display
+
     # Pass data to the context
     context = {
         'time_slots': time_slots,
         'tables': tables,
         'table_availability': table_availability,
         'today': today,
+        'today_bookings': today_bookings,  # Pass today's bookings to the template
     }
 
     return render(request, 'dashboard/staff_dashboard.html', context)

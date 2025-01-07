@@ -6,6 +6,57 @@
 
 <div class="container">
     <h1>Staff Dashboard</h1>
+
+    <h2>Bookings Today</h2>
+
+    <!-- Table for today's bookings -->
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>User</th>
+                    <!-- <th>Date</th> -->
+                    <th>Time</th>
+                    <th>Number of People</th>
+                    <th>Status</th>
+                    <th>Assigned Table</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if today_bookings %}
+                {% for booking in today_bookings %}
+                <tr>
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.user.username }}</td>
+                    <!-- <td>{{ booking.date }}</td> -->
+                    <td>{{ booking.time }}</td>
+                    <td>{{ booking.number_of_people }}</td>
+                    <td>{{ booking.get_status_display }}</td>
+                    <td>
+                        {% if booking.table %}
+                        {{ booking.table.table_number }}
+                        {% else %}
+                        Not Assigned
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="8">No bookings for today.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
     <h2>Table Availability for {{ today }}</h2>
 
     <!-- Key for Availability -->
@@ -21,23 +72,46 @@
                 <tr>
                     <th>Table</th>
                     {% for time_slot in time_slots %}
-                        <th>{{ time_slot }}</th>
+                    <th>{{ time_slot }}</th>
                     {% endfor %}
                 </tr>
             </thead>
             <tbody>
                 {% for table in table_availability %}
-                    <tr>
-                        <td>{{ table.table_number }}</td>
-                        {% for slot in table.slots %}
-                            <td class="{% if slot.status == 'Available' %}green{% else %}red{% endif %}">
-                            </td>
-                        {% endfor %}
-                    </tr>
+                <tr>
+                    <td>{{ table.table_number }}</td>
+                    {% for slot in table.slots %}
+                    <td class="{% if slot.status == 'Available' %}green{% else %}red{% endif %}">
+                    </td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
 
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Booking?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this booking? This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a id="delete-confirm" href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}
+
+{% block extras %}
+<script src="{% static 'js/booking.js' %}"></script>
+{% endblock %}
