@@ -2,6 +2,7 @@
 
 {% url 'home' as home_url %}
 {% url 'customer_dashboard' as customer_dashboard_url %}
+{% url 'staff_dashboard' as staff_dashboard_url %}
 {% url 'menu' as menu_url %}
 {% url 'book_table' as book_table_url %}
 {% url 'manage_bookings' as manage_bookings_url %}
@@ -55,7 +56,8 @@
                         {% elif user.is_staff and not user.is_superuser%}
                         <!-- Staff Dashboard -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Staff Dashboard</a>
+                            <a class="nav-link {% if request.path == staff_dashboard_url %}active" aria-current="page{% endif %}"
+                                href="{% url 'staff_dashboard'%}">Staff Dashboard</a>
                         </li>
                         {% else %}
                         <li class="nav-item">

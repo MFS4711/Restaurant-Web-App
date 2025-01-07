@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.http import Http404, HttpResponseRedirect
 from django.utils import timezone
@@ -43,3 +43,20 @@ def customer_dashboard(request, user_id):
     }
 
     return render(request, 'dashboard/customer_dashboard.html', context)
+
+# Custom decorator to check if the user is a staff member
+def is_staff(user):
+    return user.is_staff
+
+@login_required(login_url='/login/')  # redirect to login page if not authenticated
+@user_passes_test(is_staff, login_url='/unauthorized/')
+def staff_dashboard(request):
+    """
+
+    """
+
+    context = {
+
+    }
+
+    return render(request, 'dashboard/staff_dashboard.html', context)
