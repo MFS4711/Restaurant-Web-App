@@ -77,27 +77,33 @@ def staff_dashboard(request):
 
         # Loop through each time slot to check if the table is occupied
         for time_slot in time_slots:
-            # Get start time for each time slot
             start_time = datetime.strptime(time_slot, '%H:%M').time()
-            
-            # Calculate the end time based on a 2-hour duration
+
+            # Calculate the end time of the booking (2 hours after the start time)
             end_time = (datetime.combine(today, start_time) + timedelta(hours=2)).time()
 
-            # Check if there is a booking for the table during this 2-hour time window
+            # Check if there is any booking occupying this time slot
             conflicting_bookings = Booking.objects.filter(
                 table=table,
                 date=today,
-                time__gte=start_time,
-                time__lt=end_time
-            ).exists()
+                time__lt=end_time,  # The start time of the time slot is before the end of the booking
+            )
 
-            # If there is a booking, mark as "Occupied", otherwise "Available"
+            # Now we manually check for overlap (i.e., the booking's end time should be after the time slot's start time)
+            conflict_found = False
+            for booking in conflicting_bookings:
+                booking_end_time = booking.get_end_time().time()
+                if booking_end_time > start_time:  # If booking's end time is after the time slot's start time, there's a conflict
+                    conflict_found = True
+                    break
+
+            # If there's a conflicting booking, mark it as "Occupied", otherwise "Available"
             availability['slots'].append({
                 'time_slot': time_slot,
-                'status': 'Occupied' if conflicting_bookings else 'Available'
+                'status': 'Occupied' if conflict_found else 'Available'
             })
 
-        # Add table availability to the list
+        # Add the table's availability to the list
         table_availability.append(availability)
 
     # Fetch bookings for today (Confirmed and Pending)
