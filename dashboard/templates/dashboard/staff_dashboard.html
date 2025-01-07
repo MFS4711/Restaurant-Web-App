@@ -6,14 +6,38 @@
 
 <div class="container">
     <h1>Staff Dashboard</h1>
+    <h2>Table Availability for {{ today }}</h2>
 
-    <!-- Bookings Today -->
+    <!-- Key for Availability -->
+    <div class="key">
+        <span class="key-item green">Available</span>
+        <span class="key-item red">Occupied</span>
+    </div>
 
-
-    <!-- Manage Bookings Button - Takes to manage booking page -->
-
-    <!-- Table availability Today -->
-
+    <!-- Table with Horizontal Scrolling -->
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Table</th>
+                    {% for time_slot in time_slots %}
+                        <th>{{ time_slot }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for table in table_availability %}
+                    <tr>
+                        <td>{{ table.table_number }}</td>
+                        {% for slot in table.slots %}
+                            <td class="{% if slot.status == 'Available' %}green{% else %}red{% endif %}">
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {% endblock content %}

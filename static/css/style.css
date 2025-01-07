@@ -292,6 +292,56 @@ footer .social-media a:hover {
     margin-bottom: 30px;
 }
 
+/* -------------------------------- Dashboard Specific ----------------------------------- */
+/* --------------------- Staff Dashboard ------------------- */
+/* Key for availability status */
+.key {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.key-item {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.green {
+    background-color: #28a745; /* Green color */
+}
+
+.red {
+    background-color: #dc3545; /* Red color */
+}
+
+table td.green {
+    background-color: #28a745; /* Green for Available */
+
+}
+
+table td.red {
+    background-color: #dc3545; /* Red for Occupied */
+}
+
+/* Equal size for each cell */
+table th, table td {
+    width: 60px; /* Fixed width for uniform cells */
+    height: 60px; /* Fixed height for uniform cells */
+    text-align: center; /* Center the content */
+    vertical-align: middle; /* Center text vertically */
+    padding: 0; /* Remove extra padding */
+}
+
+/* Table Responsive (horizontal scrolling) */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed; /* Ensures columns have uniform width */
+}
+
 /* -------------------------------- Menu Specific ----------------------------------- */
 
 
