@@ -20,6 +20,37 @@
 
     <hr>
 
+    <!-- Overall Statistics Section -->
+    <h2>Overall Statistics</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Average Booking Size</h5>
+                    <p class="card-text">{{ avg_booking_size|floatformat:1 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Average Bookings Per Day</h5>
+                    <p class="card-text">{{ avg_bookings_per_day|floatformat:1 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Average Visitors Per Day</h5>
+                    <p class="card-text">{{ avg_visitors_per_day|floatformat:1 }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
     <h2>Booking Statistics</h2>
     <div class="row">
         <div class="col-md-3">

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
+from django.db.models import Avg, Sum
 from django.http import Http404, HttpResponseRedirect
 from django.utils import timezone
 from django.utils.timezone import localdate
@@ -118,6 +119,22 @@ def admin_dashboard(request):
     total_cancelled = bookings.filter(status=Booking.CANCELLED).count()
     total_no_show = bookings.filter(status=Booking.NO_SHOW).count()
 
+    # Calculate overall statistics
+    if total_bookings > 0:
+        # Average Booking Size (total number of people / total bookings)
+        avg_booking_size = bookings.aggregate(Avg('number_of_people'))['number_of_people__avg']
+        
+        # Average Bookings Per Day (total bookings / number of days in range)
+        num_days = (end_date - start_date).days + 1  # +1 to include both start and end days
+        avg_bookings_per_day = total_bookings / num_days
+
+        # Average Number of Visitors per Day (total number of people / number of days in range)
+        total_visitors = bookings.aggregate(Sum('number_of_people'))['number_of_people__sum']
+        avg_visitors_per_day = total_visitors / num_days if total_visitors else 0
+    else:
+        avg_booking_size = avg_bookings_per_day = avg_visitors_per_day = 0
+
+    # Context for template rendering
     context = {
         'filter_form': filter_form,
         'bookings': bookings,
@@ -127,7 +144,10 @@ def admin_dashboard(request):
         'total_cancelled': total_cancelled,
         'total_no_show': total_no_show,
         'start_date': start_date,
-        'end_date': end_date
+        'end_date': end_date,
+        'avg_booking_size': avg_booking_size,
+        'avg_bookings_per_day': avg_bookings_per_day,
+        'avg_visitors_per_day': avg_visitors_per_day,
     }
 
     return render(request, 'dashboard/admin_dashboard.html', context)
