@@ -56,7 +56,7 @@ class BookingForm(forms.ModelForm):
             attrs={
                 'type': 'date',
                 'class': 'form-control',
-                'min': timezone.now().date().strftime('%Y-%m-%d'),  # Disable past dates
+                'min': (timezone.now().date() + timedelta(days=2)).strftime('%Y-%m-%d'),  # Disable today and tomorrow
             }
         )
     )
