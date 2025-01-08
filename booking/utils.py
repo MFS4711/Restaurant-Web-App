@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import calendar
 from django.utils import timezone
-from .models import Booking
+from .models import Booking, Table
 
 # Define opening and closing hours for each day of the week
 # Days of the week are indexed: 0 for Monday, 1 for Tuesday, ..., 6 for Sunday
@@ -100,3 +100,31 @@ def generate_conflicting_time_range(booking_date, booking_time):
     conflicting_time_range_end = new_end_time # + timedelta(hours=2)
 
     return new_start_time, new_end_time, conflicting_time_range_start, conflicting_time_range_end
+
+def get_table_availability_for_day(booking_date, time_slots):
+    """
+    Get the availability of all tables for a given day and time slots.
+    :param booking_date: The date for which availability is being checked.
+    :param time_slots: A list of time slots to check availability for.
+    :return: List of dictionaries with table availability for each time slot.
+    """
+    tables = Table.objects.all()
+    table_availability = []
+
+    for table in tables:
+        availability = {'table_number': table.table_number, 'slots': []}
+        
+        for time_slot in time_slots:
+            start_time = datetime.strptime(time_slot, '%H:%M').time()
+
+            new_start_time, new_end_time, _, _ = generate_conflicting_time_range(booking_date, start_time)
+            is_available = is_table_available(table, booking_date, new_start_time, new_end_time)
+
+            availability['slots'].append({
+                'time_slot': time_slot,
+                'status': 'Occupied' if not is_available else 'Available'
+            })
+
+        table_availability.append(availability)
+
+    return table_availability

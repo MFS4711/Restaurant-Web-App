@@ -6,7 +6,7 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 from booking.models import Table, Booking
-from booking.utils import generate_time_slots, is_table_available, generate_conflicting_time_range
+from booking.utils import generate_time_slots, is_table_available, generate_conflicting_time_range, get_table_availability_for_day
 
 # Create your views here.
 
@@ -62,34 +62,8 @@ def staff_dashboard(request):
     # Get today's date
     today = timezone.now().date()
 
-    # Fetch all tables (to be displayed in rows)
-    tables = Table.objects.all()
-
-    # Initialize an empty list to store table availability for each time slot
-    table_availability = []
-
-    # Loop through each table and check the availability for each time slot
-    for table in tables:
-        availability = {'table_number': table.table_number, 'slots': []}
-
-        # Loop through each time slot to check if the table is occupied
-        for time_slot in time_slots:
-            start_time = datetime.strptime(time_slot, '%H:%M').time()
-
-            # Generate end time and conflicting time range using the utility function
-            new_start_time, new_end_time, _, _ = generate_conflicting_time_range(today, start_time)
-
-            # Check if the table is available for this time slot using the utility function
-            is_available = is_table_available(table, today, new_start_time, new_end_time)
-
-            # Append availability status
-            availability['slots'].append({
-                'time_slot': time_slot,
-                'status': 'Occupied' if not is_available else 'Available'
-            })
-
-        # Add the table's availability to the list
-        table_availability.append(availability)
+    # Get table availability using the utility function
+    table_availability = get_table_availability_for_day(today, time_slots)
 
     # Fetch bookings for today (Confirmed and Pending)
     today_bookings = Booking.objects.filter(
@@ -99,7 +73,6 @@ def staff_dashboard(request):
     # Pass data to the context
     context = {
         'time_slots': time_slots,
-        'tables': tables,
         'table_availability': table_availability,
         'today': today,
         'today_bookings': today_bookings,
