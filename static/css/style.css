@@ -115,7 +115,10 @@ footer ul {
 }
 
 footer .navbar-brand img {
-    max-width: 150px;
+    width: 100%;
+    max-width: 320px;
+    height: auto; 
+    object-fit: contain; 
 }
 
 footer .social-media a {

@@ -52,19 +52,20 @@
                         {% if not user.is_staff and not user.is_superuser %}
                         <!-- Authenticated Customer Links -->
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == customer_dashboard_url %}active" aria-current="page{% endif %}"
-                                href="{% url 'customer_dashboard' user.id %}">Customer Dashboard</a>
+                            <a class="nav-link {% if request.path == customer_dashboard_url %}active"
+                                aria-current="page{% endif %}" href="{% url 'customer_dashboard' user.id %}">Customer
+                                Dashboard</a>
                         </li>
                         {% elif user.is_staff or user.is_superuser%}
                         <!-- Staff Dashboard -->
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == staff_dashboard_url %}active" aria-current="page{% endif %}"
-                                href="{% url 'staff_dashboard'%}">Staff Dashboard</a>
+                            <a class="nav-link {% if request.path == staff_dashboard_url %}active"
+                                aria-current="page{% endif %}" href="{% url 'staff_dashboard'%}">Staff Dashboard</a>
                         </li>
                         {% if user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == admin_dashboard_url %}active" aria-current="page{% endif %}"
-                                href="{% url 'admin_dashboard'%}">Admin Dashboard</a>
+                            <a class="nav-link {% if request.path == admin_dashboard_url %}active"
+                                aria-current="page{% endif %}" href="{% url 'admin_dashboard'%}">Admin Dashboard</a>
                         </li>
                         {% endif %}
                         {% endif %}
@@ -85,8 +86,8 @@
                         </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == contact_url %}active" aria-current="page{% endif %}"
-                                href="{% url 'contact' %}">Contact</a>
+                            <a class="nav-link {% if request.path == contact_url %}active"
+                                aria-current="page{% endif %}" href="{% url 'contact' %}">Contact</a>
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
@@ -138,9 +139,9 @@
         <div class="container">
             <div class="row">
                 <!-- Logo Section -->
-                <div class="col-12 col-sm-4 col-md-3 mb-4">
+                <div class="col-12 col-sm-4 col-md-3">
                     <a href="{% url 'home' %}" class="navbar-brand text-light">
-                        <img src="path_to_logo.png" alt="Logo" class="img-fluid">
+                        <img src="{% static 'images/logo-transparent.png' %}" alt="Logo" class="img-fluid">
                     </a>
                 </div>
 
@@ -148,31 +149,50 @@
                 <div class="col-12 col-sm-4 col-md-3 mb-4">
                     <h5>Opening Hours</h5>
                     <ul class="list-unstyled">
-                        <li>Mon - Fri: 9 AM - 6 PM</li>
-                        <li>Sat: 10 AM - 4 PM</li>
-                        <li>Sun: Closed</li>
+                        <li>Monday: 4 PM - Midnight</li>
+                        <li>Tuesday: 4 PM - Midnight</li>
+                        <li>Wednesday: 4 PM - Midnight</li>
+                        <li>Thursday: 4 PM - Midnight</li>
+                        <li>Friday: 4 PM - Midnight</li>
+                        <li>Saturday: 4 PM - Midnight</li>
+                        <li>Sunday: 4 PM - Midnight</li>
                     </ul>
                 </div>
 
                 <!-- Address Section -->
                 <div class="col-12 col-sm-4 col-md-3 mb-4">
                     <h5>Address</h5>
-                    <p>123 Main Street, City, Country</p>
-                    <p>Email: info@example.com</p>
-                    <p>Phone: +123 456 7890</p>
+                    <p>
+                        Cedar & Flame,<br>
+                        45 Victoria Square,<br>
+                        Birmingham,<br>
+                        West Midlands,<br>
+                        B1 1BD,<br>
+                    </p>
                 </div>
 
                 <!-- Social Media Section -->
                 <div class="col-12 col-sm-12 col-md-3 mb-4">
-                    <h5>Follow Us</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
-                            <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="text-light me-3"><i class="fab fa-youtube"></i></a>
-                        </li>
-                    </ul>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5>Get in Touch</h5>
+                            <p>
+                                Email: info@example.com <br>
+                                Phone: +123 456 7890
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <h5>Follow Us</h5>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                                    <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+                                    <a href="#" class="text-light me-3"><i class="fab fa-youtube"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 
