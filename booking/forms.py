@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.utils.timezone import make_aware
 from .models import Table, Booking
 from django.utils.safestring import mark_safe
+from .utils import generate_time_slots
 
 # Custom Time Input Widget
 class FifteenMinuteIntervalTimeWidget(forms.TimeInput):
@@ -16,7 +17,7 @@ class FifteenMinuteIntervalTimeWidget(forms.TimeInput):
         super().__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None, renderer=None):
-        # Generate the list of available times (15-minute intervals) from 16:00 to 22:00
+        # Generate the list of available times using the generate_time_slots function from utils.py
         available_times = self.generate_available_times()
 
         # Get the HTML render of the widget itself (input field)
@@ -35,14 +36,12 @@ class FifteenMinuteIntervalTimeWidget(forms.TimeInput):
         return mark_safe(input_html + datalist)
 
     def generate_available_times(self):
-        # Generate available times from 16:00 to 23:45 in 15-minute intervals
-        times = []
-        start_time = datetime.strptime("16:00", "%H:%M")  # Start at 16:00
-        end_time = datetime.strptime("22:00", "%H:%M")   # End at 22:00
-        while start_time <= end_time:
-            times.append(start_time.strftime("%H:%M"))
-            start_time += timedelta(minutes=15)  # Increment by 15 minutes
-        return times
+        """
+        Generate available times based on the opening hours for the current day.
+        Uses the generate_time_slots function from utils.py to get the slots.
+        """
+        # Call the utility function to generate the time slots
+        return generate_time_slots()
 
 
 class BookingForm(forms.ModelForm):

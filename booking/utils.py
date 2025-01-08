@@ -4,13 +4,13 @@ import calendar
 # Define opening and closing hours for each day of the week
 # Days of the week are indexed: 0 for Monday, 1 for Tuesday, ..., 6 for Sunday
 OPENING_HOURS = {
-    0: {"open": "16:00", "close": "00:00"},  # Monday
-    1: {"open": "16:00", "close": "00:00"},  # Tuesday
-    2: {"open": "16:00", "close": "00:00"},  # Wednesday
-    3: {"open": "16:00", "close": "00:00"},  # Thursday
-    4: {"open": "16:00", "close": "00:00"},  # Friday
-    5: {"open": "16:00", "close": "00:00"},  # Saturday
-    6: {"open": "16:00", "close": "00:00"},  # Sunday 
+    0: {"open": "16:00", "close": "22:00"},  # Monday
+    1: {"open": "16:00", "close": "22:00"},  # Tuesday
+    2: {"open": "16:00", "close": "22:00"},  # Wednesday
+    3: {"open": "16:00", "close": "22:00"},  # Thursday
+    4: {"open": "16:00", "close": "22:00"},  # Friday
+    5: {"open": "16:00", "close": "22:00"},  # Saturday
+    6: {"open": "16:00", "close": "22:00"},  # Sunday 
 }
 
 def get_opening_hours_for_today():
