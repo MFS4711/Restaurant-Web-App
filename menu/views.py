@@ -5,21 +5,6 @@ from .models import MenuItem
 from .forms import MenuItemForm
 
 
-def homepage(request):
-    """
-    Display the homepage.
-
-    **Context:**
-
-    None
-
-    **Template:**
-
-    :template:`menu/index.html`
-    """
-    return render(request, "menu/index.html")
-
-
 def menu(request):
     """
     Display the menu page with all menu items grouped by categories.
