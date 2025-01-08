@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 import calendar
+from django.utils import timezone
+from .models import Booking
 
 # Define opening and closing hours for each day of the week
 # Days of the week are indexed: 0 for Monday, 1 for Tuesday, ..., 6 for Sunday
@@ -53,3 +55,48 @@ def generate_time_slots(open_time=None, close_time=None, interval_minutes=15):
         start_time += timedelta(minutes=interval_minutes)  # Increment by the defined interval
     
     return time_slots
+
+
+def is_table_available(table, booking_date, start_time, end_time):
+    """
+    Checks if the table is available for the given time range on the given date.
+    :param table: The table to check.
+    :param booking_date: The date of the booking.
+    :param start_time: The start time of the booking.
+    :param end_time: The end time of the booking.
+    :return: True if the table is available, False if there is a conflict.
+    """
+    # Fetch all bookings for the selected table on the selected date
+    conflicting_bookings = Booking.objects.filter(
+        table=table,
+        date=booking_date
+    ).exclude(id=None)
+
+    # Check for time conflicts
+    for booking in conflicting_bookings:
+        existing_start_time = timezone.make_aware(
+            datetime.combine(booking.date, booking.time))
+        existing_end_time = existing_start_time + timedelta(hours=2)
+
+        # If the new booking overlaps within the 2-hour window, return False
+        if (start_time < existing_end_time and end_time > existing_start_time):
+            return False
+    return True
+
+
+def generate_conflicting_time_range(booking_date, booking_time):
+    """
+    Given a booking date and time, generates the start and end time of the proposed booking,
+    along with a 2-hour buffer for conflict checking.
+    :param booking_date: The date of the booking.
+    :param booking_time: The start time of the booking.
+    :return: A tuple of (start_time, end_time, conflicting_time_range_start, conflicting_time_range_end).
+    """
+    new_start_time = timezone.make_aware(
+        datetime.combine(booking_date, booking_time))
+    new_end_time = new_start_time + timedelta(hours=2)
+
+    conflicting_time_range_start = new_start_time - timedelta(hours=2)
+    conflicting_time_range_end = new_end_time # + timedelta(hours=2)
+
+    return new_start_time, new_end_time, conflicting_time_range_start, conflicting_time_range_end

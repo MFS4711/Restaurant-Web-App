@@ -6,7 +6,7 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 from booking.models import Table, Booking
-from booking.utils import generate_time_slots
+from booking.utils import generate_time_slots, is_table_available, generate_conflicting_time_range
 
 # Create your views here.
 
@@ -57,7 +57,7 @@ def staff_dashboard(request):
 
     """
     # Use the utility function to generate time slots with dynamic opening hours
-    time_slots = generate_time_slots(interval_minutes=15)  # Will use today's opening and closing times
+    time_slots = generate_time_slots(interval_minutes=15)
 
     # Get today's date
     today = timezone.now().date()
@@ -76,28 +76,16 @@ def staff_dashboard(request):
         for time_slot in time_slots:
             start_time = datetime.strptime(time_slot, '%H:%M').time()
 
-            # Calculate the end time of the booking (2 hours after the start time)
-            end_time = (datetime.combine(today, start_time) + timedelta(hours=2)).time()
+            # Generate end time and conflicting time range using the utility function
+            new_start_time, new_end_time, _, _ = generate_conflicting_time_range(today, start_time)
 
-            # Check if there is any booking occupying this time slot
-            conflicting_bookings = Booking.objects.filter(
-                table=table,
-                date=today,
-                time__lt=end_time,  # The start time of the time slot is before the end of the booking
-            )
+            # Check if the table is available for this time slot using the utility function
+            is_available = is_table_available(table, today, new_start_time, new_end_time)
 
-            # Now we manually check for overlap (i.e., the booking's end time should be after the time slot's start time)
-            conflict_found = False
-            for booking in conflicting_bookings:
-                booking_end_time = booking.get_end_time().time()
-                if booking_end_time > start_time:  # If booking's end time is after the time slot's start time, there's a conflict
-                    conflict_found = True
-                    break
-
-            # If there's a conflicting booking, mark it as "Occupied", otherwise "Available"
+            # Append availability status
             availability['slots'].append({
                 'time_slot': time_slot,
-                'status': 'Occupied' if conflict_found else 'Available'
+                'status': 'Occupied' if not is_available else 'Available'
             })
 
         # Add the table's availability to the list
@@ -106,7 +94,7 @@ def staff_dashboard(request):
     # Fetch bookings for today (Confirmed and Pending)
     today_bookings = Booking.objects.filter(
         date=today, status__in=[Booking.CONFIRMED]
-    ).order_by('time')  # Order bookings by time for better display
+    ).order_by('time')
 
     # Pass data to the context
     context = {
@@ -114,7 +102,7 @@ def staff_dashboard(request):
         'tables': tables,
         'table_availability': table_availability,
         'today': today,
-        'today_bookings': today_bookings,  # Pass today's bookings to the template
+        'today_bookings': today_bookings,
     }
 
     return render(request, 'dashboard/staff_dashboard.html', context)
