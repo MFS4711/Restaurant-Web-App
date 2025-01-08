@@ -5,7 +5,15 @@
 {% block content %}
 
 <div class="container">
-    <h1>Admin Dashboard</h1>
+    <h1 class="text-center">Admin Dashboard</h1>
+
+    <!-- Button Section (Menu and Manage Bookings) -->
+    <div class="btn-container mb-4">
+        <div class="buttons">
+            <a href="{% url 'menu' %}" class="btn">Manage Menu</a>
+            <a href="{% url 'manage_bookings' %}" class="btn">Manage Bookings</a>
+        </div>
+    </div>
 
     <!-- Filter Form -->
     <form method="GET" class="form-inline">

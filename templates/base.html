@@ -54,17 +54,18 @@
                             <a class="nav-link {% if request.path == customer_dashboard_url %}active" aria-current="page{% endif %}"
                                 href="{% url 'customer_dashboard' user.id %}">Customer Dashboard</a>
                         </li>
-                        {% elif user.is_staff and not user.is_superuser%}
+                        {% elif user.is_staff or user.is_superuser%}
                         <!-- Staff Dashboard -->
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == staff_dashboard_url %}active" aria-current="page{% endif %}"
                                 href="{% url 'staff_dashboard'%}">Staff Dashboard</a>
                         </li>
-                        {% else %}
+                        {% if user.is_superuser %}
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == admin_dashboard_url %}active" aria-current="page{% endif %}"
                                 href="{% url 'admin_dashboard'%}">Admin Dashboard</a>
                         </li>
+                        {% endif %}
                         {% endif %}
                         {% endif %}
                         <!-- All User Links -->
