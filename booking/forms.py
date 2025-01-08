@@ -214,3 +214,50 @@ class CustomerConfirmationForm(forms.ModelForm):
         # Optional: adds a bootstrap class for styling
         widget=forms.Select(attrs={'class': 'form-control'})
     )
+
+
+class BookingFilterForm(forms.Form):
+    FILTER_CHOICES = [
+        ('this_week', 'This Week'),
+        ('this_month', 'This Month'),
+        ('custom', 'Custom'),
+    ]
+    
+    filter = forms.ChoiceField(choices=FILTER_CHOICES, required=False)
+    start_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}))
+    end_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        filter_duration = cleaned_data.get('filter')
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+
+        # If custom filter is selected, both start_date and end_date must be provided
+        if filter_duration == 'custom' and (not start_date or not end_date):
+            raise forms.ValidationError("Both start and end dates must be provided for custom range.")
+
+        return cleaned_data
+
+    def get_filtered_date_range(self):
+        """
+        Calculate the date range based on the filter type (This Week, This Month, or Custom).
+        """
+        today = timezone.now().date()
+
+        filter_duration = self.cleaned_data.get('filter')
+
+        if filter_duration == 'this_week':
+            start_date = today - timedelta(days=today.weekday())  # Start of the week (Monday)
+            end_date = start_date + timedelta(days=6)  # End of the week (Sunday)
+        elif filter_duration == 'this_month':
+            start_date = today.replace(day=1)  # Start of this month
+            end_date = (start_date.replace(month=start_date.month + 1) - timedelta(days=1))  # End of the month
+        elif filter_duration == 'custom':
+            start_date = self.cleaned_data.get('start_date')
+            end_date = self.cleaned_data.get('end_date')
+        else:
+            # Default to today
+            start_date = end_date = today
+
+        return start_date, end_date
