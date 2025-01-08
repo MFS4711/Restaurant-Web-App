@@ -3,6 +3,7 @@
 {% url 'home' as home_url %}
 {% url 'customer_dashboard' as customer_dashboard_url %}
 {% url 'staff_dashboard' as staff_dashboard_url %}
+{% url 'admin_dashboard' as admin_dashboard_url %}
 {% url 'menu' as menu_url %}
 {% url 'book_table' as book_table_url %}
 {% url 'manage_bookings' as manage_bookings_url %}
@@ -61,7 +62,8 @@
                         </li>
                         {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Admin Dashboard</a>
+                            <a class="nav-link {% if request.path == admin_dashboard_url %}active" aria-current="page{% endif %}"
+                                href="{% url 'admin_dashboard'%}">Admin Dashboard</a>
                         </li>
                         {% endif %}
                         {% endif %}

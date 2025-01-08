@@ -79,3 +79,39 @@ def staff_dashboard(request):
     }
 
     return render(request, 'dashboard/staff_dashboard.html', context)
+
+
+# Custom decorator to check if the user is a staff member
+def is_superuser(user):
+    return user.is_superuser
+
+
+@login_required(login_url='/login/')  # redirect to login page if not authenticated
+@user_passes_test(is_superuser, login_url='/unauthorized/')
+def admin_dashboard(request):
+    """
+
+    """
+    # Use the utility function to generate time slots with dynamic opening hours
+    time_slots = generate_time_slots(interval_minutes=15)
+
+    # Get today's date
+    today = timezone.now().date()
+
+    # Get table availability using the utility function
+    table_availability = get_table_availability_for_day(today, time_slots)
+
+    # Fetch bookings for today (Confirmed and Pending)
+    today_bookings = Booking.objects.filter(
+        date=today, status__in=[Booking.CONFIRMED]
+    ).order_by('time')
+
+    # Pass data to the context
+    context = {
+        'time_slots': time_slots,
+        'table_availability': table_availability,
+        'today': today,
+        'today_bookings': today_bookings,
+    }
+
+    return render(request, 'dashboard/admin_dashboard.html', context)
