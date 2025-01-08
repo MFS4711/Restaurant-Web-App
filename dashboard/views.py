@@ -6,6 +6,7 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 from booking.models import Table, Booking
+from booking.utils import generate_time_slots
 
 # Create your views here.
 
@@ -55,12 +56,8 @@ def staff_dashboard(request):
     """
 
     """
-    # List of time slots for the day (15-minute intervals from 16:00 to 22:00)
-    time_slots = [
-        '16:00', '16:15', '16:30', '16:45', '17:00', '17:15', '17:30', '17:45',
-        '18:00', '18:15', '18:30', '18:45', '19:00', '19:15', '19:30', '19:45',
-        '20:00', '20:15', '20:30', '20:45', '21:00', '21:15', '21:30', '21:45', '22:00'
-    ]
+    # Use the utility function to generate time slots with dynamic opening hours
+    time_slots = generate_time_slots(interval_minutes=15)  # Will use today's opening and closing times
 
     # Get today's date
     today = timezone.now().date()
