@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.db import IntegrityError
 from .models import Table, Booking
 from .forms import BookingForm, StaffBookingForm, CustomerConfirmationForm
+from .utils import generate_time_slots, get_table_availability_for_day
 
 # Create your views here.
 
@@ -160,6 +161,13 @@ def edit_booking(request, booking_id):
 
     # If the user is staff, show the staff-specific form
     if request.user.is_staff:
+        # Generate time slots for the day of the current booking
+        time_slots = generate_time_slots(interval_minutes=15)
+        booking_date = booking.date  # Use the current booking's date
+
+        # Get table availability for that specific date
+        table_availability = get_table_availability_for_day(booking_date, time_slots)
+
         if request.method == 'POST':
             staff_form = StaffBookingForm(request.POST, instance=booking)
             if staff_form.is_valid():
@@ -189,6 +197,8 @@ def edit_booking(request, booking_id):
             'staff_form': staff_form,
             'booking': booking,
             'is_customer': False,  # Flag to indicate it's a staff edit
+            'time_slots': time_slots,
+            'table_availability': table_availability,
         }
         return render(request, 'booking/edit_booking.html', context)
 
