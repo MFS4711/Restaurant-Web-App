@@ -126,6 +126,13 @@ class StaffBookingForm(forms.ModelForm):
         )
     )
 
+    # Restrict the available status choices to exclude 'Pending' and 'No Show'
+    status = forms.ChoiceField(
+        choices=[(status, label) for status, label in Booking.STATUS_CHOICES
+                 if status not in [Booking.PENDING, Booking.NO_SHOW]],  # Exclude PENDING and NO_SHOW
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
     # Custom widget for the table selection
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
