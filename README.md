@@ -58,9 +58,9 @@ The live project can be viewed [here](Add link)
 
 # Purpose of Project
 
-The Restaurant Web App is designed to streamline the management of reservations, menu items, and customer orders for a restaurant. It aims to enhance the dining experience for customers by providing an intuitive platform for booking tables and placing orders, while simplifying restaurant operations for staff and administrators. The app is built to improve efficiency, reduce errors, and foster better communication between customers, staff, and management, ultimately creating a smoother, more enjoyable restaurant experience.
+The Restaurant Web App is designed to streamline the management of reservations, menu items, and restaurant operations. It aims to enhance the dining experience for customers by providing an intuitive platform for booking tables, while simplifying restaurant tasks for staff and administrators. The app is built to improve efficiency, reduce errors, and foster better communication between customers, staff, and management, ultimately creating a smoother, more enjoyable restaurant experience.
 
-The primary users of the Restaurant Web App are customers, staff, and restaurant administrators. Customers use the platform to easily manage their reservations, browse menu items, place orders, and track their order status. Staff members interact with the app to manage and update reservations, track orders, and ensure that menu items are available. Administrators and managers utilize the app to oversee operations, manage user accounts, and analyze restaurant performance. Each group is provided with tailored functionality based on their role to ensure smooth and efficient restaurant operations.
+The primary users of the Restaurant Web App are customers, staff, and restaurant administrators. Customers use the platform to easily manage their reservations, browse menu items, and track their reservation status. Staff members interact with the app to manage and update reservations, ensure menu items are available, and assist with operational tasks. Administrators and managers utilise the app to oversee operations and analyse restaurant performance. Each group is provided with tailored functionality based on their role to ensure smooth and efficient restaurant operations.
 
 <!-- Paragraph may change based on functionality achieved at the end -->
 
@@ -175,12 +175,59 @@ The Montserrat font was used throughout the project for headings and prominent t
 For body text, Open Sans was chosen due to its simplicity and high legibility, providing a comfortable reading experience for users. Its versatility and neutral design make it well-suited for longer content while maintaining a polished, cohesive aesthetic across the site.
 
 ### Colour
-The following colour palette was used in the project
+The following colour palette was used in the project:
 
-![colour_palette](/static/doc_images/colour_palette.png)
+![colour_palette](/readme_images/colours/cedar_and_flame_colour_palette.png)
 
-<!-- Add short descriptions of why colours were used -->
-<!-- Maybe add colour contrast images for accessibility? -->
+- **#F5F5F5 (White Smoke)**: Used for body text to ensure readability on dark backgrounds, enhancing clarity for customers browsing the menu and staff interacting with data.
+- **#FFD700 (Gold)**: Highlights important elements like headings and buttons. Gold conveys prestige and grabs attention, guiding users toward key actions like making reservations or submitting forms.
+- **#333333 (Jet)**: Applied to buttons and navigation for contrast, ensuring that call-to-action elements are clear but not overwhelming, suitable for both customers and staff.
+- **#444444 (Onyx)**: Used for card and form backgrounds to keep the design clean and focused, making menu items and forms stand out in a professional and minimalistic way.
+- **#212121 (Eerie Black)**: Used for the footer to separate it from the main content and keep less central information accessible without distraction.
+
+#### _Colour Contrast (Font against Background)_
+
+<details>
+<summary>#F5F5F5 (White Smoke) and #333333 (Jet)</summary>
+
+![contrast-white_smoke-jet](/readme_images/colours/contrast-white_smoke-jet.png)
+
+</details>
+
+<details>
+<summary>#F5F5F5 (White Smoke) and #444444 (Onyx)</summary>
+
+![contrast-white_smoke-onyx](/readme_images/colours/contrast-white_smoke-onyx.png)
+
+</details>
+
+<details>
+<summary>#F5F5F5 (White Smoke) and #212121 (Eerie Black)</summary>
+
+![contrast-white_smoke-eerie_black](/readme_images/colours/contrast-white_smoke-eerie_black.png)
+
+</details>
+
+<details>
+<summary>#FFD700 (Gold) and #333333 (Jet)</summary>
+
+![contrast-gold-jet](/readme_images/colours/contrast-gold-jet.png)
+
+</details>
+
+<details>
+<summary>#FFD700 (Gold) and #444444 (Onyx)</summary>
+
+![contrast-gold-onyx](/readme_images/colours/contrast-gold-onyx.png)
+
+</details>
+
+<details>
+<summary>#FFD700 (Gold) and #212121 (Eerie Black)</summary>
+
+![contrast-gold-eerie_black](/readme_images/colours/contrast-gold-eerie_black.png)
+
+</details>
 
 ### Wireframes
 These wireframes outline how each page was intended to be displayed on Mobile, Tablet, Desktops and Larger Screens. Generally speaking, the layout is very similar across all viewports, the only difference being the additional space being taken advantage of.
