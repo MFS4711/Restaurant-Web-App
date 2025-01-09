@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
-# Create your models here.
-
 
 class MenuItem(models.Model):
     """
@@ -24,6 +22,8 @@ class MenuItem(models.Model):
     Methods:
         __str__(): Returns the name of the menu item.
     """
+
+    # Define the choices for categories of menu items
     CATEGORY_CHOICES = [
         ('starters', 'Starters'),
         ('mains', 'Mains'),
@@ -32,6 +32,7 @@ class MenuItem(models.Model):
         ('drinks', 'Drinks'),
     ]
 
+    # Fields of the MenuItem model
     name = models.CharField(max_length=200)
     description = models.TextField()
     image = CloudinaryField('image', default='placeholder')
@@ -46,4 +47,7 @@ class MenuItem(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        """
+        Returns the name of the menu item when the object is printed.
+        """
         return self.name

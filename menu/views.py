@@ -1,6 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from django.http import Http404, HttpResponseRedirect
 from .models import MenuItem
 from .forms import MenuItemForm
 
@@ -8,7 +7,7 @@ from .forms import MenuItemForm
 def menu(request):
     """
     Display the menu page with all menu items grouped by categories.
-    
+
     **Context:**
 
     ``categorised_items``
@@ -23,35 +22,35 @@ def menu(request):
     # Get all Menu Items
     menu_items = MenuItem.objects.all()
 
-    # get distinct categories
+    # Get distinct categories from the defined CATEGORY_CHOICES
     categories = MenuItem.CATEGORY_CHOICES
 
-    # Create a list to store categories and their items
+    # Create a list to store categories and their associated items
     categorised_items = []
 
     for category_value, category_label in categories:
-        # Get menu items for the current category
+        # Filter menu items by category
         category_items = menu_items.filter(category=category_value)
         categorised_items.append((category_label, category_items))
 
-    # Handle Post request from Menu Item Form
+    # Handle POST request from the Menu Item Form
     if request.method == "POST":
-        # Retrieve the hidden category from the form submission
-        category = request.POST.get('category')
         menu_item_form = MenuItemForm(data=request.POST)
-        if menu_item_form.is_valid():
-            menu_item = menu_item_form.save(commit=False)
-            menu_item.category = category
-            menu_item.save()
-            messages.add_message(
-                request, messages.SUCCESS,
-                'New Menu Item Created'
-            )
-            # Redirect to menu page
-            return redirect('menu')
 
-    # Display form
-    menu_item_form = MenuItemForm()
+        # Check if the form is valid
+        if menu_item_form.is_valid():
+            # Get category from the form data
+            category = request.POST.get('category')
+            menu_item = menu_item_form.save(commit=False)
+            menu_item.category = category  # Set the category manually
+            menu_item.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 'New Menu Item Created')
+            return redirect('menu')  # Redirect to the menu page
+
+    # Display empty form for new menu item
+    else:
+        menu_item_form = MenuItemForm()
 
     context = {
         'categorised_items': categorised_items,
@@ -77,10 +76,13 @@ def edit_menu_item(request, menu_item_id):
     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
 
     if request.method == "POST":
+        # Bind form with POST data and pre-fill with existing menu item details
         menu_item_form = MenuItemForm(
             data=request.POST, files=request.FILES, instance=menu_item)
+
+        # Check if form is valid
         if menu_item_form.is_valid():
-            # Retain the current image if no new one is uploaded
+            # Retain current image if no new image is uploaded
             if not request.FILES.get('image'):
                 menu_item_form.cleaned_data['image'] = menu_item.image
             menu_item_form.save()
@@ -91,13 +93,14 @@ def edit_menu_item(request, menu_item_id):
                 request, 'Error updating Menu Item. Please try again.')
 
     else:
+        # Populate the form with the current menu item details
         menu_item_form = MenuItemForm(instance=menu_item)
-    
+
     context = {
         'menu_item_form': menu_item_form,
     }
 
-    return render(request, 'menu.html', context)
+    return render(request, 'menu/menu.html', context)
 
 
 def delete_menu_item(request, menu_item_id):
@@ -112,14 +115,14 @@ def delete_menu_item(request, menu_item_id):
 
     :template:`menu/menu.html`
     """
-    # get object you want to edit
     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
 
-    if request.user.is_authenticated and (request.user.is_superuser):
+    # Check if the user is authenticated and a superuser
+    if request.user.is_authenticated and request.user.is_superuser:
         menu_item.delete()
         messages.add_message(request, messages.SUCCESS, 'Menu Item deleted!')
     else:
         messages.add_message(
             request, messages.ERROR, 'There was an error deleting the Item. Please try again.')
 
-    return HttpResponseRedirect(reverse('menu'))
+    return redirect('menu')  # Redirect to the menu page after deletion
