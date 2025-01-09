@@ -189,14 +189,30 @@ footer .social-media a:hover {
     top: -82px;
     width: 100%;
     height: 100vh;
-    background-image: url('../images/pexels-markarronsmith-3768841.jpg');
-    background-position: center;
     background-size: cover;
     background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    animation: backgroundCarousel 15s infinite;
+    transition: background-image 1s ease-in-out; /* Smooth transition for image change */
+}
+
+/* Keyframes for changing background images */
+@keyframes backgroundCarousel {
+    0% {
+        background-image: url('../images/mobile_optimized_image_1.jpg');
+    }
+    33% {
+        background-image: url('../images/mobile_optimized_image_2.jpg');
+    }
+    66% {
+        background-image: url('../images/mobile_optimized_image_3.jpg');
+    }
+    100% {
+        background-image: url('../images/mobile_optimized_image_1.jpg');
+    }
 }
 
 .hero-content {
