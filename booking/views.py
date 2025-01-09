@@ -1,94 +1,142 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
-from django.urls import reverse
-from django.utils import timezone
-from django.db import IntegrityError
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Table, Booking
 from .forms import BookingForm, StaffBookingForm, CustomerConfirmationForm
 from .utils import generate_time_slots, get_table_availability_for_day
 
-# Create your views here.
-
 # Custom decorator to check if the user is a staff member
+
+
 def is_staff(user):
+    """
+    Check if the user is a staff member.
+
+    **Context:**
+
+    ``user`` 
+        The user to be checked.
+
+    **Returns:**
+        True if the user is a staff member, False otherwise.
+    """
     return user.is_staff
 
 
 def book_table(request):
     """
+    Handle table booking by users (authenticated or guest).
 
+    **Context:**
+
+    ``booking_form``
+        An instance of :form:`BookingForm` to create a new booking.
+
+    **Template:** 
+
+    :template:`booking/booking.html`
     """
     if request.method == 'POST':
         booking_form = BookingForm(request.POST)
         if booking_form.is_valid():
+            # Save the booking without committing to the database yet
             booking = booking_form.save(commit=False)
 
+            # If the user is logged in, assign the user to the booking
             if request.user.is_authenticated:
                 booking.user = request.user
             else:
-                # Leave if Guest/non-logged in users are given booking permission
+                # Allow booking for guests/non-logged in users if permitted
                 pass
 
-            booking.save()  # Save the booking
+            # Save the booking to the database
+            booking.save()
 
-            return redirect('booking_success')  # Redirect to a success page
+            # Redirect to the booking success page
+            return redirect('booking_success')
 
     else:
-        # Display form
+        # Display the empty form for booking
         booking_form = BookingForm()
 
     context = {
         'booking_form': booking_form
     }
 
+    # Render the booking page with the context data
     return render(request, "booking/booking.html", context)
 
 
 def booking_success(request):
     """
+    Display the booking success page.
 
+    **Template:** 
+
+    :template:`booking/booking_success.html`
     """
     return render(request, 'booking/booking_success.html')
 
 
-@login_required(login_url='/login/')  # redirect to login page if not authenticated
+# Redirect to login page if not authenticated
+@login_required(login_url='/login/')
 @user_passes_test(is_staff, login_url='/unauthorized/')
 def manage_bookings(request):
     """
+    Display and manage all bookings, categorized by status.
 
+    **Context:**
+
+    ``pending_bookings``
+        A queryset of bookings that are pending and not yet assigned to tables.
+
+    ``confirmed_bookings``
+        A queryset of confirmed bookings sorted by date and time.
+
+    ``confirmed_bookings_with_table``
+        A queryset of confirmed bookings that are assigned a table.
+
+    ``cancelled_bookings``
+        A queryset of cancelled bookings.
+
+    ``completed_bookings``
+        A queryset of completed bookings.
+
+    ``no_show_bookings``
+        A queryset of no-show bookings.
+
+    ``customer_confirmation_required_bookings``
+        A queryset of bookings that require customer confirmation.
+
+    **Template:** 
+
+    :template:`booking/manage_bookings.html`
     """
-    # Fetch all confirmed bookings and sort them by date and time (closest first)
-    confirmed_bookings = Booking.objects.filter(status=Booking.CONFIRMED).order_by('date', 'time')
+    confirmed_bookings = Booking.objects.filter(
+        status=Booking.CONFIRMED).order_by('date', 'time')
 
-    # Check if the confirmed booking's end time has passed and update status to "No Show"
+    # Check for expired confirmed bookings and mark them as 'No Show'
     for booking in confirmed_bookings:
         end_time = booking.get_end_time()
-        # If the booking's end time has passed, change its status to "No Show"
         if end_time <= timezone.now():
             booking.status = Booking.NO_SHOW
             booking.save()
 
-    # Fetch pending bookings that do not have a table assigned and sort by date and time
-    pending_bookings = Booking.objects.filter(status=Booking.PENDING, table__isnull=True).order_by('date', 'time')
-
-    # Fetch confirmed bookings that have a table assigned and sort by date and time
-    confirmed_bookings_with_table = Booking.objects.filter(status=Booking.CONFIRMED).exclude(table__isnull=True).order_by('date', 'time')
-
-    # Fetch cancelled bookings and sort by date and time
-    cancelled_bookings = Booking.objects.filter(status=Booking.CANCELLED).order_by('date', 'time')
-
-    # Fetch completed bookings and sort by date and time
-    completed_bookings = Booking.objects.filter(status=Booking.COMPLETED).order_by('date', 'time')
-
-    # Fetch no-show bookings and sort by date and time
-    no_show_bookings = Booking.objects.filter(status=Booking.NO_SHOW).order_by('date', 'time')
-
-    # Fetch customer confirmation required bookings and sort by date and time
+    # Get the list of bookings for various statuses
+    pending_bookings = Booking.objects.filter(
+        status=Booking.PENDING, table__isnull=True).order_by('date', 'time')
+    confirmed_bookings_with_table = Booking.objects.filter(
+        status=Booking.CONFIRMED).exclude(table__isnull=True).order_by('date', 'time')
+    cancelled_bookings = Booking.objects.filter(
+        status=Booking.CANCELLED).order_by('date', 'time')
+    completed_bookings = Booking.objects.filter(
+        status=Booking.COMPLETED).order_by('date', 'time')
+    no_show_bookings = Booking.objects.filter(
+        status=Booking.NO_SHOW).order_by('date', 'time')
     customer_confirmation_required_bookings = Booking.objects.filter(
         status=Booking.CUSTOMER_CONFIRMATION_REQUIRED).order_by('date', 'time')
 
+    # Pass the bookings to the context
     context = {
         'pending_bookings': pending_bookings,
         'confirmed_bookings': confirmed_bookings,
@@ -99,75 +147,97 @@ def manage_bookings(request):
         'customer_confirmation_required_bookings': customer_confirmation_required_bookings,
     }
 
+    # Render the manage bookings page with the context data
     return render(request, 'booking/manage_bookings.html', context)
 
 
 def edit_booking(request, booking_id):
     """
+    Edit an existing booking based on the user's role (customer or staff).
 
+    **Context:**
+
+    ``booking_form``
+        An instance of :form:`BookingForm` for customers or :form:`StaffBookingForm` for staff.
+
+    ``booking``
+        The booking instance being edited.
+
+    ``is_customer``
+        A flag indicating if the user is a customer (True) or staff (False).
+
+    ``time_slots``
+        A list of available time slots for staff to select from.
+
+    ``table_availability``
+        A dictionary containing available tables and their time slots for staff.
+
+    **Template:** 
+
+    :template:`booking/edit_booking.html`
     """
     booking = get_object_or_404(Booking, id=booking_id)
 
-    # Check if the current user is the owner of the booking (for customers)
+    # Check if the user is authorized to edit the booking
     if request.user != booking.user and not request.user.is_staff:
         messages.error(request, "You cannot edit this booking.")
         return redirect('customer_dashboard', user_id=request.user.id)
 
-    # If the user is a customer, handle customer-specific logic
+    # If the user is the customer who made the booking
     if not request.user.is_staff and request.user == booking.user:
-        # Check if the booking status requires customer confirmation
         if booking.status == Booking.CUSTOMER_CONFIRMATION_REQUIRED:
-            # Handle customer confirmation (show only the status field)
             if request.method == 'POST':
                 customer_confirmation_form = CustomerConfirmationForm(
                     request.POST, instance=booking)
-
                 if customer_confirmation_form.is_valid():
                     customer_confirmation_form.save()
-                    messages.success(request, "Your booking status has been updated.")
+                    messages.success(
+                        request, "Your booking status has been updated.")
                     return redirect('customer_dashboard', user_id=request.user.id)
             else:
-                customer_confirmation_form = CustomerConfirmationForm(instance=booking)
+                customer_confirmation_form = CustomerConfirmationForm(
+                    instance=booking)
 
+            # Render the form for customer confirmation
             context = {
                 'booking_form': customer_confirmation_form,
                 'booking': booking,
-                'is_customer': True,  # Flag to indicate it's a customer edit
+                'is_customer': True,
             }
             return render(request, 'booking/edit_booking.html', context)
-        
-        # Handle the regular booking form for customers when status is not 'Customer Confirmation Required'
+
+        # Handle regular customer booking updates
         if request.method == 'POST':
             booking_form = BookingForm(request.POST, instance=booking)
-
             if booking_form.is_valid():
                 updated_booking = booking_form.save(commit=False)
-                # Set the booking status to "pending" if it's not already
+                # Ensure the booking status is set to PENDING if it's not
                 if updated_booking.status != Booking.PENDING:
                     updated_booking.status = Booking.PENDING
-
                 updated_booking.save()
-                messages.success(request, "Your booking has been updated successfully.")
+                messages.success(
+                    request, "Your booking has been updated successfully.")
                 return redirect('customer_dashboard', user_id=request.user.id)
         else:
             booking_form = BookingForm(instance=booking)
 
+        # Render the form for editing a customer booking
         context = {
             'booking_form': booking_form,
             'booking': booking,
-            'is_customer': True,  # Flag to indicate it's a customer edit
+            'is_customer': True,
         }
         return render(request, 'booking/edit_booking.html', context)
 
-    # If the user is staff, show the staff-specific form
+    # Handle staff's ability to edit the booking
     if request.user.is_staff:
-        # Generate time slots for the day of the current booking
+        # Generate time slots and check table availability
         time_slots = generate_time_slots(interval_minutes=15)
-        booking_date = booking.date  # Use the current booking's date
+        booking_date = booking.date
+        table_availability = get_table_availability_for_day(
+            booking_date, time_slots)
 
-        # Get table availability for that specific date
-        table_availability = get_table_availability_for_day(booking_date, time_slots)
-
+        # Handle POST request for staff updating booking
         if request.method == 'POST':
             staff_form = StaffBookingForm(request.POST, instance=booking)
             if staff_form.is_valid():
@@ -177,26 +247,23 @@ def edit_booking(request, booking_id):
                     updated_booking.save()
                     messages.success(request, "Booking updated successfully.")
                     return redirect('manage_bookings')
-
                 except IntegrityError:
-                    # Catch duplicate booking error
                     messages.error(
                         request, "This table is already booked for the selected date and time. Please choose another table.")
                     return redirect('edit_booking', booking_id=booking.id)
                 except Exception as e:
-                    # Catch any unexpected errors
                     messages.error(
                         request, f"An unexpected error occurred: {str(e)}")
                     return redirect('edit_booking', booking_id=booking.id)
         else:
-            # Pass the number_of_people to the form's initial data to filter the tables accordingly
             staff_form = StaffBookingForm(instance=booking, initial={
                                           'number_of_people': booking.number_of_people})
 
+        # Render the form for staff to edit a booking
         context = {
             'staff_form': staff_form,
             'booking': booking,
-            'is_customer': False,  # Flag to indicate it's a staff edit
+            'is_customer': False,
             'time_slots': time_slots,
             'table_availability': table_availability,
         }
@@ -205,14 +272,20 @@ def edit_booking(request, booking_id):
 
 def delete_booking(request, booking_id):
     """
+    Delete an existing booking.
 
+    **Context:**
+
+    None
+
+    **Template:** 
+
+    :template:`booking/booking_success.html`
     """
-    # Get the booking object you want to delete
     booking = get_object_or_404(Booking, pk=booking_id)
 
-    # Check if the user is the one who made the booking or if the user is a staff member
+    # Check if the user has permission to delete the booking
     if booking.user == request.user or request.user.is_staff:
-        # Delete the booking
         booking.delete()
         messages.add_message(request, messages.SUCCESS,
                              'Booking successfully deleted!')
@@ -220,9 +293,8 @@ def delete_booking(request, booking_id):
         messages.add_message(
             request, messages.ERROR, 'You do not have permission to delete this booking.')
 
-    # Redirect the user to the appropriate page based on their role (staff or customer)
+    # Redirect to the appropriate page after deletion
     if request.user.is_staff:
-        # Redirect staff to the manage bookings page
         return redirect('manage_bookings')
-    # Redirect customer to their dashboard
+
     return redirect('customer_dashboard', user_id=request.user.id)
