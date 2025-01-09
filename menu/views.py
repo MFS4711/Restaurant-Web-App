@@ -47,6 +47,8 @@ def menu(request):
             messages.add_message(request, messages.SUCCESS,
                                  'New Menu Item Created')
             return redirect('menu')  # Redirect to the menu page
+        else:
+            messages.error(request, 'Please correct the errors below.')
 
     # Display empty form for new menu item
     else:
