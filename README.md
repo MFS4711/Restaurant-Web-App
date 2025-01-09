@@ -264,36 +264,45 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 <details>
 <summary>Mobile</summary>
 
-<!-- Add image path -->
 
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![menu-mobile wireframe](/readme_images/wireframes/menu-mobile.png)
 
 </details>
 
 <details>
 <summary>Tablet</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![menu-tablet wireframe](/readme_images/wireframes/menu-tablet.png)
 
 </details>
 
 <details>
 <summary>Desktop</summary>
 
-<!-- Add image path -->
+![menu-desktop wireframe](/readme_images/wireframes/menu-desktop.png)
 
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+</details>
+
+#### _Booking Page_
+
+<details>
+<summary>Mobile</summary>
+
+![booking-mobile wireframe](/readme_images/wireframes/booking-mobile.png)
 
 </details>
 
 <details>
-<summary>Larger Screens</summary>
+<summary>Tablet</summary>
 
-<!-- Add image path -->
+![booking-tablet wireframe](/readme_images/wireframes/booking-tablet.png)
 
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+</details>
+
+<details>
+<summary>Desktop</summary>
+
+![booking-desktop wireframe](/readme_images/wireframes/booking-desktop.png)
 
 </details>
 
@@ -304,72 +313,21 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 
 <!-- Add image path -->
 
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![contact-mobile wireframe](/readme_images/wireframes/contact-mobile.png)
 
 </details>
 
 <details>
 <summary>Tablet</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![contact-tablet wireframe](/readme_images/wireframes/contact-tablet.png)
 
 </details>
 
 <details>
 <summary>Desktop</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
-
-</details>
-
-<details>
-<summary>Larger Screens</summary>
-
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
-
-</details>
-
-#### _Booking Page_
-
-<details>
-<summary>Mobile</summary>
-
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
-
-</details>
-
-<details>
-<summary>Tablet</summary>
-
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
-
-</details>
-
-<details>
-<summary>Desktop</summary>
-
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
-
-</details>
-
-<details>
-<summary>Larger Screens</summary>
-
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![contact-desktop wireframe](/readme_images/wireframes/contact-desktop.png)
 
 </details>
 
@@ -378,36 +336,21 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 <details>
 <summary>Mobile</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![welcome_page wireframe](/readme_images/wireframes/customer_dashboard-mobile.png)
 
 </details>
 
 <details>
 <summary>Tablet</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![welcome_page wireframe](/readme_images/wireframes/customer_dashboard-tablet.png)
 
 </details>
 
 <details>
 <summary>Desktop</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
-
-</details>
-
-<details>
-<summary>Larger Screens</summary>
-
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![welcome_page wireframe](/readme_images/wireframes/customer_dashboard-desktop.png)
 
 </details>
 
@@ -416,36 +359,21 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 <details>
 <summary>Mobile</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![staff_dashboard-mobile wireframe](/readme_images/wireframes/staff_dashboard-mobile.png)
 
 </details>
 
 <details>
 <summary>Tablet</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![staff_dashboard-tablet wireframe](/readme_images/wireframes/staff_dashboard-tablet.png)
 
 </details>
 
 <details>
 <summary>Desktop</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
-
-</details>
-
-<details>
-<summary>Larger Screens</summary>
-
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![staff_dashboard-desktop wireframe](/readme_images/wireframes/staff_dashboard-desktop.png)
 
 </details>
 
@@ -454,36 +382,21 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 <details>
 <summary>Mobile</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![admin_dashboard-mobile wireframe](/readme_images/wireframes/admin_dashboard-mobile.png)
 
 </details>
 
 <details>
 <summary>Tablet</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![admin_dashboard-tablet wireframe](/readme_images/wireframes/admin_dashboard-tablet.png)
 
 </details>
 
 <details>
 <summary>Desktop</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
-
-</details>
-
-<details>
-<summary>Larger Screens</summary>
-
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![admin_dashboard-desktop wireframe](/readme_images/wireframes/admin_dashboard-desktop.png)
 
 </details>
 
