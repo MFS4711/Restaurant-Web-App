@@ -57,12 +57,23 @@ header {
 
 .navbar {
     text-transform: uppercase;
+    text-align: center;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
 }
 
 .navbar-brand {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.5rem;
     color: #FFD700;
+}
+
+.navbar-brand img {
+    width: 100px; /* Adjust width */
+    height: auto; /* Maintain aspect ratio */
 }
 
 .navbar-nav .nav-link {
@@ -90,12 +101,11 @@ header {
 footer {
     background-color: #212121;
     padding: 40px 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
 }
 
 footer h5 {
@@ -114,8 +124,11 @@ footer ul {
     list-style-type: none;
 }
 
-footer .navbar-brand img {
-    max-width: 150px;
+footer.bg-dark img {
+    width: 100%;
+    /* max-width: 320px; */
+    /* height: auto; 
+    object-fit: contain;  */
 }
 
 footer .social-media a {
@@ -176,14 +189,30 @@ footer .social-media a:hover {
     top: -82px;
     width: 100%;
     height: 100vh;
-    background-image: url('../images/pexels-markarronsmith-3768841.jpg');
-    background-position: center;
     background-size: cover;
     background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    animation: backgroundCarousel 15s infinite;
+    transition: background-image 1s ease-in-out; /* Smooth transition for image change */
+}
+
+/* Keyframes for changing background images */
+@keyframes backgroundCarousel {
+    0% {
+        background-image: url('../images/mobile_optimized_image_1.jpg');
+    }
+    33% {
+        background-image: url('../images/mobile_optimized_image_2.jpg');
+    }
+    66% {
+        background-image: url('../images/mobile_optimized_image_3.jpg');
+    }
+    100% {
+        background-image: url('../images/mobile_optimized_image_1.jpg');
+    }
 }
 
 .hero-content {
@@ -193,6 +222,7 @@ footer .social-media a:hover {
     max-width: 900px;
     width: 90%;
     text-align: center;
+    background-color: rgba(33, 33, 33, 0.9);
 }
 
 .hero-content h1 {
@@ -286,8 +316,9 @@ footer .social-media a:hover {
 }
 
 /* --------------------- Button Section ------------------- */
-.btn-container {
+.btn-container .buttons {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin-bottom: 30px;
 }
@@ -306,29 +337,39 @@ footer .social-media a:hover {
 }
 
 .green {
-    background-color: #28a745; /* Green color */
+    background-color: #28a745;
+    /* Green color */
 }
 
 .red {
-    background-color: #dc3545; /* Red color */
+    background-color: #dc3545;
+    /* Red color */
 }
 
 table td.green {
-    background-color: #28a745; /* Green for Available */
+    background-color: #28a745;
+    /* Green for Available */
 
 }
 
 table td.red {
-    background-color: #dc3545; /* Red for Occupied */
+    background-color: #dc3545;
+    /* Red for Occupied */
 }
 
 /* Equal size for each cell */
-table th, table td {
-    width: 60px; /* Fixed width for uniform cells */
-    height: 60px; /* Fixed height for uniform cells */
-    text-align: center; /* Center the content */
-    vertical-align: middle; /* Center text vertically */
-    padding: 0; /* Remove extra padding */
+table th,
+table td {
+    width: 60px;
+    /* Fixed width for uniform cells */
+    height: 60px;
+    /* Fixed height for uniform cells */
+    text-align: center;
+    /* Center the content */
+    vertical-align: middle;
+    /* Center text vertically */
+    padding: 0;
+    /* Remove extra padding */
 }
 
 /* Table Responsive (horizontal scrolling) */
@@ -339,7 +380,8 @@ table th, table td {
 
 table {
     width: 100%;
-    table-layout: fixed; /* Ensures columns have uniform width */
+    table-layout: fixed;
+    /* Ensures columns have uniform width */
 }
 
 /* -------------------------------- Menu Specific ----------------------------------- */
@@ -462,8 +504,30 @@ textarea:focus {
 /* --------------- Tablet (768px and up) */
 @media (min-width:768px) {
 
-    /* Footer */
-    footer {
-        text-align: left;
+    footer.bg-dark img {
+        width: 100%;
+        max-height: 50vh;
+        object-fit: contain;
+    }
+
+    .contact-info h5 {
+        font-size: 22px;
+    }
+
+    .contact-info p,
+    .contact-info ul {
+        font-size: 20px;
+    }
+
+    .btn-container .buttons {
+        flex-direction: row;
+    }
+}
+
+/* --------------- Laptop and up (920px and up) */
+@media (min-width:768px) {
+
+    .hero-content {
+        max-height: 600px;
     }
 }
