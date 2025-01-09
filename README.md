@@ -82,14 +82,63 @@ The following pages are visible to all users, logged in or not.
 <details>
 <summary>Homepage (landing page)</summary>
 
-- The landing page presents the user with a choice of ... actions:
-    <!-- List actions -->
-- The page has a header which has the following elements, from left to right:
-    - Site icon, clickable, which links from any page back to this one.
-    <!-- Add further elements in nav/header -->
-    <!-- give element name and type - description of action when clicked -->
-    <!-- Bullet point of any features to note from homepage and describe significance -->
-    - The page footer, common to all pages, consists of ...
+### Key Features  
+
+- **Primary Actions**:  
+  The landing page offers users two clear options:  
+  - View the Menu  
+  - Book a Table  
+
+- **Header Navigation**:  
+  The header includes the following elements, displayed left to right:  
+  - **Site Icon**: Clickable, redirects users back to the homepage from any page.  
+  - **Nav-links**:  
+    - Home  
+    - Menu  
+    - Book a Table  
+    - Contact  
+    - Login  
+    - Register  
+
+  #### Role-Based Navigation Modifications:  
+  - **Authenticated Customers**:  
+    - **Customer Dashboard**: Appears between Home and Menu links.  
+    - **Logout**: Replaces the Login and Register links.  
+  - **Staff Members**:  
+    - **Staff Dashboard**: Appears between Home and Menu links.  
+    - **Manage Bookings**: Appears after the Book a Table link.  
+  - **Admins/Superusers**:  
+    - **Admin Dashboard**: Appears to the right of the Staff Dashboard link.  
+
+### Hero Section  
+
+- **Visuals**:  
+  - The opening viewport prominently displays the company logo, positioned over a full-screen hero image.  
+
+- **Actions**:  
+  - Two clear buttons:  
+    - Book a Table  
+    - View Menu  
+  Both buttons redirect users to their respective pages.  
+
+### Secondary Content  
+
+- **Company Values**:  
+  - Displayed in a **distinctive card layout**.  
+
+- **About Section**:  
+  - Highlights the company’s history to establish a connection with customers.  
+
+- **Reminder Actions**:  
+  - Additional buttons for "Book a Table" and "View Menu" to reinforce the main actions on the page.  
+
+### Footer  
+
+- The footer is consistent across all pages and divided into four sections:  
+  - **Company Logo**: Clickable, redirects users to the landing page.  
+  - **Opening Hours**: Displays the business hours.  
+  - **Address**: Shows the physical location of the business.  
+  - **Get in Touch and Socials**: Provides contact details and social media links. 
 
 <!-- Add screenshot of welcome page - maybe different screenshots for different devices -->
 ![Welcome Page](static/doc_images/feature_screenshots/feature_welcome.png)
