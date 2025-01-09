@@ -12,8 +12,9 @@ OPENING_HOURS = {
     3: {"open": "16:00", "close": "22:00"},  # Thursday
     4: {"open": "16:00", "close": "22:00"},  # Friday
     5: {"open": "16:00", "close": "22:00"},  # Saturday
-    6: {"open": "16:00", "close": "22:00"},  # Sunday 
+    6: {"open": "16:00", "close": "22:00"},  # Sunday
 }
+
 
 def get_opening_hours_for_today():
     """
@@ -24,14 +25,16 @@ def get_opening_hours_for_today():
     weekday = today.weekday()  # Get the day of the week (0: Monday, 6: Sunday)
 
     # Retrieve the opening and closing times for today
-    opening_info = OPENING_HOURS.get(weekday, {"open": "16:00", "close": "00:00"})
-    
+    opening_info = OPENING_HOURS.get(
+        weekday, {"open": "16:00", "close": "00:00"})
+
     return opening_info["open"], opening_info["close"]
+
 
 def generate_time_slots(open_time=None, close_time=None, interval_minutes=15):
     """
     Generate a list of time slots based on the start and end time with the given interval.
-    
+
     :param open_time: The opening time in "%H:%M" format.
     :param close_time: The closing time in "%H:%M" format.
     :param interval_minutes: The interval between time slots in minutes.
@@ -48,12 +51,13 @@ def generate_time_slots(open_time=None, close_time=None, interval_minutes=15):
     # Convert opening and closing times to datetime objects
     start_time = datetime.strptime(open_time, "%H:%M")
     end_time = datetime.strptime(close_time, "%H:%M")
-    
+
     time_slots = []
     while start_time <= end_time:
         time_slots.append(start_time.strftime("%H:%M"))
-        start_time += timedelta(minutes=interval_minutes)  # Increment by the defined interval
-    
+        # Increment by the defined interval
+        start_time += timedelta(minutes=interval_minutes)
+
     return time_slots
 
 
@@ -97,9 +101,10 @@ def generate_conflicting_time_range(booking_date, booking_time):
     new_end_time = new_start_time + timedelta(hours=2)
 
     conflicting_time_range_start = new_start_time - timedelta(hours=2)
-    conflicting_time_range_end = new_end_time # + timedelta(hours=2)
+    conflicting_time_range_end = new_end_time
 
     return new_start_time, new_end_time, conflicting_time_range_start, conflicting_time_range_end
+
 
 def get_table_availability_for_day(booking_date, time_slots):
     """
@@ -113,12 +118,14 @@ def get_table_availability_for_day(booking_date, time_slots):
 
     for table in tables:
         availability = {'table_number': table.table_number, 'slots': []}
-        
+
         for time_slot in time_slots:
             start_time = datetime.strptime(time_slot, '%H:%M').time()
 
-            new_start_time, new_end_time, _, _ = generate_conflicting_time_range(booking_date, start_time)
-            is_available = is_table_available(table, booking_date, new_start_time, new_end_time)
+            new_start_time, new_end_time, _, _ = generate_conflicting_time_range(
+                booking_date, start_time)
+            is_available = is_table_available(
+                table, booking_date, new_start_time, new_end_time)
 
             availability['slots'].append({
                 'time_slot': time_slot,
