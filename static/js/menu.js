@@ -124,3 +124,33 @@ menuItemTitles.forEach((title) => {
     `;
   });
 });
+
+// // Select all the forms with the class 'menu-item-form'
+// const forms = document.querySelectorAll(".menu-item-form");
+
+// // Loop through each form
+// forms.forEach((form) => {
+//   // Extract the ID number from the form's action URL
+//   const formAction = form.action;
+//   const idNumber = formAction.split("/").filter(Boolean).pop(); // Get the number from the URL
+
+//   // Target all the divs inside the form and modify their ids and children's ids
+//   const divs = form.querySelectorAll('div[id^="div_id_"]');
+
+//   divs.forEach((div) => {
+//     const originalId = div.id;
+//     const label = div.querySelector("label");
+//     const input = div.querySelector("input, textarea"); // This works for both input and textarea
+
+//     // Append the ID number to the div, label, and input elements' ids
+//     div.id = `${originalId}-${idNumber}`;
+
+//     if (label) {
+//       label.setAttribute("for", `${label.getAttribute("for")}-${idNumber}`);
+//     }
+
+//     if (input) {
+//       input.id = `${input.id}-${idNumber}`;
+//     }
+//   });
+// });
