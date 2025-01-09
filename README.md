@@ -631,7 +631,7 @@ The manual testing of features is organised by app below. Testing was carried ou
 |/|Hero Image and Company Logo appear|Navigate to page|Elements appear correctly|
 |/|'Menu' button links to /menu/ page|Click button|User is redirected to correct page|
 |/|'Book a Table' button links to /booking/ page|Click button|User is redirected to correct page|
-|/|Navbar - Logo button causes page to reload|Click logo|Page reloads|
+|/|Navbar - Logo button causes page to reload|Click logo|Page reloads/redirects to homepage if not already on it|
 |/|Navbar - small screens - dropdown icon reveals all nav links|Click dropdown button|Correct Links appear|
 |/|Navbar - larger screens - all nav-links visible|Navigate to page|Elements appear correctly|
 |/|Navbar - larger screens - all nav-links visible|Navigate to page|Elements appear correctly|
@@ -646,6 +646,7 @@ The manual testing of features is organised by app below. Testing was carried ou
 |/|Navbar - Login link leads to /login/|Click link|User redirected to Login page|
 |/|Navbar - Sign Up link leads to /signup/|Click link|User redirected to Sign Up page|
 |/|Navbar - Authenticated users (all) - Logout link leads to / |Click link|User redirected to Home page|
+|/|Footer - Logo image causes page to reload|Click logo|Page reloads/redirects to homepage if not already on it|
 
 
 </details>

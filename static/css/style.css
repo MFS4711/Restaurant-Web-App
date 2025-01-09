@@ -294,8 +294,9 @@ footer .social-media a:hover {
 }
 
 /* --------------------- Button Section ------------------- */
-.btn-container {
+.btn-container .buttons {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin-bottom: 30px;
 }
@@ -494,5 +495,9 @@ textarea:focus {
     .contact-info p,
     .contact-info ul {
         font-size: 20px;
+    }
+
+    .btn-container .buttons {
+        flex-direction: row;
     }
 }
