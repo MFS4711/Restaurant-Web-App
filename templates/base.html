@@ -144,16 +144,18 @@
         <div class="container">
             <div class="row">
                 <!-- Logo Section -->
-                <div class="col-12 col-sm-4 col-md-3">
-                    <a href="{% url 'home' %}" class="navbar-brand text-light">
+                <div class="col-12">
+                    <a href="{% url 'home' %}">
                         <img src="{% static 'images/logo-transparent.png' %}" alt="Logo" class="img-fluid">
                     </a>
                 </div>
+            </div>
 
+            <div class="row">
                 <!-- Opening Hours Section -->
-                <div class="col-12 col-sm-4 col-md-3 mb-4">
-                    <h5>Opening Hours</h5>
-                    <ul class="list-unstyled">
+                <div class="col-12 col-md-6 col-lg-4 mb-4 contact-info opening-hours">
+                    <h5 class="centered-content">Opening Hours</h5>
+                    <ul class="list-unstyled centered-content">
                         <li>Monday: 4 PM - Midnight</li>
                         <li>Tuesday: 4 PM - Midnight</li>
                         <li>Wednesday: 4 PM - Midnight</li>
@@ -165,9 +167,9 @@
                 </div>
 
                 <!-- Address Section -->
-                <div class="col-12 col-sm-4 col-md-3 mb-4">
-                    <h5>Address</h5>
-                    <p>
+                <div class="col-12 col-md-6 col-lg-4 mb-4 contact-info address">
+                    <h5 class="centered-content">Address</h5>
+                    <p class="centered-content">
                         Cedar & Flame,<br>
                         45 Victoria Square,<br>
                         Birmingham,<br>
@@ -177,18 +179,18 @@
                 </div>
 
                 <!-- Social Media Section -->
-                <div class="col-12 col-sm-12 col-md-3 mb-4">
+                <div class="col-12 col-lg-4 contact-info socials">
                     <div class="row">
                         <div class="col-12">
-                            <h5>Get in Touch</h5>
-                            <p>
+                            <h5 class="centered-content">Get in Touch</h5>
+                            <p class="centered-content">
                                 Email: info@example.com <br>
                                 Phone: +123 456 7890
                             </p>
                         </div>
                         <div class="col-12">
-                            <h5>Follow Us</h5>
-                            <ul class="list-unstyled">
+                            <h5 class="centered-content">Follow Us</h5>
+                            <ul class="list-unstyled centered-content">
                                 <li>
                                     <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
                                     <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
