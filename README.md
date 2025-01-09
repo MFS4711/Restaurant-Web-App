@@ -69,7 +69,7 @@ The primary users of the Restaurant Web App are customers, staff, and restaurant
 
 ---
 
-[Return to top](#Add_Title_Here)
+[Return to top](#cedar--flame)
 
 # Features
 
@@ -160,7 +160,7 @@ The remaining pages are only accessible to staff
 
 ---
 
-[Return to top](#Add_Title_Here)
+[Return to top](#cedar--flame)
 
 # User Experience
 
@@ -244,16 +244,12 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 <details>
 <summary>Tablet</summary>
 
-<!-- Add image path -->
-
 ![homepage-tablet wireframe](/readme_images/wireframes/homepage-tablet.png)
 
 </details>
 
 <details>
 <summary>Desktop</summary>
-
-<!-- Add image path -->
 
 ![homepage-desktop wireframe](/readme_images/wireframes/homepage-desktop.png)
 
@@ -310,8 +306,6 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 
 <details>
 <summary>Mobile</summary>
-
-<!-- Add image path -->
 
 ![contact-mobile wireframe](/readme_images/wireframes/contact-mobile.png)
 
@@ -404,7 +398,7 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 
 ---
 
-[Return to top](#Add_Title_Here)
+[Return to top](#cedar--flame)
 
 # Development Process
 
@@ -505,7 +499,7 @@ The following decimal fields, representing currency amounts, are protected by Dj
 
 ---
 
-[Return to top](#Add_Title_Here)
+[Return to top](#cedar--flame)
 
 # Testing
 
@@ -628,7 +622,7 @@ To generate the coverage HTML report, use the following commands:
 
 ---
 
-[Return to top](#Add_Title_Here)
+[Return to top](#cedar--flame)
 
 # Bugs
 
@@ -644,7 +638,7 @@ There should (hopefully) be no remaining bugs in the project.
 
 ---
 
-[Return to top](#Add_Title_Here)
+[Return to top](#cedar--flame)
 
 # Libraries and Programs Used
 
@@ -665,7 +659,7 @@ This section highlights the key libraries, tools, and platforms utilised through
 
 ---
 
-[Return to top](#Add_Title_Here)
+[Return to top](#cedar--flame)
 
 # Deployment
 
@@ -714,7 +708,7 @@ This section provides a step-by-step guide for deploying your project to Heroku,
 
 ---
 
-[Return to top](#Add_Title_Here)
+[Return to top](#cedar--flame)
 
 # Credits
 <!-- Add any code credits and give links -->
@@ -733,4 +727,4 @@ This section provides a step-by-step guide for deploying your project to Heroku,
 - SME Kevin - particularly for reviewing and resolving a UX feature related to table filtering
 ---
 
-[Return to top](#Add_Title_Here)
+[Return to top](#cedar--flame)
