@@ -1,20 +1,24 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
 
 <!-- Hero Section -->
 <section class="hero">
     <div class="hero-content">
         <div class="brand-logo">
-            <h1>Cedar & Flame</h1>
+            <img src="{% static 'images/logo-transparent.png' %}" alt="Logo" class="img-fluid">
         </div>
-        <p class="description">
+        <!-- <p class="description">
             At Cedar & Flame, enjoy a one-of-a-kind dining experience where bold flavors meet the warmth of cedar wood
             fire.
-        </p>
-        <div class="buttons">
-            <a href="{% url 'book_table' %}" class="btn">Book a Table</a>
-            <a href="{% url 'menu' %}" class="btn">View Menu</a>
+        </p> -->
+        <div class="btn-container">
+            <div class="buttons">
+                <a href="{% url 'book_table' %}" class="btn">Book a Table</a>
+                <a href="{% url 'menu' %}" class="btn">View Menu</a>
+            </div>
         </div>
     </div>
 </section>

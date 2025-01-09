@@ -71,6 +71,11 @@ header {
     color: #FFD700;
 }
 
+.navbar-brand img {
+    width: 100px; /* Adjust width */
+    height: auto; /* Maintain aspect ratio */
+}
+
 .navbar-nav .nav-link {
     font-size: 1rem;
     color: #F5F5F5;
@@ -201,6 +206,7 @@ footer .social-media a:hover {
     max-width: 900px;
     width: 90%;
     text-align: center;
+    background-color: rgba(33, 33, 33, 0.9);
 }
 
 .hero-content h1 {
@@ -499,5 +505,13 @@ textarea:focus {
 
     .btn-container .buttons {
         flex-direction: row;
+    }
+}
+
+/* --------------- Laptop and up (920px and up) */
+@media (min-width:768px) {
+
+    .hero-content {
+        max-height: 600px;
     }
 }
