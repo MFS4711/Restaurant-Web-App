@@ -27,7 +27,7 @@
                     {% if 'placeholder' in menu_item.image.url %}
                     <img src="{% static 'images/placeholder.jpg' %}" class="scale" alt="placeholder image">
                     {% else %}
-                    {% cloudinary menu_item.image quality='auto' width=200 height=200 crop='pad' background='gen_fill:ignore-foreground_true' %}
+                    {% cloudinary menu_item.image quality='auto' width=200 height=200 crop='pad' background='gen_fill:ignore-foreground_true' alt="{{ menu_item.name }}" %}
                     {% endif %}
                 </div>
 
