@@ -237,9 +237,7 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 <details>
 <summary>Mobile</summary>
 
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![homepage-mobile wireframe](/readme_images/wireframes/homepage-mobile.png)
 
 </details>
 
@@ -248,7 +246,7 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 
 <!-- Add image path -->
 
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![homepage-tablet wireframe](/readme_images/wireframes/homepage-tablet.png)
 
 </details>
 
@@ -257,16 +255,7 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 
 <!-- Add image path -->
 
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
-
-</details>
-
-<details>
-<summary>Larger Screens</summary>
-
-<!-- Add image path -->
-
-![welcome_page wireframe](/static/doc_images/SOME_FILE_PATH)
+![homepage-desktop wireframe](/readme_images/wireframes/homepage-desktop.png)
 
 </details>
 
