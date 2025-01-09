@@ -623,12 +623,31 @@ The manual testing of features is organised by app below. Testing was carried ou
 <!-- Amend devices as required for testing -->
 
 <details>
-<summary>... App</summary>
+<summary>Core App, Navbar and Footer</summary>
 <!-- Example of how to layout table below -->
+
 |Page|Feature|Action|Effect|
 |---|---|---|---|
-|/basket/view_basket/|All items appear in list|Add item to list in product_detail page|Item appears on table|
-|/basket/view_basket/|Item quantities are correct|Add n items in product_detail page|n items appear on table|
+|/|Hero Image and Company Logo appear|Navigate to page|Elements appear correctly|
+|/|'Menu' button links to /menu/ page|Click button|User is redirected to correct page|
+|/|'Book a Table' button links to /booking/ page|Click button|User is redirected to correct page|
+|/|Navbar - Logo button causes page to reload|Click logo|Page reloads|
+|/|Navbar - small screens - dropdown icon reveals all nav links|Click dropdown button|Correct Links appear|
+|/|Navbar - larger screens - all nav-links visible|Navigate to page|Elements appear correctly|
+|/|Navbar - larger screens - all nav-links visible|Navigate to page|Elements appear correctly|
+|/|Navbar - Home link leads to / |Click link|User redirected to home page|
+|/|Navbar - Authenticated customer - Customer Dashboard link leads to /customer-dashboard/ |Click link|User redirected to Customer Dashboard page|
+|/|Navbar - Authenticated staff/admin - Staff Dashboard link leads to /staff-dashboard/ |Click link|User redirected to Staff Dashboard page|
+|/|Navbar - Authenticated admin - Admin Dashboard link leads to /admin-dashboard/ |Click link|User redirected to Admin Dashboard page|
+|/|Navbar - Menu link leads to /menu/|Click link|User redirected to Menu page|
+|/|Navbar - Book a Table link leads to /booking/|Click link|User redirected to Booking page|
+|/|Navbar - Authenticated staff/admin - Manage Bookings link leads to /manage-booking/ |Click link|User redirected to Manage Bookings page|
+|/|Navbar - Contact link leads to /contact/|Click link|User redirected to Contact page|
+|/|Navbar - Login link leads to /login/|Click link|User redirected to Login page|
+|/|Navbar - Sign Up link leads to /signup/|Click link|User redirected to Sign Up page|
+|/|Navbar - Authenticated users (all) - Logout link leads to / |Click link|User redirected to Home page|
+
+
 </details>
 
 <!-- Repeat for each app - make sure all buttons/forms/elements in general are tested - be thorough -->
