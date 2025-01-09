@@ -57,6 +57,12 @@ header {
 
 .navbar {
     text-transform: uppercase;
+    text-align: center;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
 }
 
 .navbar-brand {
