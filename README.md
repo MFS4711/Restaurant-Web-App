@@ -93,7 +93,7 @@ The following pages are visible to all users, logged in or not.
   The header includes the following elements, displayed left to right:  
   - **Site Icon**: Clickable, redirects users back to the homepage from any page.  
   - **Nav-links**:  
-    - Home  
+    - Home (with an active class to indicate the current page; appears bold and underlined) 
     - Menu  
     - Book a Table  
     - Contact  
