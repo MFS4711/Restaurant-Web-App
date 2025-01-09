@@ -529,15 +529,77 @@ This section provides an overview of the data models used in the project, repres
 
 <!-- Add Apps and ERD Diagram for App -->
 
-### ... App
+### Menu App
 
-![Entity-relationship diagram for ... App](docs/SOME_FILE_PATH)
+![Entity-relationship diagram for Menu App](readme_images/erd/ERD-menu.png)
 
-### ... App
+#### `MenuItem` Table:
+The `MenuItem` table stores information about individual menu items in the restaurant. Key fields include:
+- `id`: A unique identifier for each menu item (primary key).
+- `name`: The name of the menu item.
+- `description`: A detailed description of the menu item.
+- `image`: A field to store the image of the menu item using Cloudinary.
+- `category`: The category of the menu item (e.g., appetizer, main course, dessert).
+- `price`: The cost of the menu item.
+- `is_available`: A boolean flag to indicate whether the item is available for ordering.
+- `Created_at`: Timestamp for when the menu item was created.
+- `Updated_at`: Timestamp for the last time the menu item was updated.
 
-![Entity-relationship diagram for ... App](docs/SOME_FILE_PATH)
+This structure allows for easy management and display of menu items, along with their availability and pricing details.
 
-<!-- Repeat for each App -->
+### Booking App
+
+![Entity-relationship diagram for Booking App](readme_images/erd/ERD-booking.png)
+
+#### `Table` Table:
+The `Table` table stores information about tables available at the restaurant. Key fields include:
+- `id`: A unique identifier for each table (primary key).
+- `table_number`: The identifier or number of the table.
+- `capacity`: The number of people the table can accommodate.
+- `is_available`: A boolean flag to indicate whether the table is available for booking.
+
+#### `User` Table:
+The `User` table corresponds to the users in the system (using the Django user model for authentication and permissions). Key fields include:
+- `id`: A unique identifier for each user (primary key).
+- `username`: The user's chosen username.
+- `email`: The user's email address.
+- `password`: A hashed version of the user's password.
+- `is_staff`: A boolean flag indicating if the user has staff privileges.
+- `is_superuser`: A boolean flag indicating if the user has superuser privileges.
+- `first_name`: The user's first name.
+- `last_name`: The user's last name.
+- `date_joined`: Timestamp for when the user account was created.
+- `last_login`: Timestamp for the user's most recent login.
+
+#### `Booking` Table:
+The `Booking` table records reservations made by users for specific tables at certain times. Key fields include:
+- `id`: A unique identifier for each booking (primary key).
+- `user`: A foreign key linking to the `User` table, indicating who made the booking.
+- `date`: The date of the reservation.
+- `time`: The time of the reservation.
+- `number_of_people`: The number of people included in the booking.
+- `additional_notes`: Any extra details or special requests for the booking.
+- `status`: The status of the booking (e.g., confirmed, pending, canceled), likely represented as an enum or choice field.
+- `table`: A foreign key linking to the `Table` table, indicating which table is reserved.
+- `created_at`: Timestamp for when the booking was created.
+- `updated_at`: Timestamp for when the booking was last updated.
+
+#### Relationships:
+1. **User to Booking**: 
+   - A one-to-many relationship exists between the `User` and `Booking` tables. One user can make multiple bookings, but each booking is made by a single user.
+   
+2. **Table to Booking**: 
+   - A one-to-many relationship exists between the `Table` and `Booking` tables. Each table can have multiple bookings over time, but each booking refers to one specific table.
+
+These tables allow the system to manage users, track reservations, and ensure that tables are properly allocated based on availability and bookings.
+
+### Dashboard App
+
+This app does not include any models. Its primary function is to retrieve and display relevant information in the appropriate views, with the associated functionality being managed by the corresponding app.
+
+### Core App
+
+This app does not contain any models. It is designed to serve as a container for the homepage and contact page, which do not require interaction with any models.
 
 ## Data Validation
 <!-- List places where validators were used in model - i.e.price -->
