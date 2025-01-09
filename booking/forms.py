@@ -1,169 +1,179 @@
-from django import forms
+# Standard library imports
 from datetime import datetime, timedelta
+
+# Django imports
+from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.timezone import make_aware
-from .models import Table, Booking
 from django.utils.safestring import mark_safe
-from .utils import generate_time_slots, is_table_available, generate_conflicting_time_range
 
-# Custom Time Input Widget
+# Local application imports
+from .models import Table, Booking
+from .utils import generate_time_slots, is_table_available, generate_conflicting_time_range
 
 
 class FifteenMinuteIntervalTimeWidget(forms.TimeInput):
     """
-
+    Custom time input widget that allows selecting time in 15-minute intervals.
+    It renders an HTML time input field along with a datalist of available time slots.
     """
 
     def __init__(self, *args, **kwargs):
+        # Ensure that any custom attributes are handled properly
         kwargs['attrs'] = kwargs.get('attrs', {})
         super().__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None, renderer=None):
-        # Generate the list of available times using the generate_time_slots function from utils.py
-        available_times = self.generate_available_times()
+        """
+        Renders the time input widget along with a datalist that contains available times.
 
-        # Get the HTML render of the widget itself (input field)
-        html = super().render(name, value, attrs, renderer)
-
-        # Build the datalist
+        The available times are generated using the `generate_available_times` method,
+        and then inserted into the HTML for time selection.
+        """
+        available_times = self.generate_available_times()  # Generate available time slots
+        html = super().render(name, value, attrs, renderer)  # Render base time input
         datalist = f'<datalist id="{name}_times">'
+
+        # Add available time slots to the datalist
         for time in available_times:
             datalist += f'<option value="{time}">{time}</option>'
         datalist += '</datalist>'
 
-        # Insert the datalist into the widget (link it with the input field)
+        # Modify input HTML to link the datalist
         input_html = html.replace('>', f' list="{name}_times">')
-
-        # Return the input field and the datalist
         return mark_safe(input_html + datalist)
 
     def generate_available_times(self):
         """
-        Generate available times based on the opening hours for the current day.
-        Uses the generate_time_slots function from utils.py to get the slots.
+        Generates available time slots based on predefined intervals (15-minute slots).
+
+        This method calls `generate_time_slots` from utils.py to fetch the available slots.
         """
-        # Call the utility function to generate the time slots
         return generate_time_slots()
 
 
 class BookingForm(forms.ModelForm):
+    """
+    Form for creating and updating bookings.
+
+    Allows users to select the booking date, time, number of people, and any additional notes.
+    Includes custom widgets and validation for time intervals and date restrictions.
+    """
+
     class Meta:
         model = Booking
-        fields = ['date', 'time', 'number_of_people', 'additional_notes',]
+        fields = ['date', 'time', 'number_of_people', 'additional_notes']
 
-    # Custom widget for the date field
+    # Custom date field widget with restrictions
     date = forms.DateField(
         widget=forms.DateInput(
-            format='%Y-%m-%d',  # Format to match the HTML5 date input format
+            format='%Y-%m-%d',  # Date format for HTML5 date input
             attrs={
                 'type': 'date',
                 'class': 'form-control',
-                # Disable today and tomorrow
+                # Restrict booking to dates at least 2 days in the future for non-staff users
                 'min': (timezone.now().date() + timedelta(days=2)).strftime('%Y-%m-%d'),
             }
         )
     )
 
-    # Custom widget for the time field
+    # Custom time field widget for 15-minute intervals
     time = forms.TimeField(
         widget=FifteenMinuteIntervalTimeWidget(
-            format='%H:%M',  # Format to match the HTML5 time input format
+            format='%H:%M',  # Time format for HTML5 time input
             attrs={
                 'type': 'time',
                 'class': 'form-control',
-                'step': 900,
+                'step': 900,  # 15-minute intervals (900 seconds)
             }
         )
     )
 
-    # Custom widget for the number of people field
+    # Number of people field with a restricted range (1 to 12)
     number_of_people = forms.IntegerField(
-        min_value=1,  # Minimum value of 0
-        max_value=12,  # Maximum value of 12
+        min_value=1,  # Minimum number of people is 1
+        max_value=12,  # Maximum number of people is 12
         widget=forms.NumberInput(
             attrs={
-                'type': 'number',  # HTML5 number input type
+                'type': 'number',  # Use HTML5 number input type
                 'class': 'form-control',
                 'min': 1,
-                'max': 12,  # Max to match max table
+                'max': 12,  # Limit to a maximum of 12 people
                 'step': 1,  # Increment by 1
             }
         )
     )
 
-    # Custom validation for the date field
     def clean_date(self):
+        """
+        Custom validation for the date field.
+
+        Ensures non-staff users cannot book a table for less than 2 days from today.
+        """
         date = self.cleaned_data.get("date")
 
-        if self.instance.user and not self.instance.user.is_staff:  # Non-staff users
-            # Get the current date and ensure the booking date is at least 2 days later
-            now = timezone.now().date()  # Current date without the time
+        # Check if the user is non-staff
+        if self.instance.user and not self.instance.user.is_staff:
+            now = timezone.now().date()  # Get current date
             if date < now + timedelta(days=2):
                 raise ValidationError(
-                    "You cannot book a table for less than 2 days from today.")
-
+                    "You cannot book a table for less than 2 days from today."
+                )
         return date
 
 
 class StaffBookingForm(forms.ModelForm):
     """
+    Form for staff to create or update bookings, including table selection and booking status.
 
+    Fields:
+    - `time`: The time of the booking.
+    - `table`: The table being booked.
+    - `status`: The booking status (e.g., confirmed, cancelled).
     """
+
     class Meta:
         model = Booking
         fields = ['time', 'table', 'status']
 
-    # Custom widget for the time field (interval of 15 minutes)
     time = forms.TimeField(
         widget=FifteenMinuteIntervalTimeWidget(
-            format='%H:%M',  # Format to match the HTML5 time input format
-            attrs={
-                'type': 'time',
-                'class': 'form-control',
-                'step': 900,  # Step is set to 900 seconds (15 minutes)
-            }
+            format='%H:%M',  # 15-minute intervals
+            attrs={'type': 'time', 'class': 'form-control', 'step': 900}
         )
     )
 
-    # Restrict the available status choices to exclude 'Pending' and 'No Show'
+    # Exclude 'Pending' and 'No Show' from status choices
     status = forms.ChoiceField(
         choices=[(status, label) for status, label in Booking.STATUS_CHOICES
-                 if status not in [Booking.PENDING, Booking.NO_SHOW]],  # Exclude PENDING and NO_SHOW
+                 if status not in [Booking.PENDING, Booking.NO_SHOW]],
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
-    # Custom widget for the table selection
     def __init__(self, *args, **kwargs):
+        """
+        Initializes the form and filters available tables based on the booking date, time, 
+        and the number of people.
+        """
         super().__init__(*args, **kwargs)
 
-        # Check if the instance exists and number_of_people is available
-        if self.instance and self.instance.id:
-            number_of_people = self.instance.number_of_people
-        else:
-            # Default to 0 if it's a new booking
-            number_of_people = kwargs.get(
-                'initial', {}).get('number_of_people', 1)
+        # Get the number of people (either from the instance or initial data)
+        number_of_people = self.instance.number_of_people if self.instance and self.instance.id else kwargs.get(
+            'initial', {}).get('number_of_people', 1)
 
-        # Get the date for the current booking (either from instance or cleaned data)
+        # Get the booking date and time (from the instance or initial data)
         booking_date = self.instance.date if self.instance and self.instance.id else kwargs.get(
             'initial', {}).get('date')
+        booking_time = self.instance.time if self.instance and self.instance.id else kwargs.get(
+            'initial', {}).get('time', None)
 
-        # Calculate the new start and end times for the proposed booking
-        if self.instance and self.instance.id:
-            booking_time = self.instance.time
-        else:
-            booking_time = kwargs.get('initial', {}).get('time', None)
-
+        # If booking date and time are available, filter tables accordingly
         if booking_date and booking_time:
-            # Generate start and end times for the booking
             new_start_time, new_end_time, conflicting_time_range_start, conflicting_time_range_end = generate_conflicting_time_range(
-                booking_date, booking_time)
+                booking_date, booking_time
+            )
 
-            # Filter tables that:
-            # - Are available (is_available=True)
-            # - Have sufficient capacity for the number of people
-            # - Are not already booked at the same date/time (using the time window)
             self.fields['table'].queryset = Table.objects.filter(
                 is_available=True,
                 capacity__gte=number_of_people
@@ -175,89 +185,108 @@ class StaffBookingForm(forms.ModelForm):
 
     def clean_table(self):
         """
+        Validates the selected table to ensure it's available for the chosen booking time.
 
+        Ensures no conflicts with existing bookings within 2 hours of the selected time.
         """
-        # Access cleaned data (table and time)
         table = self.cleaned_data['table']
         booking_time = self.cleaned_data['time']
-
-        # Get the date for this booking
         booking_date = self.instance.date if self.instance and self.instance.id else self.cleaned_data[
             'date']
 
-        # Generate start and end times for the new booking
+        # Generate conflicting time range based on booking date and time
         new_start_time, new_end_time, _, _ = generate_conflicting_time_range(
-            booking_date, booking_time)
+            booking_date, booking_time
+        )
 
-        # Check if the selected table is available for the given time range
         if not is_table_available(table, booking_date, new_start_time, new_end_time):
-            # If there is a conflict, raise a validation error
             raise ValidationError(
-                f"This table is already booked within 2 hours of the selected time. Please choose another time.")
-
+                f"This table is already booked within 2 hours of the selected time. Please choose another time."
+            )
         return table
 
 
 class CustomerConfirmationForm(forms.ModelForm):
     """
+    A form used by customers to confirm or cancel their booking status.
 
+    Fields:
+    - `status`: The booking confirmation status, limited to 'Confirmed' or 'Cancelled'.
     """
+
     class Meta:
         model = Booking
-        # Only allow status - as all other fields confirmed
         fields = ['status']
 
-    # Restrict the available status choices to only 'Confirmed' and 'Cancelled'
     status = forms.ChoiceField(
-        # Index 1 and 2 corresponds to 'Confirmed' and 'Cancelled'
+        # Only 'Confirmed' and 'Cancelled' are available choices
         choices=Booking.STATUS_CHOICES[1:3],
-        # Optional: adds a bootstrap class for styling
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
 
 class BookingFilterForm(forms.Form):
+    """
+    A form for filtering bookings based on different date ranges.
+
+    Fields:
+    - `filter`: A choice field for selecting the filter type (this week, this month, or custom).
+    - `start_date`: The start date for custom filtering.
+    - `end_date`: The end date for custom filtering.
+    """
+
     FILTER_CHOICES = [
         ('this_week', 'This Week'),
         ('this_month', 'This Month'),
         ('custom', 'Custom'),
     ]
-    
+
     filter = forms.ChoiceField(choices=FILTER_CHOICES, required=False)
-    start_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}))
-    end_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}))
+    start_date = forms.DateField(required=False, widget=forms.DateInput(
+        attrs={'type': 'date', 'class': 'form-control'}))
+    end_date = forms.DateField(required=False, widget=forms.DateInput(
+        attrs={'type': 'date', 'class': 'form-control'}))
 
     def clean(self):
+        """
+        Custom validation to ensure that both `start_date` and `end_date` are provided 
+        when 'custom' filter is selected.
+        """
         cleaned_data = super().clean()
         filter_duration = cleaned_data.get('filter')
         start_date = cleaned_data.get('start_date')
         end_date = cleaned_data.get('end_date')
 
-        # If custom filter is selected, both start_date and end_date must be provided
         if filter_duration == 'custom' and (not start_date or not end_date):
-            raise forms.ValidationError("Both start and end dates must be provided for custom range.")
-
+            raise forms.ValidationError(
+                "Both start and end dates must be provided for custom range.")
         return cleaned_data
 
     def get_filtered_date_range(self):
         """
-        Calculate the date range based on the filter type (This Week, This Month, or Custom).
+        Returns the date range based on the selected filter type.
+        - 'this_week' calculates the current week's range.
+        - 'this_month' calculates the current month's range.
+        - 'custom' uses user-provided start and end dates.
         """
         today = timezone.now().date()
-
         filter_duration = self.cleaned_data.get('filter')
 
         if filter_duration == 'this_week':
-            start_date = today - timedelta(days=today.weekday())  # Start of the week (Monday)
-            end_date = start_date + timedelta(days=6)  # End of the week (Sunday)
+            # Start of the current week (Monday)
+            start_date = today - timedelta(days=today.weekday())
+            # End of the current week (Sunday)
+            end_date = start_date + timedelta(days=6)
         elif filter_duration == 'this_month':
-            start_date = today.replace(day=1)  # Start of this month
-            end_date = (start_date.replace(month=start_date.month + 1) - timedelta(days=1))  # End of the month
+            start_date = today.replace(day=1)  # Start of the current month
+            # End of the current month (last day)
+            end_date = (start_date.replace(
+                month=start_date.month + 1) - timedelta(days=1))
         elif filter_duration == 'custom':
             start_date = self.cleaned_data.get('start_date')
             end_date = self.cleaned_data.get('end_date')
         else:
-            # Default to today
+            # Default to today if no filter is selected
             start_date = end_date = today
 
         return start_date, end_date
