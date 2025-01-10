@@ -95,6 +95,11 @@ h1 {
     /* Remove extra padding */
 }
 
+.custom-scrollable {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
 /* --------------------- Header Styling --------------------- */
 header {
     position: sticky;
