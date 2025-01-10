@@ -63,7 +63,7 @@
                 <!-- Edit & Delete Buttons -->
                 <div class="row mb-2">
                     <div class="col-12">
-                        <a href="#" class="btn btn-warning btn-sm edit-btn" data-menu-item-id="{{ menu_item.id }}">
+                        <a href="{% url 'edit_menu_item' menu_item.id %}" class="btn btn-warning btn-sm">
                             <i class="fas fa-cogs"></i> Edit
                         </a>
                         <a href="#" class="btn btn-danger btn-sm delete-btn" data-menu-item-id="{{ menu_item.id }}">
@@ -71,51 +71,17 @@
                         </a>
                     </div>
                 </div>
-
-                <!-- Edit Form (Initially hidden) -->
-                <div class="row edit-form-row" id="edit-form-{{ menu_item.id }}">
-                    <div class="col-12 offset-md-2 col-md-8">
-                        <form method="POST" action="{% url 'edit_menu_item' menu_item.id %}"
-                            class="menu-item-form hidden" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ menu_item_form | crispy }}
-
-                            <!-- Current Image Display -->
-                            <div class="form-group">
-                                <label for="id_image">Current Image:</label>
-                                <div class="image-container">
-                                    <img src="{{ menu_item.image.url }}" alt="{{ menu_item.name }} image" width="200">
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-signup btn-submit btn-lg">Save Changes</button>
-                        </form>
-                    </div>
-                </div>
             </div>
             {% endif %}
         </div>
-        {% empty %}
-        <p>No items available in this category.</p>
         {% endfor %}
 
         {% if user.is_authenticated and user.is_superuser %}
         <div>
-            <a href="#" class="btn btn-success add-btn" data-category="{{ category_label }}">
+            <!-- Link to create a new menu item -->
+            <a href="{% url 'create_menu_item' category_label|lower %}" class="btn btn-success">
                 <i class="fas fa-plus"></i> Add New {{ category_label }}
             </a>
-        </div>
-
-        <!-- Form to add new menu item, initially hidden -->
-        <div class="row category-form" data-category="{{ category_label }}">
-            <div class="col-12 offset-md-2 col-md-8">
-                <form method="POST" class="menu-item-form hidden">
-                    {{ menu_item_form | crispy }}
-                    {% csrf_token %}
-                    <input type="hidden" name="category" value="{{ category_label | lower }}">
-                    <button type="submit" class="btn btn-signup btn-submit btn-lg">Submit</button>
-                </form>
-            </div>
         </div>
         {% endif %}
     </div>

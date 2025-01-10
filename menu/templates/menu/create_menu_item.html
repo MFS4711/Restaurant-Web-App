@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <h2>Create New Menu Item</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ menu_item_form | crispy }}
+        <button type="submit">Create Menu Item</button>
+    </form>
+
+    <a href="{% url 'menu' %}">Back to Menu</a>
+</div>
+{% endblock content %}

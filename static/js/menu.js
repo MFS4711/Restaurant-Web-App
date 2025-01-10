@@ -1,57 +1,57 @@
-// Toggle the "Add New" menu item form
-const addMenuItemButtons = document.querySelectorAll(".add-btn");
+// // Toggle the "Add New" menu item form
+// const addMenuItemButtons = document.querySelectorAll(".add-btn");
 
-addMenuItemButtons.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    e.preventDefault();
-    const category = button.getAttribute("data-category");
-    const form = document.querySelector(
-      `.category-form[data-category="${category}"] .menu-item-form`
-    );
-    form.classList.toggle("hidden");
-  });
-});
+// addMenuItemButtons.forEach((button) => {
+//   button.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     const category = button.getAttribute("data-category");
+//     const form = document.querySelector(
+//       `.category-form[data-category="${category}"] .menu-item-form`
+//     );
+//     form.classList.toggle("hidden");
+//   });
+// });
 
-// Edit menu item functionality
-const editButtons = document.querySelectorAll(".edit-btn");
+// // Edit menu item functionality
+// const editButtons = document.querySelectorAll(".edit-btn");
 
-editButtons.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    e.preventDefault();
-    const menuItemId = e.target.getAttribute("data-menu-item-id");
+// editButtons.forEach((button) => {
+//   button.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     const menuItemId = e.target.getAttribute("data-menu-item-id");
 
-    // Retrieve and populate the form fields with current menu item values
-    const menuItemName = document.getElementById(
-      `menu-item-name-${menuItemId}`
-    ).innerText;
-    const menuItemDescription = document.getElementById(
-      `menu-item-description-${menuItemId}`
-    ).innerText;
-    const menuItemPrice = document.getElementById(
-      `menu-item-price-${menuItemId}`
-    ).innerText;
-    const menuItemIsAvailable = document.getElementById(
-      `menu-item-is-available-${menuItemId}`
-    ).innerText;
+//     // Retrieve and populate the form fields with current menu item values
+//     const menuItemName = document.getElementById(
+//       `menu-item-name-${menuItemId}`
+//     ).innerText;
+//     const menuItemDescription = document.getElementById(
+//       `menu-item-description-${menuItemId}`
+//     ).innerText;
+//     const menuItemPrice = document.getElementById(
+//       `menu-item-price-${menuItemId}`
+//     ).innerText;
+//     const menuItemIsAvailable = document.getElementById(
+//       `menu-item-is-available-${menuItemId}`
+//     ).innerText;
 
-    const editForm = document.getElementById(`edit-form-${menuItemId}`);
-    const formFields = {
-      name: editForm.querySelector("input[name='name']"),
-      description: editForm.querySelector("textarea[name='description']"),
-      price: editForm.querySelector("input[name='price']"),
-      isAvailable: editForm.querySelector("input[name='is_available']"),
-    };
+//     const editForm = document.getElementById(`edit-form-${menuItemId}`);
+//     const formFields = {
+//       name: editForm.querySelector("input[name='name']"),
+//       description: editForm.querySelector("textarea[name='description']"),
+//       price: editForm.querySelector("input[name='price']"),
+//       isAvailable: editForm.querySelector("input[name='is_available']"),
+//     };
 
-    // Populate the form fields
-    formFields.name.value = menuItemName;
-    formFields.description.value = menuItemDescription;
-    formFields.price.value = menuItemPrice;
-    formFields.isAvailable.value = menuItemIsAvailable;
+//     // Populate the form fields
+//     formFields.name.value = menuItemName;
+//     formFields.description.value = menuItemDescription;
+//     formFields.price.value = menuItemPrice;
+//     formFields.isAvailable.value = menuItemIsAvailable;
 
-    // Toggle the form visibility
-    editForm.querySelector(".menu-item-form").classList.toggle("hidden");
-  });
-});
+//     // Toggle the form visibility
+//     editForm.querySelector(".menu-item-form").classList.toggle("hidden");
+//   });
+// });
 
 // Image preview functionality
 function handleImagePreview(input) {
