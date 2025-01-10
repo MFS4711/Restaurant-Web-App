@@ -68,10 +68,10 @@
 
     <!-- Table with Horizontal Scrolling -->
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table-availability table-bordered">
             <thead>
                 <tr>
-                    <th>Table</th>
+                    <th class="sticky-column">Table</th>
                     {% for time_slot in time_slots %}
                     <th>{{ time_slot }}</th>
                     {% endfor %}
@@ -80,7 +80,7 @@
             <tbody>
                 {% for table in table_availability %}
                 <tr>
-                    <td>{{ table.table_number }}</td>
+                    <td class="sticky-column">{{ table.table_number }}</td>
                     {% for slot in table.slots %}
                     <td class="{% if slot.status == 'Available' %}green{% else %}red{% endif %}">
                     </td>
