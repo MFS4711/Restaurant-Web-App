@@ -3,25 +3,25 @@
 {% load static %}
 
 {% block content %}
-
+<!-- Main container for the Staff Dashboard -->
 <div class="container content-container">
     <h1 class="text-center">Staff Dashboard</h1>
 
     <div class="child-container">
+
+        <!-- Today's Bookings Section -->
         <div>
             <h2>Bookings Today</h2>
 
-            <!-- Table for today's bookings -->
+            <!-- Table displaying today's bookings -->
             <div class="table-wrapper">
                 <table class="table table-bordered custom-table">
                     <thead>
                         <tr>
                             <th>Booking ID</th>
                             <th>User</th>
-                            <!-- <th>Date</th> -->
                             <th>Time</th>
                             <th>Number of People</th>
-                            <!-- <th>Status</th> -->
                             <th>Assigned Table</th>
                             <th>Actions</th>
                         </tr>
@@ -32,10 +32,8 @@
                         <tr>
                             <td>{{ booking.id }}</td>
                             <td>{{ booking.user.username }}</td>
-                            <!-- <td>{{ booking.date }}</td> -->
                             <td>{{ booking.time }}</td>
                             <td>{{ booking.number_of_people }}</td>
-                            <!-- <td>{{ booking.get_status_display }}</td> -->
                             <td>
                                 {% if booking.table %}
                                 {{ booking.table.table_number }}
@@ -44,15 +42,19 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning">Edit</a>
+                                <!-- Edit and Delete actions for each booking -->
+                                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning"
+                                    aria-label="Edit Booking">Edit</a>
                                 <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                                    data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    aria-label="Delete Booking">Delete</a>
                             </td>
                         </tr>
                         {% endfor %}
                         {% else %}
+                        <!-- Message when there are no bookings for today -->
                         <tr>
-                            <td colspan="7">No bookings for today.</td>
+                            <td colspan="6">No bookings for today.</td>
                         </tr>
                         {% endif %}
                     </tbody>
@@ -60,22 +62,24 @@
             </div>
         </div>
 
+        <!-- Button to manage all bookings -->
         <div class="btn-container mb-4">
             <div class="buttons">
-                <a href="{% url 'manage_bookings' %}" class="btn">Manage Bookings</a>
+                <a href="{% url 'manage_bookings' %}" class="btn" aria-label="Manage Bookings">Manage Bookings</a>
             </div>
         </div>
 
+        <!-- Table Availability Section -->
         <div>
             <h2>Table Availability for {{ today }}</h2>
 
-            <!-- Key for Availability -->
+            <!-- Key for table availability (Available vs Occupied) -->
             <div class="key">
-                <span class="key-item green">Available</span>
-                <span class="key-item red">Occupied</span>
+                <span class="key-item green" aria-label="Available">Available</span>
+                <span class="key-item red" aria-label="Occupied">Occupied</span>
             </div>
 
-            <!-- Table with Horizontal Scrolling -->
+            <!-- Table displaying availability for each table and time slot -->
             <div class="table-responsive">
                 <table class="table-availability table-bordered">
                     <thead>
@@ -91,7 +95,8 @@
                         <tr>
                             <td class="sticky-column">{{ table.table_number }}</td>
                             {% for slot in table.slots %}
-                            <td class="{% if slot.status == 'Available' %}green{% else %}red{% endif %}">
+                            <td class="{% if slot.status == 'Available' %}green{% else %}red{% endif %}"
+                                aria-label="{% if slot.status == 'Available' %}Available{% else %}Occupied{% endif %}">
                             </td>
                             {% endfor %}
                         </tr>
@@ -116,7 +121,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a id="delete-confirm" href="#" class="btn btn-danger">Delete</a>
+                <a id="delete-confirm" href="#" class="btn btn-danger" aria-label="Confirm Deletion">Delete</a>
             </div>
         </div>
     </div>
@@ -125,5 +130,6 @@
 {% endblock content %}
 
 {% block extras %}
+<!-- Link to custom JavaScript for booking actions -->
 <script src="{% static 'js/booking.js' %}"></script>
 {% endblock %}

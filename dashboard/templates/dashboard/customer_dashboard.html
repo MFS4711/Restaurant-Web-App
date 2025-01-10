@@ -3,13 +3,14 @@
 {% load static %}
 
 {% block content %}
+<!-- Main container for the user's dashboard -->
 <div class="container content-container">
     <div class="row">
         <div class="col-12">
+            <!-- User's dashboard header -->
             <h1 class="centered-content">{{ user.username }}'s Dashboard</h1>
         </div>
     </div>
-
 
     <div class="child-container">
         <!-- Customer Action Required Bookings Section -->
@@ -18,7 +19,7 @@
             <section>
                 <h2 class="centered-content">Customer Action Required</h2>
                 <p class="centered-content">
-                    Unfortunately the requested time was unavailable. Please review the time change in the booking.
+                    Unfortunately, the requested time was unavailable. Please review the time change in the booking.
                     <strong>Click Edit to confirm/cancel the booking</strong>.
                 </p>
                 <div class="table-wrapper">
@@ -28,7 +29,6 @@
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Number of People</th>
-                                <!-- <th>Status</th> -->
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -38,11 +38,13 @@
                                 <td>{{ booking.date }}</td>
                                 <td>{{ booking.time }}</td>
                                 <td>{{ booking.number_of_people }}</td>
-                                <!-- <td>{{ booking.status }}</td> -->
                                 <td>
-                                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning">Edit</a>
+                                    <!-- Edit and delete actions for customer action required bookings -->
+                                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning"
+                                        aria-label="Edit Booking">Edit</a>
                                     <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                                        data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                        aria-label="Delete Booking">Delete</a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -51,7 +53,7 @@
                 </div>
             </section>
             <p class="centered-content">
-                If there are any other issues please contact the restaurant via phone/email. <br>
+                If there are any other issues, please contact the restaurant via phone/email. <br>
                 We appreciate your understanding.
             </p>
             {% endif %}
@@ -62,7 +64,7 @@
             <section>
                 <h2 class="centered-content">Upcoming Bookings</h2>
                 <p class="centered-content">
-                    Feel free to amend your booking as required - scroll across the table and click Edit
+                    Feel free to amend your booking as required - scroll across the table and click Edit.
                 </p>
                 <table class="table custom-table">
                     {% if upcoming_bookings %}
@@ -83,9 +85,12 @@
                             <td>{{ booking.number_of_people }}</td>
                             <td>{{ booking.status }}</td>
                             <td>
-                                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning">Edit</a>
+                                <!-- Edit and delete actions for upcoming bookings -->
+                                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning"
+                                    aria-label="Edit Booking">Edit</a>
                                 <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                                    data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    aria-label="Delete Booking">Delete</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -99,19 +104,18 @@
                     {% endif %}
                 </table>
                 <p class="centered-content">
-                    <em>Please Note: if a booking is changed - it will require staff approval</em>
+                    <em>Please Note: if a booking is changed, it will require staff approval</em>
                 </p>
             </section>
         </div>
 
-        <!-- Buttons Section -->
+        <!-- Buttons Section for booking actions -->
         <div>
             <div class="btn-container">
                 <div class="buttons">
                     <!-- Button to book a table -->
                     <a href="{% url 'book_table' %}" class="btn" role="button"
-                        aria-label="Book a table at Cedar & Flame">Book a
-                        Table</a>
+                        aria-label="Book a table at Cedar & Flame">Book a Table</a>
                     <!-- Button to view the menu -->
                     <a href="{% url 'menu' %}" class="btn" role="button" aria-label="View Cedar & Flame menu">View
                         Menu</a>
@@ -148,7 +152,6 @@
             </section>
         </div>
     </div>
-
 </div>
 
 <!-- Delete Confirmation Modal -->
@@ -163,8 +166,9 @@
                 Are you sure you want to delete this booking? This action cannot be undone.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a id="delete-confirm" href="#" class="btn btn-danger">Delete</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    aria-label="Close">Close</button>
+                <a id="delete-confirm" href="#" class="btn btn-danger" aria-label="Confirm Deletion">Delete</a>
             </div>
         </div>
     </div>
@@ -173,5 +177,6 @@
 {% endblock content %}
 
 {% block extras %}
+<!-- JavaScript to handle booking actions -->
 <script src="{% static 'js/booking.js' %}"></script>
 {% endblock %}

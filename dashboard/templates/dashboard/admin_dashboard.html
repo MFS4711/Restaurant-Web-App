@@ -3,28 +3,31 @@
 {% load static %}
 
 {% block content %}
-
+<!-- Main container for the Admin Dashboard -->
 <div class="container content-container">
     <h1 class="text-center">Admin Dashboard</h1>
     <div class="child-container">
-        <!-- Button Section (Menu and Manage Bookings) -->
+
+        <!-- Button Section for Menu and Manage Bookings -->
         <div class="btn-container mb-4">
             <div class="buttons">
-                <a href="{% url 'menu' %}" class="btn">Manage Menu</a>
-                <a href="{% url 'manage_bookings' %}" class="btn">Manage Bookings</a>
+                <!-- Links to manage the menu and bookings -->
+                <a href="{% url 'menu' %}" class="btn" aria-label="Manage Menu">Manage Menu</a>
+                <a href="{% url 'manage_bookings' %}" class="btn" aria-label="Manage Bookings">Manage Bookings</a>
             </div>
         </div>
 
-        <!-- Filter Form -->
+        <!-- Filter Form for booking statistics -->
         <div>
             <form method="GET" class="form-inline">
-                <label for="filter">Filter by:</label>
+                <label for="filter" class="form-label">Filter by:</label>
                 {{ filter_form.filter }}
                 {% if filter_form.filter.value == 'custom' %}
+                <!-- Display custom date filters if selected -->
                 {{ filter_form.start_date }}
                 {{ filter_form.end_date }}
                 {% endif %}
-                <button type="submit" class="btn btn-primary">Apply</button>
+                <button type="submit" class="btn btn-primary" aria-label="Apply Filter">Apply</button>
             </form>
         </div>
 
@@ -34,6 +37,7 @@
         <div>
             <h2>Overall Statistics</h2>
             <div class="row">
+                <!-- Cards for displaying various statistics -->
                 <div class="col-md-4 mb-2">
                     <div class="card">
                         <div class="card-body centered-content">
@@ -63,9 +67,11 @@
 
         <hr>
 
+        <!-- Booking Statistics Section -->
         <div>
             <h2>Booking Statistics</h2>
             <div class="row">
+                <!-- Cards for displaying booking statuses -->
                 <div class="col-md-6 mb-2">
                     <div class="card">
                         <div class="card-body centered-content">
@@ -103,10 +109,12 @@
 
         <hr>
 
+        <!-- Bookings Table Section for the selected date range -->
         <div>
             <h2>Bookings from {{ start_date }} to {{ end_date }}</h2>
 
             <div class="table-wrapper">
+                <!-- Table displaying booking details -->
                 <table class="table table-bordered custom-table">
                     <thead>
                         <tr>
@@ -137,8 +145,9 @@
                         </tr>
                         {% endfor %}
                         {% else %}
+                        <!-- Message when no bookings are found for the selected period -->
                         <tr>
-                            <td colspan="7">No bookings for the selected period.</td>
+                            <td colspan="6">No bookings for the selected period.</td>
                         </tr>
                         {% endif %}
                     </tbody>
@@ -162,7 +171,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a id="delete-confirm" href="#" class="btn btn-danger">Delete</a>
+                <a id="delete-confirm" href="#" class="btn btn-danger" aria-label="Confirm Deletion">Delete</a>
             </div>
         </div>
     </div>
@@ -171,5 +180,6 @@
 {% endblock content %}
 
 {% block extras %}
+<!-- Link to custom JavaScript for booking actions -->
 <script src="{% static 'js/booking.js' %}"></script>
 {% endblock %}
