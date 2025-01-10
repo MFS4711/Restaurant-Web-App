@@ -20,7 +20,7 @@
         <!-- Filter Form for booking statistics -->
         <div>
             <form method="GET" class="form-inline">
-                <label for="filter" class="form-label">Filter by:</label>
+                <p><strong>Filter by:</strong></p>
                 {{ filter_form.filter }}
                 {% if filter_form.filter.value == 'custom' %}
                 <!-- Display custom date filters if selected -->

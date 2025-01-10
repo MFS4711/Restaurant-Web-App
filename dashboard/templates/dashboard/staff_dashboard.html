@@ -75,8 +75,8 @@
 
             <!-- Key for table availability (Available vs Occupied) -->
             <div class="key">
-                <span class="key-item green" aria-label="Available">Available</span>
-                <span class="key-item red" aria-label="Occupied">Occupied</span>
+                <span class="key-item green">Available</span>
+                <span class="key-item red">Occupied</span>
             </div>
 
             <!-- Table displaying availability for each table and time slot -->
@@ -95,9 +95,7 @@
                         <tr>
                             <td class="sticky-column">{{ table.table_number }}</td>
                             {% for slot in table.slots %}
-                            <td class="{% if slot.status == 'Available' %}green{% else %}red{% endif %}"
-                                aria-label="{% if slot.status == 'Available' %}Available{% else %}Occupied{% endif %}">
-                            </td>
+                            <td class="{% if slot.status == 'Available' %}green{% else %}red{% endif %}"></td>
                             {% endfor %}
                         </tr>
                         {% endfor %}
