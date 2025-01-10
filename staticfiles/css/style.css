@@ -568,6 +568,48 @@ textarea:focus {
     background-color: #444444;
 }
 
+
+/* --------------------------------- Booking ------------------------------ */
+.prompt-container {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.custom-login-alert {
+    background-color: #444444;
+    color: #F5F5F5;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.custom-login-alert .btn {
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 12px 25px;
+    margin: 10px;
+}
+
+.custom-login-alert .btn-primary {
+    background-color: #FFD700;
+    color: #333;
+}
+
+.custom-login-alert .btn-primary:hover {
+    background-color: #333;
+    border-color: #FFD700;
+    color: #FFD700;
+}
+
+.custom-login-alert .btn-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.custom-login-alert .btn-success:hover {
+    background-color: #218838;
+}
+
 /* ------------------------------------- Media Queries -------------------------------------- */
 
 /* --------------- Tablet (768px and up) */
