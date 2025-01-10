@@ -1,12 +1,72 @@
 {% extends "base.html" %}
 
-{% load static %}
-
 {% block content %}
-<div class="container">
-    <h1>Your Booking Request was Successful</h1>
-    <h2>Please Keep an eye on your Dashboard to see booking approval</h2>
-    <h2>We aim to provide a response to the request within 24 hours</h2>
-</div>
+<div class="container content-container">
 
+    <h1 class="centered-content">Your Booking Request was Successful</h1>
+    <div class="child-container">
+        <div class="row">
+            <div class="col-12 offset-md-2 col-md-8">
+                <p>Here are your Booking Details:</p>
+                <table class="table">
+                    <tr>
+                        <th>Booking ID:</th>
+                        <td>{{ booking.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>User:</th>
+                        <td>{{ booking.user.username}}</td>
+                    </tr>
+                    <tr>
+                        <th>Date:</th>
+                        <td>{{ booking.date }}</td>
+                    </tr>
+                    <tr>
+                        <th>Time:</th>
+                        <td>{{ booking.time }}</td>
+                    </tr>
+                    <tr>
+                        <th>Number of People:</th>
+                        <td>{{ booking.number_of_people }}</td>
+                    </tr>
+                    <tr>
+                        <th>Additional Notes:</th>
+                        <td>{{ booking.additional_notes|default:"No additional notes" }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="centered-content">We aim to provide a response to the request within 24 hours</h2>
+        </div>
+
+        <div>
+            <p class="centered-content">
+                <strong>Please keep an eye on your Dashboard to see your booking status or
+                    Edit/Delete the Booking request if required</strong>
+            </p>
+        </div>
+        <div>
+            <div class="btn-container">
+                <div class="buttons">
+                    <!-- Button to book a table -->
+                    {% if user.is_superuser %}
+                    <a href="{% url 'admin_dashboard' %}" class="btn" role="button" aria-label="Your Dashboard">Your
+                        Dashboard</a>
+                    {% elif user.is_staff %}
+                    <a href="{% url 'staff_dashboard' %}" class="btn" role="button" aria-label="Your Dashboard">Your
+                        Dashboard</a>
+                    {% else %}
+                    <a href="{% url 'customer_dashboard' user.id %}" class="btn" role="button"
+                        aria-label="Your Dashboard">Your Dashboard</a>
+                    {% endif %}
+                    <!-- Button to view the menu -->
+                    <a href="{% url 'menu' %}" class="btn" role="button" aria-label="View Cedar & Flame menu">View
+                        Menu</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

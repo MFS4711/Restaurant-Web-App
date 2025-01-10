@@ -5,8 +5,9 @@ urlpatterns = [
     # View to handle table booking
     path('book-table/', views.book_table, name='book_table'),
 
-    # View to display the booking success page
-    path('booking-success/', views.booking_success, name='booking_success'),
+    # View to display a specific booking success page
+    path('booking-success/<int:booking_id>/',
+         views.booking_success, name='booking_success'),
 
     # View to delete a specific booking
     path('delete-booking/<int:booking_id>/',

@@ -58,7 +58,7 @@ def book_table(request):
             booking.save()
 
             # Redirect to the booking success page
-            return redirect('booking_success')
+            return redirect('booking_success', booking_id=booking.id)
 
     else:
         # Display the empty form for booking
@@ -72,15 +72,43 @@ def book_table(request):
     return render(request, "booking/booking.html", context)
 
 
-def booking_success(request):
+def booking_success(request, booking_id):
     """
     Display the booking success page.
+
+    This view handles the successful booking page, where the user is shown the details
+    of their booking after a successful table reservation. The booking can either belong
+    to the logged-in user or a staff member.
 
     **Template:** 
 
     :template:`booking/booking_success.html`
+
+    **Context:**
+
+    ``booking``
+        The booking object that was successfully made and is being displayed to the user.
+
+    **Authorization:**
+    
+    The user must be either the owner of the booking (i.e., the user who created the booking)
+    or a staff member to access this page. If the user does not have the necessary permission,
+    they are redirected to the customer dashboard with an error message.
+
     """
-    return render(request, 'booking/booking_success.html')
+    # Fetch the booking object first
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    # Check if the user is authorized to view the booking
+    if request.user != booking.user and not request.user.is_staff:
+        messages.error(request, "This is not your booking.")
+        return redirect('customer_dashboard', user_id=request.user.id)
+
+    context = {
+        'booking': booking,
+    }
+
+    return render(request, 'booking/booking_success.html', context)
 
 
 # Redirect to login page if not authenticated
