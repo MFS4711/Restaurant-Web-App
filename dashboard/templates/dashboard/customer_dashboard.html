@@ -3,103 +3,151 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    <h1>{{ user.username }}'s Dashboard</h1>
+<div class="container content-container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="centered-content">{{ user.username }}'s Dashboard</h1>
+        </div>
+    </div>
 
-    <!-- Customer Action Required Bookings Section -->
-    <section>
-        <h2>Customer Action Required</h2>
-        {% if customer_action_required_bookings %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Number of People</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for booking in customer_action_required_bookings %}
-                <tr>
-                    <td>{{ booking.date }}</td>
-                    <td>{{ booking.time }}</td>
-                    <td>{{ booking.number_of_people }}</td>
-                    <td>{{ booking.status }}</td>
-                    <td>
-                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning">Edit</a>
-                        <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>No bookings requiring customer action.</p>
-        {% endif %}
-    </section>
 
-    <!-- Upcoming Bookings Section -->
-    <section>
-        <h2>Upcoming Bookings</h2>
-        {% if upcoming_bookings %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Number of People</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for booking in upcoming_bookings %}
-                <tr>
-                    <td>{{ booking.date }}</td>
-                    <td>{{ booking.time }}</td>
-                    <td>{{ booking.number_of_people }}</td>
-                    <td>{{ booking.status }}</td>
-                    <td>
-                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning">Edit</a>
-                        <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>No upcoming bookings.</p>
-        {% endif %}
-    </section>
+    <div class="child-container">
+        <!-- Customer Action Required Bookings Section -->
+        <div>
+            {% if customer_action_required_bookings %}
+            <section>
+                <h2 class="centered-content">Customer Action Required</h2>
+                <p class="centered-content">
+                    Unfortunately the requested time was unavailable. Please review the time change in the booking.
+                    <strong>Click Edit to confirm/cancel the booking</strong>.
+                </p>
+                <div class="table-wrapper">
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Number of People</th>
+                                <!-- <th>Status</th> -->
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in customer_action_required_bookings %}
+                            <tr>
+                                <td>{{ booking.date }}</td>
+                                <td>{{ booking.time }}</td>
+                                <td>{{ booking.number_of_people }}</td>
+                                <!-- <td>{{ booking.status }}</td> -->
+                                <td>
+                                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning">Edit</a>
+                                    <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
+                                        data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <p class="centered-content">
+                If there are any other issues please contact the restaurant via phone/email. <br>
+                We appreciate your understanding.
+            </p>
+            {% endif %}
+        </div>
 
-    <!-- Past Bookings Section -->
-    <section>
-        <h2>Past Bookings</h2>
-        {% if past_bookings %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Number of People</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for booking in past_bookings %}
-                <tr>
-                    <td>{{ booking.date }}</td>
-                    <td>{{ booking.time }}</td>
-                    <td>{{ booking.number_of_people }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>No past bookings.</p>
-        {% endif %}
-    </section>
+        <!-- Upcoming Bookings Section -->
+        <div>
+            <section>
+                <h2 class="centered-content">Upcoming Bookings</h2>
+                <p class="centered-content">
+                    Feel free to amend your booking as required - scroll across the table and click Edit
+                </p>
+                <table class="table custom-table">
+                    {% if upcoming_bookings %}
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Number of People</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in upcoming_bookings %}
+                        <tr>
+                            <td>{{ booking.date }}</td>
+                            <td>{{ booking.time }}</td>
+                            <td>{{ booking.number_of_people }}</td>
+                            <td>{{ booking.status }}</td>
+                            <td>
+                                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning">Edit</a>
+                                <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <tbody>
+                        <tr>
+                            <td colspan="5">No upcoming bookings.</td>
+                        </tr>
+                    </tbody>
+                    {% endif %}
+                </table>
+                <p class="centered-content">
+                    <em>Please Note: if a booking is changed - it will require staff approval</em>
+                </p>
+            </section>
+        </div>
+
+        <!-- Buttons Section -->
+        <div>
+            <div class="btn-container">
+                <div class="buttons">
+                    <!-- Button to book a table -->
+                    <a href="{% url 'book_table' %}" class="btn" role="button"
+                        aria-label="Book a table at Cedar & Flame">Book a
+                        Table</a>
+                    <!-- Button to view the menu -->
+                    <a href="{% url 'menu' %}" class="btn" role="button" aria-label="View Cedar & Flame menu">View
+                        Menu</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Past Bookings Section -->
+        <div>
+            <section>
+                <h2 class="centered-content">Past Bookings</h2>
+                {% if past_bookings %}
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Number of People</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in past_bookings %}
+                        <tr>
+                            <td>{{ booking.date }}</td>
+                            <td>{{ booking.time }}</td>
+                            <td>{{ booking.number_of_people }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>No past bookings.</p>
+                {% endif %}
+            </section>
+        </div>
+    </div>
 
 </div>
 

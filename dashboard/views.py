@@ -58,6 +58,11 @@ def customer_dashboard(request, user_id):
         user=user, status=Booking.CUSTOMER_CONFIRMATION_REQUIRED
     ).order_by('date', 'time')
 
+    # If there are bookings requiring customer confirmation, add a message
+    if customer_action_required_bookings.exists():
+        messages.info(
+            request, "Your booking status has been updated. Please review and take necessary actions.")
+
     # Pass all relevant data to the template context for rendering
     context = {
         'user': user,
@@ -69,6 +74,8 @@ def customer_dashboard(request, user_id):
     return render(request, 'dashboard/customer_dashboard.html', context)
 
 # Custom decorator to check if the user is a staff member
+
+
 def is_staff(user):
     """
     Custom function to check if the user has staff permissions.

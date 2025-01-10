@@ -21,8 +21,31 @@ h6 {
     color: #FFD700;
 }
 
+h1 {
+    margin: 20px auto;
+}
+
 .centered-content {
     text-align: center;
+}
+
+.content-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.child-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute space between child elements */
+    flex-grow: 1; /* Allow child-container to grow and fill available space */
+}
+
+.child-container > div {
+    flex: 1; /* Make each div inside .child-container take equal height */
+    padding: 20px;
+    overflow-y: auto; /* Ensure content can scroll if it exceeds available space */
 }
 
 .buttons .btn {
@@ -44,6 +67,26 @@ h6 {
     background-color: #333;
     color: #FFD700;
     border: 2px solid #FFD700;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;  /* For smooth scrolling on iOS */
+    margin-bottom: 20px; /* Optional, to give space below the table */
+}
+
+.custom-table th,
+.custom-table td {
+    width: 100px;
+    /* Fixed width for uniform cells */
+    height: 60px;
+    /* Fixed height for uniform cells */
+    text-align: center;
+    /* Center the content */
+    vertical-align: middle;
+    /* Center text vertically */
+    padding: 0;
+    /* Remove extra padding */
 }
 
 /* --------------------- Header Styling --------------------- */
@@ -322,6 +365,8 @@ footer .social-media a:hover {
     justify-content: center;
     margin-bottom: 30px;
 }
+
+
 
 /* -------------------------------- Dashboard Specific ----------------------------------- */
 /* --------------------- Staff Dashboard ------------------- */
