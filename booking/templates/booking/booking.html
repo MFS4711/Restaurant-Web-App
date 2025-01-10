@@ -1,31 +1,45 @@
 {% extends "base.html" %}
 
 {% load static %}
-
 {% load crispy_forms_tags %}
 
 {% block content %}
 
 <div class="container content-container">
+    <!-- Page heading for table booking -->
     <h1>Book a Table</h1>
 
     <div class="prompt-container">
         {% if user.is_authenticated %}
         <!-- If the user is authenticated, display the booking form -->
-        <form method="POST">
-            {{ booking_form | crispy }}
-            {% csrf_token %}
-            <p><em>Please note any adjustments required such as baby chair or allergies</em></p>
-            <button type="submit" class="btn btn-signup btn-submit btn-lg">Submit</button>
+        <form method="POST" aria-labelledby="booking-form">
+            <fieldset>
+                <legend id="booking-form" class="sr-only">Booking Form</legend>
+                {{ booking_form | crispy }}
+                {% csrf_token %}
+
+                <!-- Accessible instructions for the form -->
+                <p><em>Please note any adjustments required such as a baby chair or allergies</em></p>
+
+                <!-- Submit button for the form with an accessible label -->
+                <button type="submit" class="btn btn-signup btn-submit btn-lg"
+                    aria-label="Submit your table booking request">Submit</button>
+            </fieldset>
         </form>
         {% else %}
         <!-- If the user is not authenticated, display a login prompt -->
         <div class="alert alert-warning custom-login-alert" role="alert">
-            <h4>Please log in or sign up to book a table!</h4>
+            <h4 class="alert-heading">Please log in or sign up to book a table!</h4>
             <p>You need to be logged in to book a table. Please log in or sign up if you don't have an account.</p>
+
             <div class="d-flex justify-content-center">
-                <a href="{% url 'account_login' %}" class="btn btn-primary btn-lg me-3">Log In</a>
-                <a href="{% url 'account_signup' %}" class="btn btn-success btn-lg">Sign Up</a>
+                <!-- Login button with accessible label -->
+                <a href="{% url 'account_login' %}" class="btn btn-primary btn-lg me-3"
+                    aria-label="Log in to your account">Log In</a>
+
+                <!-- Sign Up button with accessible label -->
+                <a href="{% url 'account_signup' %}" class="btn btn-success btn-lg"
+                    aria-label="Create a new account to book a table">Sign Up</a>
             </div>
         </div>
         {% endif %}
