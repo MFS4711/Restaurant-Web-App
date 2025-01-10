@@ -72,6 +72,7 @@ def book_table(request):
     return render(request, "booking/booking.html", context)
 
 
+@login_required(login_url='/login/')
 def booking_success(request, booking_id):
     """
     Display the booking success page.
