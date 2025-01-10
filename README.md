@@ -119,7 +119,9 @@ The following pages are visible to all users, logged in or not.
   - Two clear buttons:  
     - Book a Table  
     - View Menu  
-  Both buttons redirect users to their respective pages.  
+  Both buttons redirect users to their respective pages. 
+
+![Hero Section](/readme_images/feature_section/Home-1.png) 
 
 ### Secondary Content  
 
@@ -132,6 +134,8 @@ The following pages are visible to all users, logged in or not.
 - **Reminder Actions**:  
   - Additional buttons for "Book a Table" and "View Menu" to reinforce the main actions on the page.  
 
+![Secondary Content](/readme_images/feature_section/Home-2.png) 
+
 ### Footer  
 
 - The footer is consistent across all pages and divided into four sections:  
@@ -140,17 +144,38 @@ The following pages are visible to all users, logged in or not.
   - **Address**: Shows the physical location of the business.  
   - **Get in Touch and Socials**: Provides contact details and social media links. 
 
-<!-- Add screenshot of welcome page - maybe different screenshots for different devices -->
-![Welcome Page](static/doc_images/feature_screenshots/feature_welcome.png)
+![Footer](/readme_images/feature_section/Home-3.png) 
 
 </details>
 
 <!-- Any other pages that are visible to all users using same format -->
 <details>
-<summary>... Page</summary>
+<summary>Menu Page</summary>
 <!-- List features and describe significance -->
 
 ![... Page](static/doc_images/feature_screenshots/SOME_IMAGE)
+
+</details>
+
+<details>
+<summary>Book a Table Page</summary>
+<!-- List features and describe significance -->
+
+![... Page](static/doc_images/feature_screenshots/SOME_IMAGE)
+
+</details>
+
+<details>
+<summary>Contact Page</summary>
+This page simply shows the navbar and the footer which takes up the whole viewport as this displays the contact details in a clear manner.
+
+- The footer is consistent across all pages and divided into four sections:  
+  - **Company Logo**: Clickable, redirects users to the landing page.  
+  - **Opening Hours**: Displays the business hours.  
+  - **Address**: Shows the physical location of the business.  
+  - **Get in Touch and Socials**: Provides contact details and social media links. 
+
+![Contact Page](/readme_images/feature_section/contact.png)
 
 </details>
 
@@ -647,13 +672,32 @@ The manual testing of features is organised by app below. Testing was carried ou
 |/|Navbar - Sign Up link leads to /signup/|Click link|User redirected to Sign Up page|
 |/|Navbar - Authenticated users (all) - Logout link leads to / |Click link|User redirected to Home page|
 |/|Footer - Logo image causes page to reload|Click logo|Page reloads/redirects to homepage if not already on it|
+|/contact|Logo images redirects user to homepage|Click logo|Page redirects to homepage|
 
 
 </details>
 
+<details>
+<summary>Dashboard App</summary>
+<!-- Example of how to layout table below -->
+|Page|Feature|Action|Effect|
+|---|---|---|---|
+|/basket/view_basket/|All items appear in list|Add item to list in product_detail page|Item appears on table|
+|/basket/view_basket/|Item quantities are correct|Add n items in product_detail page|n items appear on table|
+</details>
+
 <!-- Repeat for each app - make sure all buttons/forms/elements in general are tested - be thorough -->
 <details>
-<summary>... App</summary>
+<summary>Menu App</summary>
+<!-- Example of how to layout table below -->
+|Page|Feature|Action|Effect|
+|---|---|---|---|
+|/basket/view_basket/|All items appear in list|Add item to list in product_detail page|Item appears on table|
+|/basket/view_basket/|Item quantities are correct|Add n items in product_detail page|n items appear on table|
+</details>
+
+<details>
+<summary>Booking App</summary>
 <!-- Example of how to layout table below -->
 |Page|Feature|Action|Effect|
 |---|---|---|---|
