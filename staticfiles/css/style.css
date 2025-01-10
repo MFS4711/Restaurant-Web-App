@@ -202,16 +202,16 @@ footer .social-media a:hover {
 /* Keyframes for changing background images */
 @keyframes backgroundCarousel {
     0% {
-        background-image: url('../images/mobile_optimized_image_1.jpg');
+        background-image: url('../images/pexels-joel-zar-307187367-14508487_mobile.jpg');
     }
     33% {
-        background-image: url('../images/mobile_optimized_image_2.jpg');
-    }
-    66% {
         background-image: url('../images/mobile_optimized_image_3.jpg');
     }
+    66% {
+        background-image: url('../images/mobile_optimized_image_2.jpg');
+    }
     100% {
-        background-image: url('../images/mobile_optimized_image_1.jpg');
+        background-image: url('../images/pexels-joel-zar-307187367-14508487_mobile.jpg');
     }
 }
 
@@ -522,6 +522,21 @@ textarea:focus {
     .btn-container .buttons {
         flex-direction: row;
     }
+
+    @keyframes backgroundCarousel {
+        0% {
+            background-image: url('../images/pexels-joel-zar-307187367-14508487_tablet.jpg');
+        }
+        33% {
+            background-image: url('../images/pexels-ahsenilist-11279651_tablet.jpg');
+        }
+        66% {
+            background-image: url('../images/pexels-markarronsmith-3768841_tablet.jpg');
+        }
+        100% {
+            background-image: url('../images/pexels-joel-zar-307187367-14508487_tablet.jpg');
+        }
+    }
 }
 
 /* --------------- Laptop and up (920px and up) */
@@ -529,5 +544,20 @@ textarea:focus {
 
     .hero-content {
         max-height: 600px;
+    }
+
+    @keyframes backgroundCarousel {
+        0% {
+            background-image: url('../images/pexels-joel-zar-307187367-14508487_laptop.jpg');
+        }
+        33% {
+            background-image: url('../images/pexels-ahsenilist-11279651_laptop.jpg');
+        }
+        66% {
+            background-image: url('../images/pexels-markarronsmith-3768841_laptop.jpg');
+        }
+        100% {
+            background-image: url('../images/pexels-joel-zar-307187367-14508487_laptop.jpg');
+        }
     }
 }
