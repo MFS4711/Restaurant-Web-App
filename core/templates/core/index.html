@@ -5,31 +5,33 @@
 {% block content %}
 
 <!-- Hero Section -->
-<section class="hero">
+<section class="hero" role="region" aria-labelledby="hero-heading">
     <div class="hero-content">
+        <!-- Logo Section -->
         <div class="brand-logo">
-            <img src="{% static 'images/logo-transparent.png' %}" alt="Logo" class="img-fluid">
+            <img src="{% static 'images/logo-transparent.png' %}" alt="Cedar & Flame restaurant logo" class="img-fluid">
         </div>
-        <!-- <p class="description">
-            At Cedar & Flame, enjoy a one-of-a-kind dining experience where bold flavors meet the warmth of cedar wood
-            fire.
-        </p> -->
+
+        <!-- Buttons Section -->
         <div class="btn-container">
             <div class="buttons">
-                <a href="{% url 'book_table' %}" class="btn">Book a Table</a>
-                <a href="{% url 'menu' %}" class="btn">View Menu</a>
+                <!-- Button to book a table -->
+                <a href="{% url 'book_table' %}" class="btn" role="button"
+                    aria-label="Book a table at Cedar & Flame">Book a Table</a>
+                <!-- Button to view the menu -->
+                <a href="{% url 'menu' %}" class="btn" role="button" aria-label="View Cedar & Flame menu">View Menu</a>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Features Section (Cards) -->
-<section class="features">
+<section class="features" role="region" aria-labelledby="features-heading">
     <div class="container">
         <div class="row text-center">
-            <!-- Card 1 -->
+            <!-- Feature Card 1: Wood-Fired Cooking -->
             <div class="col-md-4">
-                <div class="card">
+                <div class="card" role="article">
                     <div class="card-body">
                         <h5 class="card-title">Wood-Fired Cooking</h5>
                         <p class="card-text">
@@ -38,9 +40,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Card 2 -->
+            <!-- Feature Card 2: Fresh Ingredients -->
             <div class="col-md-4">
-                <div class="card">
+                <div class="card" role="article">
                     <div class="card-body">
                         <h5 class="card-title">Fresh Ingredients</h5>
                         <p class="card-text">
@@ -49,9 +51,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Card 3 -->
+            <!-- Feature Card 3: Cozy Atmosphere -->
             <div class="col-md-4">
-                <div class="card">
+                <div class="card" role="article">
                     <div class="card-body">
                         <h5 class="card-title">Cozy Atmosphere</h5>
                         <p class="card-text">
@@ -66,13 +68,13 @@
 </section>
 
 <!-- About Section -->
-<section class="py-5">
+<section class="py-5" role="region" aria-labelledby="about-heading">
     <div class="container">
         <div class="row text-center">
             <div class="col-12 col-md-8">
                 <div class="card our-story-card">
                     <div class="card-body">
-                        <h2>Our Story</h2>
+                        <h2 id="about-heading">Our Story</h2>
                         <p>
                             At Cedar & Flame, we bring the vibrant flavors of the Mediterranean to your table, blending
                             tradition with a modern touch. Our menu features fresh, local ingredients and bold flavors,
@@ -91,11 +93,15 @@
     </div>
 </section>
 
-<!-- Repeated Button Section -->
+<!-- Repeated Button Section (accessible for navigation) -->
 <div class="container btn-container">
     <div class="buttons">
-        <a href="{% url 'book_table' %}" class="btn">Book a Table</a>
-        <a href="{% url 'menu' %}" class="btn">View Menu</a>
+        <a href="{% url 'book_table' %}" class="btn" role="button" aria-label="Book a table at Cedar & Flame">
+            Book a Table
+        </a>
+        <a href="{% url 'menu' %}" class="btn" role="button" aria-label="View Cedar & Flame menu">
+            View Menu
+        </a>
     </div>
 </div>
 
