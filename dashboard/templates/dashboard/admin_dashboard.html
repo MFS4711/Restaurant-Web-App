@@ -4,143 +4,147 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container content-container">
     <h1 class="text-center">Admin Dashboard</h1>
-
-    <!-- Button Section (Menu and Manage Bookings) -->
-    <div class="btn-container mb-4">
-        <div class="buttons">
-            <a href="{% url 'menu' %}" class="btn">Manage Menu</a>
-            <a href="{% url 'manage_bookings' %}" class="btn">Manage Bookings</a>
-        </div>
-    </div>
-
-    <!-- Filter Form -->
-    <form method="GET" class="form-inline">
-        <label for="filter">Filter by:</label>
-        {{ filter_form.filter }}
-        {% if filter_form.filter.value == 'custom' %}
-            {{ filter_form.start_date }}
-            {{ filter_form.end_date }}
-        {% endif %}
-        <button type="submit" class="btn btn-primary">Apply</button>
-    </form>
-
-    <hr>
-
-    <!-- Overall Statistics Section -->
-    <h2>Overall Statistics</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Average Booking Size</h5>
-                    <p class="card-text">{{ avg_booking_size|floatformat:1 }}</p>
-                </div>
+    <div class="child-container">
+        <!-- Button Section (Menu and Manage Bookings) -->
+        <div class="btn-container mb-4">
+            <div class="buttons">
+                <a href="{% url 'menu' %}" class="btn">Manage Menu</a>
+                <a href="{% url 'manage_bookings' %}" class="btn">Manage Bookings</a>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Average Bookings Per Day</h5>
-                    <p class="card-text">{{ avg_bookings_per_day|floatformat:1 }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Average Visitors Per Day</h5>
-                    <p class="card-text">{{ avg_visitors_per_day|floatformat:1 }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <hr>
-
-    <h2>Booking Statistics</h2>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Total Bookings</h5>
-                    <p class="card-text">{{ total_bookings }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Confirmed</h5>
-                    <p class="card-text">{{ total_confirmed }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Pending</h5>
-                    <p class="card-text">{{ total_pending }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Cancelled</h5>
-                    <p class="card-text">{{ total_cancelled }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-
-    <h2>Bookings from {{ start_date }} to {{ end_date }}</h2>
-
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Booking ID</th>
-                    <th>User</th>
-                    <th>Time</th>
-                    <th>Number of People</th>
-                    <th>Status</th>
-                    <th>Assigned Table</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if bookings %}
-                {% for booking in bookings %}
-                <tr>
-                    <td>{{ booking.id }}</td>
-                    <td>{{ booking.user.username }}</td>
-                    <td>{{ booking.time }}</td>
-                    <td>{{ booking.number_of_people }}</td>
-                    <td>{{ booking.get_status_display }}</td>
-                    <td>
-                        {% if booking.table %}
-                        {{ booking.table.table_number }}
-                        {% else %}
-                        Not Assigned
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
-                        <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
-                    </td>
-                </tr>
-                {% endfor %}
-                {% else %}
-                <tr>
-                    <td colspan="7">No bookings for the selected period.</td>
-                </tr>
+        <!-- Filter Form -->
+        <div>
+            <form method="GET" class="form-inline">
+                <label for="filter">Filter by:</label>
+                {{ filter_form.filter }}
+                {% if filter_form.filter.value == 'custom' %}
+                {{ filter_form.start_date }}
+                {{ filter_form.end_date }}
                 {% endif %}
-            </tbody>
-        </table>
+                <button type="submit" class="btn btn-primary">Apply</button>
+            </form>
+        </div>
+
+        <hr>
+
+        <!-- Overall Statistics Section -->
+        <div>
+            <h2>Overall Statistics</h2>
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <div class="card">
+                        <div class="card-body centered-content">
+                            <h5 class="card-title">Average Booking Size</h5>
+                            <p class="card-text">{{ avg_booking_size|floatformat:1 }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <div class="card">
+                        <div class="card-body centered-content">
+                            <h5 class="card-title">Average Bookings Per Day</h5>
+                            <p class="card-text">{{ avg_bookings_per_day|floatformat:1 }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <div class="card">
+                        <div class="card-body centered-content">
+                            <h5 class="card-title">Average Visitors Per Day</h5>
+                            <p class="card-text">{{ avg_visitors_per_day|floatformat:1 }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div>
+            <h2>Booking Statistics</h2>
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <div class="card">
+                        <div class="card-body centered-content">
+                            <h5 class="card-title">Total Bookings</h5>
+                            <p class="card-text">{{ total_bookings }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="card">
+                        <div class="card-body centered-content">
+                            <h5 class="card-title">Confirmed</h5>
+                            <p class="card-text">{{ total_confirmed }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="card">
+                        <div class="card-body centered-content">
+                            <h5 class="card-title">Pending</h5>
+                            <p class="card-text">{{ total_pending }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="card">
+                        <div class="card-body centered-content">
+                            <h5 class="card-title">Cancelled</h5>
+                            <p class="card-text">{{ total_cancelled }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div>
+            <h2>Bookings from {{ start_date }} to {{ end_date }}</h2>
+
+            <div class="table-wrapper">
+                <table class="table table-bordered custom-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>User</th>
+                            <th>Time</th>
+                            <th>Number of People</th>
+                            <th>Status</th>
+                            <th>Assigned Table</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if bookings %}
+                        {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.id }}</td>
+                            <td>{{ booking.user.username }}</td>
+                            <td>{{ booking.time }}</td>
+                            <td>{{ booking.number_of_people }}</td>
+                            <td>{{ booking.get_status_display }}</td>
+                            <td>
+                                {% if booking.table %}
+                                {{ booking.table.table_number }}
+                                {% else %}
+                                Not Assigned
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="7">No bookings for the selected period.</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 </div>
