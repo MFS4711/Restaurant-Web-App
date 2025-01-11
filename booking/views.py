@@ -1,11 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
-from django.urls import reverse
 from django.utils import timezone
 from django.db import IntegrityError
-from django.shortcuts import render, get_object_or_404, redirect
 from .models import Table, Booking
 from .forms import BookingForm, StaffBookingForm, CustomerConfirmationForm
 from .utils import generate_time_slots, get_table_availability_for_day
@@ -19,7 +16,7 @@ def is_staff(user):
 
     **Context:**
 
-    ``user`` 
+    ``user``
         The user to be checked.
 
     **Returns:**
@@ -37,7 +34,7 @@ def book_table(request):
     ``booking_form``
         An instance of :form:`BookingForm` to create a new booking.
 
-    **Template:** 
+    **Template:**
 
     :template:`booking/booking.html`
     """
@@ -77,24 +74,26 @@ def booking_success(request, booking_id):
     """
     Display the booking success page.
 
-    This view handles the successful booking page, where the user is shown the details
-    of their booking after a successful table reservation. The booking can either belong
-    to the logged-in user or a staff member.
+    This view handles the successful booking page, where the user is shown
+    the details of their booking after a successful table reservation. The
+    booking can either belongto the logged-in user or a staff member.
 
-    **Template:** 
+    **Template:**
 
     :template:`booking/booking_success.html`
 
     **Context:**
 
     ``booking``
-        The booking object that was successfully made and is being displayed to the user.
+        The booking object that was successfully made
+        and is being displayed to the user.
 
     **Authorization:**
 
-    The user must be either the owner of the booking (i.e., the user who created the booking)
-    or a staff member to access this page. If the user does not have the necessary permission,
-    they are redirected to the customer dashboard with an error message.
+    The user must be either the owner of the booking (i.e., the user who
+    created the booking) or a staff member to access this page. If the user
+    does not have the necessary permission, they are redirected to the customer
+    dashboard with an error message.
 
     """
     # Fetch the booking object first
@@ -142,7 +141,7 @@ def manage_bookings(request):
     ``customer_confirmation_required_bookings``
         A queryset of bookings that require customer confirmation.
 
-    **Template:** 
+    **Template:**
 
     :template:`booking/manage_bookings.html`
     """
@@ -160,7 +159,12 @@ def manage_bookings(request):
     pending_bookings = Booking.objects.filter(
         status=Booking.PENDING, table__isnull=True).order_by('date', 'time')
     confirmed_bookings_with_table = Booking.objects.filter(
-        status=Booking.CONFIRMED).exclude(table__isnull=True).order_by('date', 'time')
+        status=Booking.CONFIRMED
+    ).exclude(
+        table__isnull=True
+    ).order_by(
+        'date', 'time'
+    )
     cancelled_bookings = Booking.objects.filter(
         status=Booking.CANCELLED).order_by('date', 'time')
     completed_bookings = Booking.objects.filter(
@@ -178,7 +182,9 @@ def manage_bookings(request):
         'cancelled_bookings': cancelled_bookings,
         'completed_bookings': completed_bookings,
         'no_show_bookings': no_show_bookings,
-        'customer_confirmation_required_bookings': customer_confirmation_required_bookings,
+        'customer_confirmation_required_bookings': (
+            customer_confirmation_required_bookings
+        ),
     }
 
     # Render the manage bookings page with the context data
@@ -192,7 +198,8 @@ def edit_booking(request, booking_id):
     **Context:**
 
     ``booking_form``
-        An instance of :form:`BookingForm` for customers or :form:`StaffBookingForm` for staff.
+        An instance of :form:`BookingForm` for customers
+        or :form:`StaffBookingForm` for staff.
 
     ``booking``
         The booking instance being edited.
@@ -204,9 +211,9 @@ def edit_booking(request, booking_id):
         A list of available time slots for staff to select from.
 
     ``table_availability``
-        A dictionary containing available tables and their time slots for staff.
+        A dictionary containing available tables and their time slots for staff
 
-    **Template:** 
+    **Template:**
 
     :template:`booking/edit_booking.html`
     """
@@ -227,7 +234,10 @@ def edit_booking(request, booking_id):
                     customer_confirmation_form.save()
                     messages.success(
                         request, "Your booking status has been updated.")
-                    return redirect('customer_dashboard', user_id=request.user.id)
+                    return redirect(
+                        'customer_dashboard',
+                        user_id=request.user.id
+                    )
             else:
                 customer_confirmation_form = CustomerConfirmationForm(
                     instance=booking)
@@ -284,7 +294,8 @@ def edit_booking(request, booking_id):
                     return redirect('manage_bookings')
                 except IntegrityError:
                     messages.error(
-                        request, "This table is already booked for the selected date and time. Please choose another table.")
+                        request, "This table is already booked for the \
+                        selected date and time. Please choose another table.")
                     return redirect('edit_booking', booking_id=booking.id)
                 except Exception as e:
                     messages.error(
@@ -297,8 +308,10 @@ def edit_booking(request, booking_id):
                         messages.error(
                             request, f"{field.capitalize()}: {error}")
         else:
-            staff_form = StaffBookingForm(instance=booking, initial={
-                                          'number_of_people': booking.number_of_people})
+            staff_form = StaffBookingForm(
+                instance=booking,
+                initial={'number_of_people': booking.number_of_people}
+            )
 
         # Render the form for staff to edit a booking
         context = {
@@ -319,7 +332,7 @@ def delete_booking(request, booking_id):
 
     None
 
-    **Template:** 
+    **Template:**
 
     :template:`booking/booking_success.html`
     """
@@ -332,7 +345,8 @@ def delete_booking(request, booking_id):
                              'Booking successfully deleted!')
     else:
         messages.add_message(
-            request, messages.ERROR, 'You do not have permission to delete this booking.')
+            request, messages.ERROR, 'You do not have permission \
+            to delete this booking.')
 
     # Redirect to the appropriate page after deletion
     if request.user.is_staff:
