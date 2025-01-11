@@ -19,14 +19,15 @@ from booking.utils import generate_time_slots, get_table_availability_for_day
 @login_required
 def customer_dashboard(request, user_id):
     """
-    Handles the customer dashboard view, displaying a list of upcoming, past, 
+    Handles the customer dashboard view, displaying a list of upcoming, past,
     and customer action-required bookings for a specific user.
 
     **Context:**
     - user: The user whose dashboard is being viewed.
     - upcoming_bookings: Bookings for the user that are in the future.
     - past_bookings: Completed bookings for the user in the past.
-    - customer_action_required_bookings: Bookings requiring customer confirmation.
+    - customer_action_required_bookings: Bookings requiring customer
+    confirmation.
 
     **Template:**
     :template:`dashboard/customer_dashboard.html`
@@ -44,7 +45,8 @@ def customer_dashboard(request, user_id):
 
     # Fetch upcoming bookings (those scheduled in the future)
     upcoming_bookings = Booking.objects.filter(
-        user=user, date__gte=current_time.date(), time__gte=current_time.time(),
+        user=user, date__gte=current_time.date(),
+        time__gte=current_time.time(),
         status__in=['confirmed', 'pending']
     ).order_by('date', 'time')
 
@@ -61,7 +63,8 @@ def customer_dashboard(request, user_id):
     # If there are bookings requiring customer confirmation, add a message
     if customer_action_required_bookings.exists():
         messages.info(
-            request, "Your booking status has been updated. Please review and take necessary actions.")
+            request, "Your booking status has been updated. \
+            Please review and take necessary actions.")
 
     # Pass all relevant data to the template context for rendering
     context = {
@@ -80,7 +83,7 @@ def is_staff(user):
     """
     Custom function to check if the user has staff permissions.
 
-    **Returns:** 
+    **Returns:**
     - True if the user is a staff member, else False.
     """
     return user.is_staff
@@ -92,7 +95,7 @@ def is_staff(user):
 @user_passes_test(is_staff, login_url='/unauthorized/')
 def staff_dashboard(request):
     """
-    Handles the staff dashboard view, displaying table availability for today, 
+    Handles the staff dashboard view, displaying table availability for today,
     and the bookings scheduled for today.
 
     **Context:**
@@ -104,13 +107,13 @@ def staff_dashboard(request):
     **Template:**
     :template:`dashboard/staff_dashboard.html`
     """
-    # Generate time slots with dynamic opening hours, in this case, 15-minute intervals
+    # Generate time slots with dynamic opening hours 15-minute intervals
     time_slots = generate_time_slots(interval_minutes=15)
 
     # Get today's date for scheduling and availability checks
     today = timezone.now().date()
 
-    # Check table availability for the current day using the generated time slots
+    # Check table availability for current day using the generated time slots
     table_availability = get_table_availability_for_day(today, time_slots)
 
     # Fetch confirmed bookings for today
@@ -134,7 +137,7 @@ def is_superuser(user):
     """
     Custom function to check if the user is a superuser (admin).
 
-    **Returns:** 
+    **Returns:**
     - True if the user is a superuser, else False.
     """
     return user.is_superuser
@@ -146,8 +149,9 @@ def is_superuser(user):
 @user_passes_test(is_superuser, login_url='/unauthorized/')
 def admin_dashboard(request):
     """
-    Handles the admin dashboard view, providing an overview of booking statistics 
-    based on a filter range for booking dates. Displays the total number of bookings 
+    Handles the admin dashboard view, providing an overview of booking
+    statistics  based on a filter range for booking dates.
+    Displays the total number of bookings
     and various statistics on booking status and sizes.
 
     **Context:**
@@ -161,8 +165,10 @@ def admin_dashboard(request):
     - start_date: The start date of the filter range.
     - end_date: The end date of the filter range.
     - avg_booking_size: The average number of people per booking.
-    - avg_bookings_per_day: The average number of bookings per day in the date range.
-    - avg_visitors_per_day: The average number of visitors per day in the date range.
+    - avg_bookings_per_day: The average number of bookings
+    per day in the date range.
+    - avg_visitors_per_day: The average number of visitors
+    per day in the date range.
 
     **Template:**
     :template:`dashboard/admin_dashboard.html`
@@ -170,7 +176,7 @@ def admin_dashboard(request):
     # Get today's date for use in filtering and statistics calculations
     today = timezone.now().date()
 
-    # Initialize the filter form to allow the admin to filter bookings by date range
+    # Initialize the filter form so admin can filter bookings by date range
     filter_form = BookingFilterForm(request.GET)
 
     # Set default dates to today in case the filter form is not submitted
@@ -200,20 +206,22 @@ def admin_dashboard(request):
         avg_booking_size = bookings.aggregate(Avg('number_of_people'))[
             'number_of_people__avg']
 
-        # Average bookings per day: total bookings / number of days in the range
+        # Average bookings per day: total bookings / number of days in range
         # +1 to include both start and end days
         num_days = (end_date - start_date).days + 1
         avg_bookings_per_day = total_bookings / num_days
 
-        # Average visitors per day: total number of visitors / number of days in the range
+        # Average visitors per day: total number of visitors / number of days
         total_visitors = bookings.aggregate(Sum('number_of_people'))[
             'number_of_people__sum']
-        avg_visitors_per_day = total_visitors / num_days if total_visitors else 0
+        avg_visitors_per_day = (
+            total_visitors / num_days if total_visitors else 0
+        )
     else:
         # If no bookings, set averages to 0
         avg_booking_size = avg_bookings_per_day = avg_visitors_per_day = 0
 
-    # Pass all relevant data to the context for rendering the admin dashboard template
+    # Pass all relevant data to the context for rendering the admin template
     context = {
         'filter_form': filter_form,
         'bookings': bookings,
