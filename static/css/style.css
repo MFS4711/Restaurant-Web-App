@@ -551,14 +551,10 @@ textarea:focus {
     margin-top: 20px;
 }
 
-/* .buttons .btn:hover {
-    background-color: #333;
-    color: #FFD700;
-} */
-
 .btn-submit:hover {
     background-color: #333;
     color: #FFD700;
+    border: 2px solid #FFD700;
 }
 
 /* Modal */
