@@ -248,6 +248,7 @@ def edit_booking(request, booking_id):
                 # Ensure the booking status is set to PENDING if it's not
                 if updated_booking.status != Booking.PENDING:
                     updated_booking.status = Booking.PENDING
+                    updated_booking.table = None
                 updated_booking.save()
                 messages.success(
                     request, "Your booking has been updated successfully.")
