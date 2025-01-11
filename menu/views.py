@@ -58,6 +58,12 @@ def create_menu_item(request, category_label):
 
     :template:`menu/create_menu_item.html`
     """
+    # Ensure only superusers can create menu items
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        messages.error(
+            request, 'You do not have permission to create menu items.')
+        return redirect('menu')  # Redirect to the menu page if not authorized
+
     if request.method == "POST":
         # Initialize the form with POST data
         menu_item_form = MenuItemForm(data=request.POST)
@@ -104,6 +110,12 @@ def edit_menu_item(request, menu_item_id):
 
     :template:`menu/edit_menu_item.html`
     """
+    # Ensure only superusers can edit menu items
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        messages.error(
+            request, 'You do not have permission to edit menu items.')
+        return redirect('menu')  # Redirect to the menu page if not authorized
+
     # Retrieve the menu item to be edited, or return 404 if not found
     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
 
@@ -150,17 +162,19 @@ def delete_menu_item(request, menu_item_id):
 
     :template:`menu/menu.html`
     """
+    # Ensure only superusers can delete menu items
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        # Set the message for unauthorized users
+        messages.error(
+            request, 'There was an error deleting the Item. Please try again.')
+        return redirect('menu')  # Redirect to the menu page if not authorized
+
     # Retrieve the menu item to delete, or return 404 if not found
     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
 
-    # Check if the user is authenticated and a superuser
-    if request.user.is_authenticated and request.user.is_superuser:
-        menu_item.delete()  # Delete the menu item from the database
-        messages.add_message(request, messages.SUCCESS, 'Menu Item deleted!')
-    else:
-        # If the user is not authorized, show an error message
-        messages.add_message(
-            request, messages.ERROR, 'There was an error deleting the Item. Please try again.')
+    # Perform the deletion
+    menu_item.delete()  # Delete the menu item from the database
+    messages.add_message(request, messages.SUCCESS, 'Menu Item deleted!')
 
     # Redirect to the menu page after deletion
     return redirect('menu')

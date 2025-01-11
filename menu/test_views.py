@@ -69,6 +69,34 @@ class TestMenuViews(TestCase):
         self.assertTrue(MenuItem.objects.filter(
             name="Falafel").exists())
 
+    def test_unauthorized_create_menu_item(self):
+        """Test that a non-superuser cannot create a menu item"""
+        # Create a non-superuser
+        self.client.login(username="superuser", password="password")
+        non_superuser = User.objects.create_user(
+            username="user", password="password")
+        # Login as the non-superuser
+        self.client.login(username="user", password="password")
+        # Attempt to create a new menu item
+        url = reverse('create_menu_item', args=["Mains"])
+        data = {
+            'name': "Hummus",
+            'description': "Smooth and creamy chickpea dip",
+            'category': "Mains",
+            'price': 5.00
+        }
+        # Post the form data
+        response = self.client.post(url, data)
+        # Check that the response is a redirect
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('menu'))
+        # Ensure the error message is displayed
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(
+            str(messages[0]), "You do not have permission to create menu items.")
+        # Ensure the menu item was not created
+        self.assertFalse(MenuItem.objects.filter(name="Hummus").exists())
+
     def test_edit_menu_item(self):
         """Test editing an existing menu item"""
         self.client.login(username="superuser", password="password")
@@ -88,6 +116,35 @@ class TestMenuViews(TestCase):
         # Ensure the menu item was updated
         self.menu_item1.refresh_from_db()
         self.assertEqual(self.menu_item1.name, "Kofta Kebab Deluxe")
+
+    def test_unauthorized_edit_menu_item(self):
+        """Test that a non-superuser cannot edit a menu item"""
+        # Create a non-superuser
+        self.client.login(username="superuser", password="password")
+        non_superuser = User.objects.create_user(
+            username="user", password="password")
+        # Login as the non-superuser
+        self.client.login(username="user", password="password")
+        # Attempt to edit an existing menu item
+        url = reverse('edit_menu_item', args=[self.menu_item1.id])
+        data = {
+            'name': "Kofta Kebab Supreme",
+            'description': "Grilled spiced meat skewers with extra toppings",
+            'category': "Mains",
+            'price': 15.00
+        }
+        # Post the form data
+        response = self.client.post(url, data)
+        # Check that the response is a redirect
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('menu'))
+        # Ensure the error message is displayed
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(
+            str(messages[0]), "You do not have permission to edit menu items.")
+        # Ensure the menu item was not updated
+        self.menu_item1.refresh_from_db()
+        self.assertNotEqual(self.menu_item1.name, "Kofta Kebab Supreme")
 
     def test_delete_menu_item(self):
         """Test deleting a menu item"""
