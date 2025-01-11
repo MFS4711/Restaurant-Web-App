@@ -227,10 +227,12 @@ The remaining pages are only accessible to staff
 <!-- Add any other sections for other roles -->
 
 ## Future Features
-<!-- Bullet point any features that could be added and describe benefit -->
-- It would be useful for (user type) to be able to ... This will ... etc
-- A feature with added benefit for (user type) would be ...
-- Another future feature, which I coonsidered implementing, is ...
+- **AJAX-Based Dynamic Form Filtering**: Use AJAX or similar technologies to dynamically filter one form field based on the selection in another, improving form usability and data accuracy.  
+- **Chart.js Integration for Admin Analytics**: Leverage Chart.js or similar libraries to provide detailed visual analytics for administrators, offering insights into orders, revenue, and customer behavior.  
+- **Guest Booking and Walk-In Booking Features**: Introduce features for guest bookings and walk-in reservations, ensuring flexibility and catering to diverse customer needs.  
+- **Iteration 2 - Order Management**: Implement comprehensive order and stock management functionality to streamline inventory control and improve efficiency.  
+- **Iteration 3 - Push Notifications and Live Order Tracking**: Enable real-time push notifications for users and live order tracking to enhance the user experience.  
+- **Stripe Payment Integration**: Integrate Stripe to facilitate secure and seamless online payments for customers.  
 
 ---
 
@@ -243,7 +245,7 @@ This section details the key elements of the user experience (UX) design for the
 ## Design
 
 ### Fonts
-<!-- description in style below -->
+
 The Montserrat font was used throughout the project for headings and prominent text. It's a clean, modern sans-serif font with a strong, professional look, making it ideal for a refined restaurant like Cedar and Flame. Its bold, uppercase styling helps convey a sense of sophistication and presence.
 
 For body text, Open Sans was chosen due to its simplicity and high legibility, providing a comfortable reading experience for users. Its versatility and neutral design make it well-suited for longer content while maintaining a polished, cohesive aesthetic across the site.
@@ -468,8 +470,6 @@ These wireframes outline how each page was intended to be displayed on Mobile, T
 
 </details>
 
-<!-- Maybe add login/out/register/404 page -->
-
 ---
 
 [Return to top](#cedar--flame)
@@ -484,13 +484,12 @@ Two issue templates were created: one for [User Epics](https://github.com/MFS471
 A variety of labels were applied to categorise issue types, such as Bugs, User Epics and User Stories, with the parent epic and child story being associated with the same label for easy identificaion.
 MoSCoW prioritisation was applied using the labels must-have, should-have, and could-have.
 
-The project was broken down into manageable sprints using GitHub Projects, which provided a Kanban board. Issues were posted to the board and moved from "Todo" to "In Progress" to "Done" as they were completed.
+The project was broken down into manageable sprints using GitHub Projects, which provided a Kanban board. Issues were posted to the board and moved from "Todo" to "In Progress" to "Done" as they were completed. Due to time constraints, only Iteration 1 was completed, though future iterations were planned. This initial planning outlines the anticipated development of the application.
 
 The iterations are documented here :
     - [Prerequisites](https://github.com/users/MFS4711/projects/6/views/1)
     - [Iteration 1](https://github.com/users/MFS4711/projects/5)
     - [Iteration 2](link)
-    - ...
 
 The User Epics and their related User Stories are as follows:
 - Epic : [Set up User Authentication with Django Allauth](https://github.com/MFS4711/Restaurant-Web-App/issues/1)
@@ -534,7 +533,7 @@ The User Epics and their related User Stories are as follows:
     - Story : [Admin Can Remove Menu Items](https://github.com/MFS4711/Restaurant-Web-App/issues/43)
 
 <!-- Include this section and add depth if time at the end -->
-## Search Engine Optimization
+<!-- ## Search Engine Optimization
 A set of long and short tail keywords was developed. 
 The initial set was generated from a combination of brainstorming and examining the related searches returned by Google for these terms. This was then culled back to a smaller set of more targeted short- and long-tail keywords, which were each trialled on [wordtracker.com](https://wordtracker.com). 
 This resulted in the following list of terms, ordered by volume:
@@ -546,7 +545,7 @@ This resulted in the following list of terms, ordered by volume:
 After completing this research, I returned to the project's templates, and made the following changes:
 
 - &lt;title> tag in base.html:
-    - Set to '....'. This is one of the most important SEO locations ...
+    - Set to '....'. This is one of the most important SEO locations ... -->
 <!-- Add any tags in same form and bullet point impact of change -->
 
 ## Data Model
@@ -706,8 +705,7 @@ The manual testing of features is organised by app below. Testing was carried ou
 </details>
 
 ### Responsiveness
-All pages on the live site were tested with the default list of devices in Chrome Devtools.
-<!-- Add any things to note of interst - i.e some acceptable compromise -->
+All pages on the live site were tested with the default list of devices in Chrome Devtools. Special attention was given to ensuring the hero image carousel displayed optimally across screen breakpoints, with images specifically optimized for responsive viewing.
 
 ### Lighthouse
 The Lighthouse testing was carried out using a chrome extension which can be found [here](https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk).
@@ -851,7 +849,7 @@ The single CSS file was validated using the [W3C Validation Service](https://jig
 <details>
 <summary>Results</summary>
 
-![CSS Validation](SCREENSHOT_PATH)
+![CSS Validation](/readme_images/css_validation/css_validation.png)
 
 </details>
 
@@ -871,7 +869,10 @@ In both cases, the status of each issue will indicate whether the user story has
 ## Automated Testing
 
 ### Testing django views, models and forms
-A full suite of automated tests is included in the project. The tests for each app are located in the `test/` folder within each respective app and can be run using the following command :
+
+Comprehensive automated testing can be seen for the Menu App where all CRUD functionalities are tested. This has partially been completed for the Booking App where the models are comprehensively tested but the forms/views are only partially tested as a related bug was being addressed.
+
+<!-- A full suite of automated tests is included in the project. The tests for each app are located in the `test/` folder within each respective app and can be run using the following command :
 
 `python3 manage.py test`
 
@@ -883,7 +884,7 @@ To generate the coverage HTML report, use the following commands:
 
 `coverage run manage.py test`
 
-`coverage html`
+`coverage html` -->
 
 ---
 
@@ -990,6 +991,9 @@ This section provides a step-by-step guide for deploying your project to Heroku,
 # Acknowledgements
 <!-- Add a paragraph to show appreciation -->
 - SME Kevin - particularly for reviewing and resolving a UX feature related to table filtering
+- All of the Facilitators who have been invaluable throughout the course - Shelly, Vasi and Paul
+- The Coding Coaches - John and Roo - invaluable in resolving bugs
+- And my peers in my cohort as well Code Institute in general as my coding aptitude has exponentially increased in such a short space of time.
 ---
 
 [Return to top](#cedar--flame)
