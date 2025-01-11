@@ -151,17 +151,72 @@ The following pages are visible to all users, logged in or not.
 <!-- Any other pages that are visible to all users using same format -->
 <details>
 <summary>Menu Page</summary>
-<!-- List features and describe significance -->
 
-![... Page](static/doc_images/feature_screenshots/SOME_IMAGE)
+### Menu Structure
+
+- **Section Organization**:  
+  The menu is divided into clear sections to enhance readability:  
+  - **Starters**  
+  - **Mains**  
+  - **Sides**  
+  - **Desserts**
+  - **Drinks**
+
+![menu_page](/readme_images/feature_section/menu-1.png)
+
+### Menu Items
+
+- **Presentation**:  
+  Each menu item is displayed with:  
+  - **Name**: Prominently featured to catch the diner's attention.  
+  - **Description**: Provides a brief overview of the dish, highlighting key ingredients and preparation methods.  
+  - **Price**: Clearly listed to inform customers.  
+  - **Image**: Accompanies each item, offering a visual representation to entice diners.  
+
+- **Interactive Elements**:  
+  Clicking on a menu item opens a modal or detailed view that includes:  
+  - **Larger Image**: Offers a more detailed visual of the dish.  
+  - **Comprehensive Description**: Provides an in-depth look at the dish's ingredients and preparation.  
+  - **Price**: Reiterated for clarity.  
+  - **Close Option**: Allows users to exit the detailed view and return to the main menu.
+
+![menu_page_modal](/readme_images/feature_section/menu-2.png)
+
+### Visual Design
+
+- **Imagery**:  
+  Each dish is accompanied by a placeholder image, enhancing the visual appeal and aiding in the diner's selection process.  
+
+- **Typography and Layout**:  
+  The use of clear headings and consistent formatting ensures that the menu is easy to read and navigate.  
+
+In summary, the menu page is well-structured with clear sections and interactive elements that enhance user engagement. Attention to accessibility and responsiveness will further improve the overall user experience.
 
 </details>
 
 <details>
 <summary>Book a Table Page</summary>
-<!-- List features and describe significance -->
 
-![... Page](static/doc_images/feature_screenshots/SOME_IMAGE)
+### Booking Page Overview
+
+- **Access Requirement**:  
+  Users must be logged in to book a table. The page prompts unauthenticated users to either log in or sign up.
+
+- **Call-to-Action Buttons**:  
+  - **Log In**: Redirects existing users to the login page.  
+  - **Sign Up**: Directs new users to the registration page.  
+
+### User Experience Considerations
+
+- **User Guidance**:  
+  Clear instructions inform users about the necessity of authentication for booking, enhancing user understanding and reducing confusion.
+
+- **Navigation Flow**:  
+  The prominent placement of log in and sign up buttons facilitates easy navigation for both returning and new users.
+
+In summary, the booking page effectively directs users to authenticate before making a reservation.
+
+![Booking Page](/readme_images/feature_section/booking-1.png)
 
 </details>
 
@@ -179,24 +234,21 @@ This page simply shows the navbar and the footer which takes up the whole viewpo
 
 </details>
 
-<!-- Repeat for all Pages visible to all users -->
-
-<!-- Below for login and register pages -->
 <details>
 <summary>Login Page</summary>
 
-![Login Page](static/doc_images/feature_screenshots/feature_login.png)
+![Login Page](/readme_images/feature_section/login.png)
 
-- This is the standard allauth login page, styled with the site styling, and including social login links for Google and Facebook.
+- This is the standard allauth login page, styled with the site styling.
 
 </details>
 
 <details>
 <summary>Register Page</summary>
 
-![Register Page](static/doc_images/feature_screenshots/feature_register.png)
+![Register Page](/readme_images/feature_section/signup.png)
 
-- This is the standard allauth signup page, with fields for email, username, and password + password confirmation. All fields are required.
+- This is the standard allauth signup page, with fields for email, username, and password + password confirmation. All fields bar the email are required.
 
 </details>
 
@@ -204,27 +256,430 @@ This page simply shows the navbar and the footer which takes up the whole viewpo
 The following pages are only available to logged in users.
 
 <details>
-<summary>... Page</summary>
-<!-- List features and describe significance -->
+<summary>Book a Table Page</summary>
 
-![... Page](static/doc_images/feature_screenshots/SOME_IMAGE)
+For logged-in users, this page allows them to easily book a table at the venue with a clean, modern interface. The form is displayed for authenticated users, offering the following features:
+
+### Booking Form Fields:
+- **Date**: Users can select a booking date, with a restriction that only future dates (2 days in advance or more) are allowed.
+- **Time**: Users choose a time for their booking in 15-minute intervals.
+- **Number of People**: A dropdown menu allows users to select the number of people for their booking (between 1 and 12).
+- **Additional Notes**: A text area where users can provide additional information or special requests (e.g., allergies, baby chair).
+
+### Form Submission:
+- **Submit Button**: The "Submit" button is styled in a gold color (#FFD700), with a hover effect that changes the background color to dark and the text color to gold for visual emphasis.
+
+### Page Flow:
+- When a logged-in user visits the page, they are presented with the booking form where they can fill in the required details (date, time, number of people, and any special requests).
+- Upon submission, the form sends the booking data for processing by staff and the customer is shown a booking success page with the booking details.
+
+![Book a Table Page](/readme_images/feature_section/booking-2.png)
 
 </details>
 
-<!-- Similar to previous just repeat for each page unique to this user -->
+<details>
+<summary>Booking Success Page</summary>
+
+For logged-in users, the booking success page displays the details of a successful booking. This page offers confirmation and additional options after a user has successfully made a reservation.
+
+### Layout and Design:
+- **Success Heading**: A prominent heading (`Your Booking Request was Successful`) is displayed to confirm the booking.
+- **Responsive Design**: The page uses a flexible layout with a centered table for displaying the booking details. The design adapts to different screen sizes, ensuring accessibility and a clean look on mobile and desktop devices.
+- **Table for Booking Details**: The table is accessible, with a `caption` for screen readers to ensure that the booking details are clearly labeled.
+
+### Booking Details:
+- **Booking Information**: The page shows the details of the user's booking in a well-structured table, including:
+  - **Booking ID**
+  - **User Name**: The name of the user who made the booking.
+  - **Date and Time**: The reserved date and time for the table.
+  - **Number of People**: The number of guests in the booking.
+  - **Additional Notes**: Any additional requests or notes left by the user (or defaulted to "No additional notes").
+
+### Additional Information:
+- **Response Time**: A message informs users that staff aims to provide a response to the request within 24 hours.
+- **Dashboard Button**: 
+  - If the user is an **admin**, the dashboard link directs them to the admin dashboard.
+  - If the user is **staff**, the dashboard link directs them to the staff dashboard.
+  - If the user is a **customer**, they are redirected to their customer dashboard.
+- **View Menu Button**: A clear and accessible button allows users to view the menu, labeled for accessibility with "View Cedar & Flame menu."
+
+### Authorization Check:
+- **User Permission**: The page checks if the logged-in user is the owner of the booking or a staff member. If the user does not have the necessary permissions, they are redirected to their customer dashboard if a logged in user or the homepage if not.
+
+### Page Flow:
+- After a successful booking, the logged-in user is shown their booking details.
+- The page offers clear navigation options for the user to check their dashboard or view the restaurant menu.
+- If the user is unauthorized to view the booking, they are redirected to the customer dashboard with an error message.
+
+![Booking Success](/readme_images/feature_section/booking-3.png)
+
+</details>
+
+## Customer (Authenticated)
+The following page is only accessible by the individual customer:
+
+<details>
+<summary>Customer Dashboard Page</summary>
+
+### **Dashboard Overview**
+
+- **Upcoming Bookings**:  
+  - **Booking Table**: Displays a list of upcoming bookings, including:  
+    - **Date and Time**: The scheduled booking details.  
+    - **Status**: The current booking status (e.g., confirmed, pending).  
+    - **Actions**: Customers can **Edit** or **Delete** bookings directly from this table, allowing them to easily manage their upcoming reservations.
+
+- **Customer Action Required** (Appears Only When Applicable):  
+  - **Table Reassignment**: If the original table is unavailable for a booking, staff may assign a new table to the customer.  
+  - **Customer Approval**: When a reassignment occurs, the customer is notified with a **Django message** and prompted to approve or decline the new table. This section only appears when table reassignment is necessary.
+
+- **Booking History**:  
+  - **Past Bookings Table**: Displays a record of past bookings, allowing customers to view their booking history.
+
+### **Interactive Features**
+
+- **Edit or Delete Bookings**: Customers can modify or cancel upcoming bookings directly from the dashboard.  
+- **Approval Requests**: If a table reassignment is required, customers receive a notification and can approve or decline the new table assignment.
+
+### **Visual Design**
+
+- **Table Layout**: Clear, well-organized tables for both upcoming and past bookings, with essential details such as dates, times, and statuses.  
+- **Actionable Buttons**: **Edit** and **Delete** options are clearly displayed, allowing customers to easily manage their bookings.  
+- **Notifications**: The **Customer Action Required** section only appears when necessary, accompanied by a prominent message informing the customer of any table reassignment and requiring their approval.
+
+In summary, the customer dashboard clearly distinguishes between upcoming bookings, customer actions required (only when applicable), and past bookings. The design prioritizes easy access to booking management tools and provides transparent communication for any required actions, such as time reassignment.
+
+![Customer Dashboard Page](/readme_images/feature_section/customer-dashboard.png)
+
+</details>
+
+<details>
+<summary>Edit Booking Page - Customer Confirmation Required</summary>
+
+When a customer's booking requires confirmation, they can confirm or cancel the booking from the **Edit Booking** page. This scenario is typically used when the booking is in an unconfirmed state, and customer action is required to proceed.
+
+#### Key Features:
+- **Confirmation Form**: 
+  - The form allows the customer to confirm or cancel their booking.
+  - Only the status needs to be updated based on customer input.
+- **Confirmation Handling**:
+  - If confirmed, the booking status is updated, and the customer receives a success message.
+  - If canceled, the booking is not finalized, and the customer is redirected to the dashboard.
+- **Redirection**: 
+  - Once confirmed or canceled, the customer is redirected to their dashboard.
+
+#### Template: 
+- Displays the booking details with an option to confirm or cancel.
+- Confirmation form for the customer to take action.
+
+
+![Update Bookings Page](/readme_images/feature_section/update_booking-3.png)
+
+</details>
+
+<details>
+<summary>Edit Booking Page - Pending/Confirmed</summary>
+
+When a customer wishes to edit their booking, they can update details such as the number of people, additional notes, or other booking details. This functionality is available as follows:
+
+#### Key Features:
+- **Booking Form**: A form is provided for the customer to edit their booking details, including:
+  - Number of people.
+  - Additional notes.
+- **Booking Status**: The booking status is set to **Pending** if any changes are made and no table is assigned.
+- **Form Validation**: On submission, the form checks for validity, and upon successful update, a success message is displayed.
+- **Cancellation**: If the customer decides not to update their booking, they can cancel the operation and return to the customer dashboard.
+
+#### Template: 
+- Displays the booking details in a read-only table.
+- Shows the editable form for updating the booking.
+
+
+![Update Bookings Page](/readme_images/feature_section/update_booking-4.png)
+
+</details>
 
 ## Staff (Authenticated)
-The remaining pages are only accessible to staff
-<details>
-<summary>... Page</summary>
-<!-- List features and describe significance -->
+The following pages are only accessible by staff
 
-![... Page](static/doc_images/feature_screenshots/SOME_IMAGE)
+<details>
+<summary>Staff Dashboard Page</summary>
+
+### Staff Dashboard
+
+The staff dashboard provides an interface for managing and viewing the details of bookings and table availability for the current day.
+
+### Key Features:
+
+- **Today's Bookings**:
+  - Displays a list of bookings for the current day.
+  - Each booking includes essential details such as:
+    - Booking ID
+    - User details (e.g., username)
+    - Time of booking
+    - Number of people
+    - Assigned table (if available)
+  - Allows actions such as editing or deleting bookings.
+  - If no bookings are present for the day, a message is displayed indicating that there are no bookings.
+
+- **Manage Bookings**:
+  - A link is provided to manage all bookings, directing the staff to a page for further booking management.
+
+- **Table Availability**:
+  - Displays a grid showing the availability of tables for each time slot throughout the day.
+  - Each table's availability is indicated by color codes:
+    - **Available**: Green
+    - **Occupied**: Red
+  - Time slots are generated dynamically in 15-minute intervals to provide a detailed view of table occupancy.
+
+- **Booking Deletion**:
+  - A modal confirmation is shown when deleting a booking, ensuring that the staff can confirm or cancel the deletion action.
+
+### Security Features:
+- **Access Control**: Only authenticated staff members can access the dashboard.
+- **Role-based Restrictions**: Actions such as editing and deleting bookings are restricted to authorized staff members only.
+
+The Staff Dashboard allows authorized staff to view and manage bookings for the current day, check table availability in real-time, and perform actions like editing or deleting bookings. It provides an efficient way to oversee scheduling and table occupancy.
+
+![Staff Dashboard Page](/readme_images/feature_section/staff-dashboard.png)
 
 </details>
 
-<!-- Similar to previous just repeat for each page unique to this staff -->
-<!-- Add any other sections for other roles -->
+<details>
+<summary>Manage Booking Page</summary>
+
+### Manage Bookings Page Overview
+
+This page allows staff to view and manage bookings across various statuses. The bookings are grouped into categories, each displayed in its own table. Each table provides options to edit or delete bookings. The page also checks for expired bookings and automatically marks them as "No Show."
+
+### Functionality
+
+- **Booking Categories**: The page categorizes bookings into several groups:
+  - **Pending Bookings**: Bookings that are waiting for confirmation and not yet assigned to tables.
+  - **Confirmed Bookings**: Bookings that have been confirmed, with separate views for those with or without assigned tables.
+  - **Cancelled Bookings**: Bookings that have been cancelled.
+  - **Completed Bookings**: Bookings that have been completed.
+  - **No Show Bookings**: Bookings where the customer failed to show up.
+  - **Customer Confirmation Required**: Bookings that require confirmation from the customer.
+
+- **Table Views**: Each booking group is displayed in a table with the following columns:
+  - Booking ID, User, Date, Time, Number of People, Status, Assigned Table, and Actions.
+
+- **Actions**:
+  - **Edit**: Staff can edit booking details.
+  - **Delete**: Staff can delete bookings, with a confirmation modal ensuring they don't delete accidentally.
+
+- **Booking Expiry**: For confirmed bookings, the system checks if they have expired. If so, the booking status is automatically changed to "No Show."
+
+### Layout and Styling
+  
+- **Tables and Scrollability**: Each booking category is displayed in a table format, and these tables are scrollable to accommodate long lists of bookings. This ensures that the page remains user-friendly even with large datasets.
+
+- **Action Visibility**: Buttons for editing and deleting bookings are clearly visible, allowing staff to easily perform actions on bookings.
+
+- **Consistent Design**: The page follows a consistent design layout with clear section headings, making it easy to differentiate between various types of bookings.
+
+### Security and Permissions
+
+- **User Authentication**: The page is restricted to authenticated users, ensuring that only logged-in individuals can access it.
+  
+- **Role-Based Access**: Access is further restricted based on user roles or permissions, ensuring that only users with appropriate permissions (e.g., staff or admin) can perform specific actions or view certain data.
+
+- **Unauthorized Access Handling**: If a user without proper permissions attempts to access the page, they are redirected to a dedicated unauthorized access page or a login page, preventing unauthorized actions.
+
+The **Manage Bookings** page provides a straightforward way for staff to manage bookings by status. It includes key functionalities like editing, deleting, and confirming bookings, while ensuring accessibility and responsiveness across all devices.
+
+![Manage Bookings Page](/readme_images/feature_section/manage_booking-1.png)
+
+![Manage Bookings Page](/readme_images/feature_section/manage_booking-2.png)
+
+</details>
+
+<details>
+<summary>Edit Booking Page - Staff</summary>
+
+Staff members can manage and update customer bookings, including assigning tables, adjusting time slots, and modifying other booking details.
+
+#### Key Features:
+- **Table Availability**: 
+  - Staff can view available tables and time slots for the selected date.
+  - The system provides a table availability grid with a color-coded key indicating available and occupied slots.
+- **Editable Booking Form**: 
+  - Staff can update the booking details, such as the assigned table and time slot.
+  - The form includes validation to ensure the table is not already booked for the selected time.
+- **Error Handling**: 
+  - If a staff member attempts to assign a table that is already occupied, an error message is shown.
+- **Successful Update**: 
+  - After the booking is successfully updated, the staff is notified with a success message and redirected to the booking management page.
+
+#### Template:
+- Displays a table with availability for the selected date and time slots.
+- A form for staff to edit booking details such as table assignments and time slots.
+
+![Update Bookings Page](/readme_images/feature_section/update_booking-1.png)
+![Update Bookings Page](/readme_images/feature_section/update_booking-2.png)
+
+</details>
+
+## Admin/Superusers (Authenticated)
+The following pages are only accessible by admin:
+
+<details>
+<summary>Admin Dashboard Page</summary>
+
+The Admin Dashboard provides an overview of booking statistics, allows managing bookings, and includes filtering capabilities for viewing booking data within specific date ranges. It also displays detailed insights into booking statuses and averages.
+
+### Key Features
+
+- **Menu and Booking Management**:
+  - Buttons to manage the restaurant's **menu** and **bookings**.
+
+- **Booking Filter**:
+  - A filter form that allows the admin to filter bookings by:
+    - **This Week**
+    - **This Month**
+    - **Custom Date Range**
+  - Displays additional date selection fields when the **Custom** option is chosen.
+
+- **Overall Booking Statistics**:
+  - Displays key metrics:
+    - **Average Booking Size**: The average number of people per booking.
+    - **Average Bookings Per Day**: The average number of bookings made daily.
+    - **Average Visitors Per Day**: The average number of visitors per day based on the bookings.
+
+- **Booking Status Statistics**:
+  - Displays the counts of bookings in each status:
+    - **Total Bookings**
+    - **Confirmed**
+    - **Pending**
+    - **Cancelled**
+    - **No-Show**
+
+- **Booking Table View**:
+  - Displays a table of bookings for the selected date range.
+  - Includes:
+    - **Booking ID**
+    - **User**
+    - **Time**
+    - **Number of People**
+    - **Status**
+    - **Assigned Table**
+
+The **Admin Dashboard** enables the admin to manage bookings and menu, filter bookings by date range, and view detailed statistics and booking status summaries for better operational insights.
+
+![Admin Dashboard Page](/readme_images/feature_section/admin-dashboard.png)
+
+</details>
+
+<details>
+<summary>Menu Page - Admin View</summary>
+
+When a superuser or admin is logged in, they can interact with the menu in the following ways:
+
+**Key Features:**
+- **Edit Menu Item:**
+  - The superuser can access an edit button next to each menu item, allowing them to update the details of any item, such as name, description, price, and availability.
+  - This action opens the **menu item editing form** where the admin can modify the menu item's details.
+  
+- **Delete Menu Item:**
+  - The superuser can delete any menu item directly from the menu page.
+  - Upon clicking the delete button, a **confirmation modal** is shown asking for confirmation before proceeding with the deletion.
+  - If confirmed, the menu item is removed from the menu.
+  
+- **Add New Menu Item:**
+  - The superuser has access to a button that allows them to **add a new menu item** to the specific category.
+  - This action takes the admin to the **create menu item form** where new menu items can be added to the system.
+  
+- **Menu Item Availability (Hidden Admin Functionality):**
+  - The availability of menu items (whether they are available or not) is stored in the database but hidden from regular users.
+  - Admins can view this information, and it may be used for backend functionality.
+
+### **Modals and Confirmation**
+
+- **Delete Confirmation Modal:**
+  - A confirmation modal appears when attempting to delete a menu item.
+  - Admins are asked to confirm that they want to permanently delete the item, with a warning that this action cannot be undone.
+
+![Menu Page](/readme_images/feature_section/menu-3.png)
+
+</details>
+
+<details>
+<summary>Create Menu Item Page</summary>
+
+When a superuser or admin is logged in, they have access to the form that allows them to **create new menu items** for the restaurant's menu.
+
+**Key Features:**
+- **Menu Item Creation Form:**
+  - The superuser/admin is presented with a form to enter the details of a new menu item, including the name, description, price, and category.
+  - The category is pre-set based on the URL parameter (`category_label`), ensuring that the new menu item belongs to the correct category.
+  
+- **Form Validation:**
+  - Upon submitting the form, the system checks for any errors.
+  - If the form is valid, a new menu item is saved to the database, and a success message is displayed.
+  - If there are any errors, the form is re-rendered with error messages for the admin to correct.
+  
+- **Success Message:**
+  - After successfully creating a new menu item, the admin is shown a success message, and the page is redirected back to the menu page.
+
+- **Cancel Button:**
+  - The admin can cancel the creation of the menu item at any time by clicking the **Cancel** button, which takes them back to the main menu page.
+
+- **Admin Only Access:**
+  - The page ensures that only **authenticated superusers** can create new menu items. If a non-superuser tries to access the page, they are redirected to the main menu page with an error message.
+
+- **Menu Item Form Fields:**
+  - The admin is presented with a form to input the following details for a new menu item:
+    - Name
+    - Description
+    - Price
+    - Category (which is pre-defined based on the URL)
+
+![Create Menu Item Page](/readme_images/feature_section/create_menu-1.png)
+
+</details>
+
+<details>
+<summary>Edit Menu Item Page</summary>
+
+When a superuser or admin is logged in, they have access to a form that allows them to **edit an existing menu item**. This page provides the functionality to modify the menu item’s name, description, price, image, and other relevant details.
+
+**Key Features:**
+
+- **Menu Item Edit Form:**
+  - The superuser/admin is presented with a form pre-filled with the existing details of the menu item.
+  - The admin can modify the name, description, price, and image of the menu item.
+  
+- **Current Image Display:**
+  - The current image of the menu item is displayed to the admin with an option to upload a new image.
+  - If no new image is uploaded, the existing image will be retained.
+  
+- **Form Validation:**
+  - Upon submitting the form, the system checks if the form data is valid.
+  - If the form is valid, the updated details are saved to the database, and a success message is displayed.
+  - If the form validation fails, the admin is shown an error message with instructions to correct the form.
+
+- **Success Message:**
+  - After successfully updating the menu item, a success message is displayed, and the page redirects the admin to the menu page.
+
+- **Cancel Button:**
+  - The admin can cancel the editing process at any time by clicking the **Cancel** button, which will redirect them back to the menu page without saving any changes.
+
+- **Admin Only Access:**
+  - The page ensures that only **authenticated superusers** can access the edit functionality. If a non-superuser tries to access the page, they are redirected to the main menu page with an error message.
+
+- **Editable Menu Item Fields:**
+  - The admin can modify the following fields of an existing menu item:
+    - Name
+    - Description
+    - Price
+    - Image (can be changed by uploading a new one)
+
+![Edit Menu Item Page](/readme_images/feature_section/edit_menu-1.png)
+
+![Edit Menu Item Page](/readme_images/feature_section/edit_menu-2.png)
+
+</details>
 
 ## Future Features
 - **AJAX-Based Dynamic Form Filtering**: Use AJAX or similar technologies to dynamically filter one form field based on the selection in another, improving form usability and data accuracy.  
