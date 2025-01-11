@@ -40,9 +40,11 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary"
+                            aria-label="Edit booking {{ booking.id }}">Edit</a>
                         <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            aria-label="Delete booking {{ booking.id }}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -89,9 +91,11 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary"
+                            aria-label="Edit booking {{ booking.id }}">Edit</a>
                         <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            aria-label="Delete booking {{ booking.id }}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -138,9 +142,11 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary"
+                            aria-label="Edit booking {{ booking.id }}">Edit</a>
                         <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            aria-label="Delete booking {{ booking.id }}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -187,9 +193,11 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary"
+                            aria-label="Edit booking {{ booking.id }}">Edit</a>
                         <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            aria-label="Delete booking {{ booking.id }}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -236,9 +244,11 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary"
+                            aria-label="Edit booking {{ booking.id }}">Edit</a>
                         <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            aria-label="Delete booking {{ booking.id }}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -285,9 +295,11 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary"
+                            aria-label="Edit booking {{ booking.id }}">Edit</a>
                         <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            aria-label="Delete booking {{ booking.id }}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -314,8 +326,9 @@
                 Are you sure you want to delete this booking? This action cannot be undone.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a id="delete-confirm" href="#" class="btn btn-danger">Delete</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    aria-label="Close">Close</button>
+                <a id="delete-confirm" href="#" class="btn btn-danger" aria-label="Confirm deletion">Delete</a>
             </div>
         </div>
     </div>
