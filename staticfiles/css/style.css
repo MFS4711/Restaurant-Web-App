@@ -485,15 +485,13 @@ table {
 }
 
 /* Image Container */
-/* .image-container {
-    max-width: 200px;
-    max-height: 200px;
+.image-container {
+    width: 100%;
 }
 
 .image-container img {
-    max-width: 200px;
-    max-height: 200px;
-} */
+    width: 100%;
+}
 
 /* ----------- Form Styles -------------- */
 .hidden {
@@ -553,14 +551,10 @@ textarea:focus {
     margin-top: 20px;
 }
 
-/* .buttons .btn:hover {
-    background-color: #333;
-    color: #FFD700;
-} */
-
 .btn-submit:hover {
     background-color: #333;
     color: #FFD700;
+    border: 2px solid #FFD700;
 }
 
 /* Modal */
