@@ -26,7 +26,7 @@ def contact(request):
 
     None
 
-    **Template:** 
+    **Template:**
 
     :template:`core/contact.html`
     """
