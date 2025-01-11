@@ -10,7 +10,8 @@ class MenuItemForm(forms.ModelForm):
     """
     A form for creating and updating MenuItem instances.
 
-    This form is based on Django's ModelForm and is tied to the `MenuItem` model.
+    This form is based on Django's ModelForm
+    and is tied to the `MenuItem` model.
     It includes the following fields:
 
     - **name**: The name of the menu item.
@@ -19,7 +20,8 @@ class MenuItemForm(forms.ModelForm):
     - **price**: The price of the menu item.
     - **is_available**: A boolean indicating if the item is available for sale.
 
-    The form is used for both creating new menu items and updating existing ones.
+    The form is used for both creating new menu items
+    and updating existing ones.
     """
 
     class Meta:
@@ -31,7 +33,7 @@ class MenuItemForm(forms.ModelForm):
         'price': forms.NumberInput(attrs={
             'min': 0.01,  # Minimum price value (cannot be zero or negative)
             'step': '0.01',
-            'placeholder': 'Enter price',  
+            'placeholder': 'Enter price',
             'class': 'form-control',
         }),
     }
@@ -42,7 +44,8 @@ class MenuItemForm(forms.ModelForm):
         1. The price is not 0 or None.
         2. The price is rounded to exactly two decimal places.
 
-        If the validation fails, a ValidationError is raised with a corresponding message.
+        If the validation fails, a ValidationError is raised with a
+        corresponding message.
         """
         price = self.cleaned_data.get('price')
 
@@ -53,7 +56,7 @@ class MenuItemForm(forms.ModelForm):
         # Round the price to exactly two decimal places to maintain consistency
         price = round(price, 2)
 
-        # Validate that the price is represented as a float with exactly two decimal places
+        # Validate that the price is a float with exactly two decimal places
         # This regex ensures the price is in the correct format after rounding
         if not re.match(r'^\d+(\.\d{2})$', f'{price:.2f}'):
             raise ValidationError(

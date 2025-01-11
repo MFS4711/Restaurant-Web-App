@@ -10,11 +10,11 @@ def menu(request):
 
     **Context:**
 
-    ``categorised_items`` 
-        A list of tuples where each tuple contains a category label and a 
+    ``categorised_items``
+        A list of tuples where each tuple contains a category label and a
         queryset of MenuItems in that category.
 
-    **Template:** 
+    **Template:**
 
     :template:`menu/menu.html`
     """
@@ -48,13 +48,14 @@ def create_menu_item(request, category_label):
 
     **Context:**
 
-    ``menu_item_form`` 
-        An instance of :form:`menu.MenuItemForm` used for creating a new menu item.
+    ``menu_item_form``
+        An instance of :form:`menu.MenuItemForm`
+        used for creating a new menu item.
 
-    ``category_label`` 
+    ``category_label``
         The label of the category the new menu item belongs to.
 
-    **Template:** 
+    **Template:**
 
     :template:`menu/create_menu_item.html`
     """
@@ -71,7 +72,7 @@ def create_menu_item(request, category_label):
         if menu_item_form.is_valid():
             # Set the category from the URL parameter
             menu_item = menu_item_form.save(commit=False)
-            menu_item.category = category_label  # Assign the category based on the URL
+            menu_item.category = category_label
             menu_item.save()
 
             # Display success message and redirect to the menu page
@@ -87,7 +88,7 @@ def create_menu_item(request, category_label):
 
     context = {
         'menu_item_form': menu_item_form,
-        'category_label': category_label,  # Pass the category label to the template
+        'category_label': category_label,
     }
 
     # Render the create menu item form template
@@ -100,13 +101,14 @@ def edit_menu_item(request, menu_item_id):
 
     **Context:**
 
-    ``menu_item_form`` 
-        An instance of :form:`menu.MenuItemForm` pre-filled with the details of the item being edited.
+    ``menu_item_form``
+        An instance of :form:`menu.MenuItemForm`
+        pre-filled with the details of the item being edited.
 
-    ``menu_item`` 
+    ``menu_item``
         The menu item being edited.
 
-    **Template:** 
+    **Template:**
 
     :template:`menu/edit_menu_item.html`
     """
@@ -120,7 +122,7 @@ def edit_menu_item(request, menu_item_id):
     menu_item = get_object_or_404(MenuItem, pk=menu_item_id)
 
     if request.method == "POST":
-        # Bind the form with POST data and pre-fill it with existing menu item details
+        # Bind the form with POST data and pre-fill it with existing details
         menu_item_form = MenuItemForm(
             data=request.POST, files=request.FILES, instance=menu_item)
 
@@ -158,7 +160,7 @@ def delete_menu_item(request, menu_item_id):
 
     None
 
-    **Template:** 
+    **Template:**
 
     :template:`menu/menu.html`
     """

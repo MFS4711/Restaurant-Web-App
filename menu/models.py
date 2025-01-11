@@ -7,17 +7,21 @@ class MenuItem(models.Model):
     """
     Represents a menu item in a restaurant or food service application.
 
-    This model stores the details of a menu item, including its name, description, 
-    associated image, category (e.g., starters, mains, sides, desserts, drinks), 
+    This model stores the details of a menu item,
+    including its name, description,
+    associated image, category
+    (e.g., starters, mains, sides, desserts, drinks),
     price, and availability status.
 
     Attributes:
         name (str): The name of the menu item.
         description (str): A detailed description of the menu item.
-        image (CloudinaryField): An image associated with the menu item, stored in Cloudinary.
-        category (str): The category of the menu item, chosen from predefined categories (e.g., 'starters', 'mains', etc.).
+        image (CloudinaryField): An image associated with the menu item,
+        stored in Cloudinary.
+        category (str): The category of the menu item,
+        chosen from predefined categories (e.g., 'starters', 'mains', etc.).
         price (Decimal): The price of the menu item.
-        is_available (bool): A boolean indicating whether the item is available for ordering.
+        is_available (bool): A boolean indicating whether the item is available
 
     Methods:
         __str__(): Returns the name of the menu item.
