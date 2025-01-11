@@ -4,289 +4,302 @@
 
 {% block content %}
 <div class="container">
-    <h1>Manage Bookings</h1>
+    <h1 class="centered-content">Manage Bookings</h1>
 
     <!-- Pending Bookings -->
     <h3>Pending Bookings</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Booking ID</th>
-                <th>User</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Number of People</th>
-                <th>Status</th>
-                <th>Assigned Table</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if pending_bookings %}
-            {% for booking in pending_bookings %}
-            <tr>
-                <td>{{ booking.id }}</td>
-                <td>{{ booking.user.username }}</td>
-                <td>{{ booking.date }}</td>
-                <td>{{ booking.time }}</td>
-                <td>{{ booking.number_of_people }}</td>
-                <td>{{ booking.get_status_display }}</td>
-                <td>
-                    {% if booking.table %}
-                    {{ booking.table.table_number }}
-                    {% else %}
-                    Not Assigned
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                        data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="8">No pending bookings.</td>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
-
-    <!-- Confirmed Bookings -->
-    <h3>Confirmed Bookings</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Booking ID</th>
-                <th>User</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Number of People</th>
-                <th>Status</th>
-                <th>Assigned Table</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if confirmed_bookings %}
-            {% for booking in confirmed_bookings %}
-            <tr>
-                <td>{{ booking.id }}</td>
-                <td>{{ booking.user.username }}</td>
-                <td>{{ booking.date }}</td>
-                <td>{{ booking.time }}</td>
-                <td>{{ booking.number_of_people }}</td>
-                <td>{{ booking.get_status_display }}</td>
-                <td>
-                    {% if booking.table %}
-                    {{ booking.table.table_number }}
-                    {% else %}
-                    Not Assigned
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                        data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="8">No confirmed bookings.</td>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
-
-    <!-- Cancelled Bookings -->
-    <h3>Cancelled Bookings</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Booking ID</th>
-                <th>User</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Number of People</th>
-                <th>Status</th>
-                <th>Assigned Table</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if cancelled_bookings %}
-            {% for booking in cancelled_bookings %}
-            <tr>
-                <td>{{ booking.id }}</td>
-                <td>{{ booking.user.username }}</td>
-                <td>{{ booking.date }}</td>
-                <td>{{ booking.time }}</td>
-                <td>{{ booking.number_of_people }}</td>
-                <td>{{ booking.get_status_display }}</td>
-                <td>
-                    {% if booking.table %}
-                    {{ booking.table.table_number }}
-                    {% else %}
-                    Not Assigned
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                        data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="8">No cancelled bookings.</td>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
-
-    <!-- Completed Bookings -->
-    <h3>Completed Bookings</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Booking ID</th>
-                <th>User</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Number of People</th>
-                <th>Status</th>
-                <th>Assigned Table</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if completed_bookings %}
-            {% for booking in completed_bookings %}
-            <tr>
-                <td>{{ booking.id }}</td>
-                <td>{{ booking.user.username }}</td>
-                <td>{{ booking.date }}</td>
-                <td>{{ booking.time }}</td>
-                <td>{{ booking.number_of_people }}</td>
-                <td>{{ booking.get_status_display }}</td>
-                <td>
-                    {% if booking.table %}
-                    {{ booking.table.table_number }}
-                    {% else %}
-                    Not Assigned
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                        data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="8">No completed bookings.</td>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
-
-    <!-- No Show Bookings -->
-    <h3>No Show Bookings</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Booking ID</th>
-                <th>User</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Number of People</th>
-                <th>Status</th>
-                <th>Assigned Table</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if no_show_bookings %}
-            {% for booking in no_show_bookings %}
-            <tr>
-                <td>{{ booking.id }}</td>
-                <td>{{ booking.user.username }}</td>
-                <td>{{ booking.date }}</td>
-                <td>{{ booking.time }}</td>
-                <td>{{ booking.number_of_people }}</td>
-                <td>{{ booking.get_status_display }}</td>
-                <td>
-                    {% if booking.table %}
-                    {{ booking.table.table_number }}
-                    {% else %}
-                    Not Assigned
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                        data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="8">No no-show bookings.</td>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
+    <div class="table-wrapper custom-scrollable">
+        <table class="table table-bordered custom-table">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Number of People</th>
+                    <th>Status</th>
+                    <th>Assigned Table</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if pending_bookings %}
+                {% for booking in pending_bookings %}
+                <tr>
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.time }}</td>
+                    <td>{{ booking.number_of_people }}</td>
+                    <td>{{ booking.get_status_display }}</td>
+                    <td>
+                        {% if booking.table %}
+                        {{ booking.table.table_number }}
+                        {% else %}
+                        Not Assigned
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="8">No pending bookings.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
 
     <!-- Customer Confirmation Required Bookings -->
     <h3>Customer Confirmation Required Bookings</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Booking ID</th>
-                <th>User</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Number of People</th>
-                <th>Status</th>
-                <th>Assigned Table</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if customer_confirmation_required_bookings %}
-            {% for booking in customer_confirmation_required_bookings %}
-            <tr>
-                <td>{{ booking.id }}</td>
-                <td>{{ booking.user.username }}</td>
-                <td>{{ booking.date }}</td>
-                <td>{{ booking.time }}</td>
-                <td>{{ booking.number_of_people }}</td>
-                <td>{{ booking.get_status_display }}</td>
-                <td>
-                    {% if booking.table %}
-                    {{ booking.table.table_number }}
-                    {% else %}
-                    Not Assigned
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
-                    <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
-                        data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="8">No bookings requiring customer confirmation.</td>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
+    <div class="table-wrapper custom-scrollable">
+        <table class="table table-bordered custom-table">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Number of People</th>
+                    <th>Status</th>
+                    <th>Assigned Table</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if customer_confirmation_required_bookings %}
+                {% for booking in customer_confirmation_required_bookings %}
+                <tr>
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.time }}</td>
+                    <td>{{ booking.number_of_people }}</td>
+                    <td>{{ booking.get_status_display }}</td>
+                    <td>
+                        {% if booking.table %}
+                        {{ booking.table.table_number }}
+                        {% else %}
+                        Not Assigned
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="8">No bookings requiring customer confirmation.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Confirmed Bookings -->
+    <h3>Confirmed Bookings</h3>
+    <div class="table-wrapper custom-scrollable">
+        <table class="table table-bordered custom-table">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Number of People</th>
+                    <th>Status</th>
+                    <th>Assigned Table</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if confirmed_bookings %}
+                {% for booking in confirmed_bookings %}
+                <tr>
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.time }}</td>
+                    <td>{{ booking.number_of_people }}</td>
+                    <td>{{ booking.get_status_display }}</td>
+                    <td>
+                        {% if booking.table %}
+                        {{ booking.table.table_number }}
+                        {% else %}
+                        Not Assigned
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="8">No confirmed bookings.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Cancelled Bookings -->
+    <h3>Cancelled Bookings</h3>
+    <div class="table-wrapper custom-scrollable">
+        <table class="table table-bordered custom-table">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Number of People</th>
+                    <th>Status</th>
+                    <th>Assigned Table</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if cancelled_bookings %}
+                {% for booking in cancelled_bookings %}
+                <tr>
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.time }}</td>
+                    <td>{{ booking.number_of_people }}</td>
+                    <td>{{ booking.get_status_display }}</td>
+                    <td>
+                        {% if booking.table %}
+                        {{ booking.table.table_number }}
+                        {% else %}
+                        Not Assigned
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="8">No cancelled bookings.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Completed Bookings -->
+    <h3>Completed Bookings</h3>
+    <div class="table-wrapper custom-scrollable">
+        <table class="table table-bordered custom-table">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Number of People</th>
+                    <th>Status</th>
+                    <th>Assigned Table</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if completed_bookings %}
+                {% for booking in completed_bookings %}
+                <tr>
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.time }}</td>
+                    <td>{{ booking.number_of_people }}</td>
+                    <td>{{ booking.get_status_display }}</td>
+                    <td>
+                        {% if booking.table %}
+                        {{ booking.table.table_number }}
+                        {% else %}
+                        Not Assigned
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="8">No completed bookings.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- No Show Bookings -->
+    <h3>No Show Bookings</h3>
+    <div class="table-wrapper custom-scrollable">
+        <table class="table table-bordered custom-table">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Number of People</th>
+                    <th>Status</th>
+                    <th>Assigned Table</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if no_show_bookings %}
+                {% for booking in no_show_bookings %}
+                <tr>
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.time }}</td>
+                    <td>{{ booking.number_of_people }}</td>
+                    <td>{{ booking.get_status_display }}</td>
+                    <td>
+                        {% if booking.table %}
+                        {{ booking.table.table_number }}
+                        {% else %}
+                        Not Assigned
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-primary">Edit</a>
+                        <a href="#" class="btn btn-danger delete-btn" data-booking-id="{{ booking.id }}"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="8">No no-show bookings.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
 <!-- Delete Confirmation Modal -->
