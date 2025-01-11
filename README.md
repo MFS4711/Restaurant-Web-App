@@ -487,9 +487,10 @@ MoSCoW prioritisation was applied using the labels must-have, should-have, and c
 The project was broken down into manageable sprints using GitHub Projects, which provided a Kanban board. Issues were posted to the board and moved from "Todo" to "In Progress" to "Done" as they were completed. Due to time constraints, only Iteration 1 was completed, though future iterations were planned. This initial planning outlines the anticipated development of the application.
 
 The iterations are documented here :
-    - [Prerequisites](https://github.com/users/MFS4711/projects/6/views/1)
-    - [Iteration 1](https://github.com/users/MFS4711/projects/5)
-    - [Iteration 2](link)
+  - [Prerequisites](https://github.com/users/MFS4711/projects/6/views/1)
+  - [Iteration 1](https://github.com/users/MFS4711/projects/5)
+  - [Iteration 2](https://github.com/MFS4711/Restaurant-Web-App/milestone/2)
+  - [Iteration 3](https://github.com/MFS4711/Restaurant-Web-App/milestone/3)
 
 The User Epics and their related User Stories are as follows:
 - Epic : [Set up User Authentication with Django Allauth](https://github.com/MFS4711/Restaurant-Web-App/issues/1)

@@ -45,8 +45,7 @@ def customer_dashboard(request, user_id):
 
     # Fetch upcoming bookings (those scheduled in the future)
     upcoming_bookings = Booking.objects.filter(
-        user=user, date__gte=current_time.date(),
-        time__gte=current_time.time(),
+        user=user,
         status__in=['confirmed', 'pending']
     ).order_by('date', 'time')
 
