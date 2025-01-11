@@ -91,7 +91,7 @@ def booking_success(request, booking_id):
         The booking object that was successfully made and is being displayed to the user.
 
     **Authorization:**
-    
+
     The user must be either the owner of the booking (i.e., the user who created the booking)
     or a staff member to access this page. If the user does not have the necessary permission,
     they are redirected to the customer dashboard with an error message.
@@ -290,6 +290,12 @@ def edit_booking(request, booking_id):
                     messages.error(
                         request, f"An unexpected error occurred: {str(e)}")
                     return redirect('edit_booking', booking_id=booking.id)
+            else:
+                # If the form is not valid, show form errors as messages
+                for field, errors in staff_form.errors.items():
+                    for error in errors:
+                        messages.error(
+                            request, f"{field.capitalize()}: {error}")
         else:
             staff_form = StaffBookingForm(instance=booking, initial={
                                           'number_of_people': booking.number_of_people})

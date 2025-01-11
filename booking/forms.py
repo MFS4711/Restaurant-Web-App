@@ -177,10 +177,6 @@ class StaffBookingForm(forms.ModelForm):
             self.fields['table'].queryset = Table.objects.filter(
                 is_available=True,
                 capacity__gte=number_of_people
-            ).exclude(
-                bookings__date=booking_date,
-                bookings__time__gte=conflicting_time_range_start.time(),
-                bookings__time__lt=conflicting_time_range_end.time()
             )
 
     def clean_table(self):

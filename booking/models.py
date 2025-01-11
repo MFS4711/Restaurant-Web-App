@@ -119,6 +119,10 @@ class Booking(models.Model):
 
         If the booking status is changed to 'Cancelled', the table assignment is cleared before saving the booking.
         """
+        # Check if the table is available before saving the booking
+        if self.table and not self.table.is_available:
+            raise ValueError("The selected table is not available for booking.")
+            
         # If the booking status is being set to 'Cancelled', clear the assigned table
         if self.status == Booking.CANCELLED:
             self.table = None
