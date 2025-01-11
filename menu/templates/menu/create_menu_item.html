@@ -3,15 +3,29 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container">
-    <h2>Create New Menu Item</h2>
+<div class="container content-container">
 
-    <form method="post">
-        {% csrf_token %}
-        {{ menu_item_form | crispy }}
-        <button type="submit">Create Menu Item</button>
-    </form>
+    <h1 class="centered-content">Create New Menu Item</h1>
 
-    <a href="{% url 'menu' %}">Back to Menu</a>
+    <div class="child-container">
+        <div class="create-item">
+
+            <form method="post">
+                {% csrf_token %}
+                {{ menu_item_form | crispy }}
+                <!-- Submit button for the form with an accessible label -->
+                <button type="submit" class="btn btn-signup btn-submit btn-lg"
+                    aria-label="Create the new menu item.">Create
+                    New Menu Item</button>
+            </form>
+
+            <hr>
+
+            <!-- Cancel Button that redirects back to the menu page -->
+            <a href="{% url 'menu' %}" class="btn btn-secondary btn-lg" role="button"
+                aria-label="Cancel the creation of the new item">Cancel</a>
+
+        </div>
+    </div>
 </div>
 {% endblock content %}

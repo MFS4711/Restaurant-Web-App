@@ -8,10 +8,15 @@ def menu(request):
     """
     Display the menu page with all menu items grouped by categories.
 
-    **Context:** 
+    **Context:**
 
     ``categorised_items``
-        A list of tuples where each tuple contains a category label and a queryset of MenuItems in that category.
+        A list of tuples where each tuple contains a category label and a 
+        queryset of MenuItems in that category.
+
+    **Template:** 
+
+    :template:`menu/menu.html`
     """
 
     # Get all Menu Items

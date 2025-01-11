@@ -2,26 +2,40 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container">
+<div class="container content-container">
     <h1 class="centered-content">Edit Menu Item</h1>
+    <div class="child-container">
 
-    <div class="menu-item-edit">
-        <h3>Edit {{ menu_item.name }}</h3>
+        <div class="menu-item-edit">
+            <h3>Edit {{ menu_item.name }}</h3>
 
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ menu_item_form | crispy }}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ menu_item_form | crispy }}
 
-            <!-- Current Image Display -->
-            <div class="form-group">
-                <label for="id_image">Current Image:</label>
-                <div class="image-container">
-                    <img src="{{ menu_item.image.url }}" alt="{{ menu_item.name }} image" width="200">
+                <!-- Current Image Display -->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 offset-md-2 col-md-8">
+                            <label for="id_image">Current Image:</label>
+                            <div class="image-container">
+                                <img src="{{ menu_item.image.url }}" alt="{{ menu_item.name }} image">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
-        </form>
+                <!-- Submit button for the form with an accessible label -->
+                <button type="submit" class="btn btn-signup btn-submit btn-lg"
+                    aria-label="Submit your changes to the menu item.">Submit</button>
+            </form>
+
+            <hr>
+
+            <!-- Cancel Button that redirects back to the menu page -->
+            <a href="{% url 'menu' %}" class="btn btn-secondary btn-lg" role="button"
+            aria-label="Cancel the edit and go back to the menu page.">Cancel</a>
+        </div>
     </div>
 </div>
 {% endblock content %}
