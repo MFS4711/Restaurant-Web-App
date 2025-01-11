@@ -710,59 +710,149 @@ All pages on the live site were tested with the default list of devices in Chrom
 <!-- Add any things to note of interst - i.e some acceptable compromise -->
 
 ### Lighthouse
-The Lighthouse testing results are displayed by page below:
+The Lighthouse testing was carried out using a chrome extension which can be found [here](https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk).
+The results are displayed by page below:
 
 <details>
 <summary>Lighthouse results by page</summary>
 
-<!-- Add page as bullet point and lighthouse result screenshot - Performance, Accessibility and SEO - best practices -->
+- Homepage (Landing Page)
 
-- Welcome Page (Landing Page)
+![index_lighthouse](readme_images/lighthouse/index_lighthouse.png)
 
-![welcome_page_lighthouse](static/doc_images/lighthouse_reports/FILE_PATH)
+- Menu Page
 
-<!-- Repeat for each page -->
+![menu_lighthouse](readme_images/lighthouse/menu_lighthouse.png)
 
-- Another Page
+- Booking Page
 
-![another_page_lighthouse](static/doc_images/lighthouse_reports/FILE_PATH)
+![booking_lighthouse](readme_images/lighthouse/booking_lighthouse.png)
+
+- Contact Page
+
+![contact_lighthouse](readme_images/lighthouse/contact_lighthouse.png)
+
+- Login Page
+
+![login_lighthouse](readme_images/lighthouse/login_lighthouse.png)
+
+- Sign Up Page
+
+![signup_lighthouse](readme_images/lighthouse/signup_lighthouse.png)
+
+- All other pages are protected so are inaccessible with the lighthouse extension
+
+![protected_lighthouse](readme_images/lighthouse/protected_lighthouse.png)
 
 </details>
 
 ## Validation Testing
 
+### Python Validation
+
+All python code is validated by the [Flake8 linter](https://flake8.pycqa.org/en/latest/) (installed in VSCode) and [CI Python Linter](https://pep8ci.herokuapp.com/). The exceptions to this were django migration files, urls and similar files. However, any custom models, views and forms were validated. I have separated this by app:
+
 <details>
-<summary>Python Code</summary>
+<summary>Core App</summary>
 
-- All python code is validated by the [Flake8 linter](https://flake8.pycqa.org/en/latest/) (installed in VSCode) and [CI Python Linter](https://pep8ci.herokuapp.com/). The sole exceptions are the test classes, whose function names and implementation can be very verbose.
+- views.py
 
-![Python Validation](SCREENSHOT_PATH)
+![core_views_python_validation](/readme_images/python_validation/core_views_python_validation.png)
 
 </details>
 
 <details>
-<summary>JavaScript Code</summary>
+<summary>Dashboard App</summary>
 
-- All JavaScript code is validated by the [ESLint](https://eslint.org/) (installed in VSCode) and [JS Hinterface](https://mfs4711.github.io/jshint-api/).
+- views.py
 
-![JavaScript Validation](SCREENSHOT_PATH)
+![Python Validation](/readme_images/python_validation/dashboard-python_validation.png)
 
 </details>
 
 <details>
-<summary>HTML Validation</summary>
+<summary>Booking App</summary>
 
-- All HTML files were validated using the [W3C Markup Validation Service](https://validator.w3.org/)
+- models.py
 
-![HTML Validation](SCREENSHOT_PATH)
+![booking_models_python_validation](/readme_images/python_validation/booking_models_python_validation.png)
+
+- forms.py
+
+![booking_forms_python_validation](/readme_images/python_validation/booking_forms_python_validation.png)
+
+- views.py
+
+![booking_views_python_validation](/readme_images/python_validation/booking_views_python_validation.png)
+
+- utils.py
+
+![booking_utils_python_validation](/readme_images/python_validation/booking_utils_python_validation.png)
+
 </details>
 
 <details>
-<summary>CSS Validation</summary>
+<summary>Menu App</summary>
 
-- All CSS files were validated using the [W3C Validation Service](https://jigsaw.w3.org/css-validator/)
+- models.py
+
+![menu_models_python_validation](/readme_images/python_validation/menu_models_python_validation.png)
+
+- forms.py
+
+![menu_forms_python_validation](/readme_images/python_validation/menu_forms_python_validation.png)
+
+- views.py
+
+![menu_views_python_validation](/readme_images/python_validation/menu_views_python_validation.png)
+
+</details>
+
+### JavaScript Validation
+
+All JavaScript code is validated by the [ESLint](https://eslint.org/) (installed in VSCode) and [JS Hinterface](https://mfs4711.github.io/jshint-api/). Custom JS was present only in the Booking and Menu Apps respectively.
+
+<details>
+<summary>Booking App</summary>
+
+![booking_js-validation](/readme_images/js_validation/booking_js-validation.png)
+
+</details>
+
+<details>
+<summary>Menu App</summary>
+
+![menu_js-validation](/readme_images/js_validation/menu_js-validation.png)
+
+</details>
+
+### HTML Validation
+
+All HTML was validating using the page source of the deployed project using [W3C Markup Validation Service](https://validator.w3.org/). All pages were clear of all errors/warnings. There was only one page where an additonal factor was noted. This was on the menu page which had an 'info' warning. This was related to the way the Cloudinary image is used in the menu item modal.
+
+<details>
+<summary>Menu Page</summary>
+
+![menu.html_html_validation](/readme_images/html%20validation/menu.html_html_validation.png)
+
+</details>
+
+<details>
+<summary>All Other Pages</summary>
+
+![all-other-pages_html_validation](/readme_images/html%20validation/all-other-pages_html_validation.png)
+
+</details>
+
+### CSS Validation
+
+The single CSS file was validated using the [W3C Validation Service](https://jigsaw.w3.org/css-validator/)
+
+<details>
+<summary>Results</summary>
 
 ![CSS Validation](SCREENSHOT_PATH)
+
 </details>
 
 ## User Story Testing
