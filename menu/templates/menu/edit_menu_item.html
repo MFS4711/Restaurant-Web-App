@@ -9,6 +9,7 @@
         <div class="menu-item-edit">
             <h3>Edit {{ menu_item.name }}</h3>
 
+            <!-- Form for editing the menu item -->
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ menu_item_form | crispy }}
@@ -17,9 +18,12 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-12 offset-md-2 col-md-8">
-                            <label for="id_image">Current Image:</label>
+                            <!-- Label for the current image -->
+                            <label for="id_image" id="current-image-label">Current Image:</label>
                             <div class="image-container">
-                                <img src="{{ menu_item.image.url }}" alt="{{ menu_item.name }} image">
+                                <!-- Image displayed with alt text describing the menu item -->
+                                <img src="{{ menu_item.image.url }}" alt="{{ menu_item.name }} image"
+                                    id="current-image">
                             </div>
                         </div>
                     </div>
@@ -34,7 +38,7 @@
 
             <!-- Cancel Button that redirects back to the menu page -->
             <a href="{% url 'menu' %}" class="btn btn-secondary btn-lg" role="button"
-            aria-label="Cancel the edit and go back to the menu page.">Cancel</a>
+                aria-label="Cancel the edit and go back to the menu page.">Cancel</a>
         </div>
     </div>
 </div>

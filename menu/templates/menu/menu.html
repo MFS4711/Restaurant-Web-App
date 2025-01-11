@@ -16,11 +16,15 @@
         {% for menu_item in category_items %}
         <div class="menu-item row">
             <div class="col-12 offset-lg-2 col-lg-8">
+                <!-- Menu Item Title, linked to modal for more details -->
                 <h4 id="menu-item-name-{{ menu_item.id }}" class="menu-item-title" data-bs-toggle="modal"
-                    data-bs-target="#menuItemModal-{{ menu_item.id }}">
+                    data-bs-target="#menuItemModal-{{ menu_item.id }}"
+                    aria-label="View details of {{ menu_item.name }}">
                     {{ menu_item.name }}
                 </h4>
-                <p id="menu-item-description-{{ menu_item.id }}">{{ menu_item.description }}</p>
+                <p id="menu-item-description-{{ menu_item.id }}" aria-describedby="menu-item-name-{{ menu_item.id }}">
+                    {{ menu_item.description }}
+                </p>
 
                 <!-- Image Display -->
                 <div class="image-container hidden">
@@ -31,11 +35,14 @@
                     {% endif %}
                 </div>
 
+                <!-- Menu Item Price -->
                 <p><strong>£<span id="menu-item-price-{{ menu_item.id }}">{{ menu_item.price }}</span></strong></p>
+
+                <!-- Menu Item Availability (hidden from users, may be used for admin functionality) -->
                 <p class="hidden" id="menu-item-is-available-{{ menu_item.id }}">{{ menu_item.is_available }}</p>
             </div>
 
-            <!-- Modal for each menu item -->
+            <!-- Modal for displaying detailed information about a menu item -->
             <div class="modal fade" id="menuItemModal-{{ menu_item.id }}" tabindex="-1"
                 aria-labelledby="menuItemModalLabel-{{ menu_item.id }}" aria-hidden="true">
                 <div class="modal-dialog">
@@ -45,6 +52,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <!-- Modal Body - Image and Description -->
                             <img src="{{ menu_item.image.url }}" alt="{{ menu_item.name }}" class="img-fluid">
                             <h5>Description:</h5>
                             <p>{{ menu_item.description }}</p>
@@ -60,13 +68,15 @@
 
             {% if user.is_authenticated and user.is_superuser %}
             <div>
-                <!-- Edit & Delete Buttons -->
+                <!-- Edit & Delete Buttons (visible only to superusers) -->
                 <div class="row mb-2">
                     <div class="col-12 offset-lg-2 col-lg-8">
-                        <a href="{% url 'edit_menu_item' menu_item.id %}" class="btn btn-warning btn-sm">
+                        <a href="{% url 'edit_menu_item' menu_item.id %}" class="btn btn-warning btn-sm"
+                            aria-label="Edit {{ menu_item.name }}">
                             <i class="fas fa-cogs"></i> Edit
                         </a>
-                        <a href="#" class="btn btn-danger btn-sm delete-btn" data-menu-item-id="{{ menu_item.id }}">
+                        <a href="#" class="btn btn-danger btn-sm delete-btn" data-menu-item-id="{{ menu_item.id }}"
+                            aria-label="Delete {{ menu_item.name }}">
                             <i class="fas fa-trash-alt"></i> Delete
                         </a>
                     </div>
@@ -78,8 +88,9 @@
 
         {% if user.is_authenticated and user.is_superuser %}
         <div>
-            <!-- Link to create a new menu item -->
-            <a href="{% url 'create_menu_item' category_label|lower %}" class="btn btn-success">
+            <!-- Link to create a new menu item, visible only to superusers -->
+            <a href="{% url 'create_menu_item' category_label|lower %}" class="btn btn-success"
+                aria-label="Add a new menu item to {{ category_label }}">
                 <i class="fas fa-plus"></i> Add New {{ category_label }}
             </a>
         </div>
@@ -88,7 +99,7 @@
     <hr>
     {% endfor %}
 
-    <!-- Delete confirmation modal -->
+    <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -97,19 +108,21 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <!-- Confirmation text for deletion -->
                     Are you sure you want to delete this menu item? This action cannot be undone.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a id="delete-confirm" href="#" class="btn btn-danger">Delete</a>
+                    <a id="delete-confirm" href="#" class="btn btn-danger"
+                        aria-label="Confirm deletion of menu item">Delete</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Allergens and Intolerances Disclaimer Section -->
-    <section class="disclaimer-section">
-        <h5>Allergens and Intolerances Disclaimer:</h5>
+    <section class="disclaimer-section" aria-labelledby="allergen-disclaimer">
+        <h5 id="allergen-disclaimer">Allergens and Intolerances Disclaimer:</h5>
         <p>Our dishes may contain or come into contact with common allergens such as nuts, dairy, gluten, etc. Please
             speak to a member of staff if you have any food allergies or intolerances before placing your order.</p>
     </section>
