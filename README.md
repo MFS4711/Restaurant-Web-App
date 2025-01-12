@@ -1082,11 +1082,38 @@ This app does not include any models. Its primary function is to retrieve and di
 This app does not contain any models. It is designed to serve as a container for the homepage and contact page, which do not require interaction with any models.
 
 ## Data Validation
-<!-- List places where validators were used in model - i.e.price -->
-<!-- If someone tries a negative number, error will occur and some action will happen - describe  -->
-The following decimal fields, representing currency amounts, are protected by Django's MinValueValidator, with the minimum value being set at 0.
 
-<!-- Also add any JS checks on form fields etc. to ensure desired action/errors are caught -->
+Django Widget attributes have been used to provide min and max markers for form fields ensuring only values in a certain range can be submitted.
+
+**Price validation** methods have been included in the `MenuItemForm` to prevent invalid inputs. Firstly, the Django Widget preventing numbers which are negative or more than 2 decimal places:
+
+` widgets = {
+        'price': forms.NumberInput(attrs={
+            'min': 0.01,  # Minimum price value (cannot be zero or negative)
+            'step': '0.01',
+            'placeholder': 'Enter price',
+            'class': 'form-control',
+        }),
+    } `
+
+Also, a clean method was included in the form to provide another layer of safety like the above, raising a relevant validation error, and also adds functionality which ensures the number input is rounded to 2 decimal places ensuring consistent formating of pricing.
+
+``` 
+def clean_price(self):
+
+        price = self.cleaned_data.get('price')
+
+        if price is None or price == 0:
+            raise ValidationError("Price must be greater than 0.")
+        
+        price = round(price, 2)
+
+        if not re.match(r'^\d+(\.\d{2})$', f'{price:.2f}'):
+            raise ValidationError(
+                "Price must have exactly two decimal places.")
+
+        return price 
+```
 
 ---
 
@@ -1100,11 +1127,9 @@ The Testing section covers various strategies used to ensure the application's f
 
 ### Feature Testing
 The manual testing of features is organised by app below. Testing was carried out on a 1920 x 1080 desktop screen, a Samsung tablet and an Samsung S22 Ultra.
-<!-- Amend devices as required for testing -->
 
 <details>
 <summary>Core App, Navbar and Footer</summary>
-<!-- Example of how to layout table below -->
 
 |Page|Feature|Action|Effect|
 |---|---|---|---|
@@ -1127,7 +1152,7 @@ The manual testing of features is organised by app below. Testing was carried ou
 |/|Navbar - Sign Up link leads to /signup/|Click link|User redirected to Sign Up page|
 |/|Navbar - Authenticated users (all) - Logout link leads to / |Click link|User redirected to Home page|
 |/|Footer - Logo image causes page to reload|Click logo|Page reloads/redirects to homepage if not already on it|
-|/contact|Logo images redirects user to homepage|Click logo|Page redirects to homepage|
+|/contact/|Logo images redirects user to homepage|Click logo|Page redirects to homepage|
 
 
 </details>
@@ -1137,7 +1162,7 @@ The manual testing of features is organised by app below. Testing was carried ou
 <!-- Example of how to layout table below -->
 |Page|Feature|Action|Effect|
 |---|---|---|---|
-|/basket/view_basket/|All items appear in list|Add item to list in product_detail page|Item appears on table|
+|/customer-dashboard/|Unauthenticated - |Item appears on table|
 |/basket/view_basket/|Item quantities are correct|Add n items in product_detail page|n items appear on table|
 </details>
 
@@ -1310,13 +1335,13 @@ The single CSS file was validated using the [W3C Validation Service](https://jig
 </details>
 
 ## User Story Testing
-The User Epics and Stories for this project are documented across ... GitHub Projects, each corresponding to a specific iteration of the development work. You can find them here:
+The User Epics and Stories for this project are documented across 3 GitHub Projects, each corresponding to a specific iteration of the development work. However, as already mentioned only Iteration 1 has been addressed thus far with the remaining Iterations noted as part of future implementation. You can find the relevant Iterations here:
 
-- [Iteration 1](link)
-- [Iteration 2](link)
-- etc .
+- [Iteration 1](https://github.com/users/MFS4711/projects/5)
+- [Iteration 2](https://github.com/MFS4711/Restaurant-Web-App/milestone/2)
+- [Iteration 3](https://github.com/MFS4711/Restaurant-Web-App/milestone/3)
 
-Alternitively, the Epics and Stories are individually linked here :
+Alternatively, the Epics and Stories are individually linked here :
 
 - [Epics and Stories](#development-process)
 
@@ -1328,19 +1353,7 @@ In both cases, the status of each issue will indicate whether the user story has
 
 Comprehensive automated testing can be seen for the Menu App where all CRUD functionalities are tested. This has partially been completed for the Booking App where the models are comprehensively tested but the forms/views are only partially tested as a related bug was being addressed.
 
-<!-- A full suite of automated tests is included in the project. The tests for each app are located in the `test/` folder within each respective app and can be run using the following command :
-
-`python3 manage.py test`
-
-The most recent coverage report is available in the `htmlcov/` folder at the project's root. To view it, you can serve the report locally by running Python's built-in HTTP server from the root folder :
-
-`python3 -m http.server`
-
-To generate the coverage HTML report, use the following commands:
-
-`coverage run manage.py test`
-
-`coverage html` -->
+Testing of the Booking Form raised an issue regarding the form validation preventing a user to submit a booking within two days of now. This issue has been mitigated through a django date widget which has been rendered to not allow selection of the invalid dates.
 
 ---
 
@@ -1352,11 +1365,15 @@ This section provides an overview of the bugs encountered during development, al
 
 Several bugs encountered during development and their solutions are documented in the GitHub issues tracker. Some notable examples include:
 - [BUG - Form not submitting without modifying image field](https://github.com/MFS4711/Restaurant-Web-App/issues/45)
-- [ANOTHER BUG](GITHUB_ISSUE_LINK)
-- etc.
+- [BUG - UX - Image preview only showing when original image is placeholder](https://github.com/MFS4711/Restaurant-Web-App/issues/44)
+- [BUG - Validation HTML on Menu Page - Forms have duplicate ID's](https://github.com/MFS4711/Restaurant-Web-App/issues/48)
+- [BUG - Table availability table not showing booking duration as occupied](https://github.com/MFS4711/Restaurant-Web-App/issues/47)
+- [BUG - Table not visible 2 hours + before an existing booking](https://github.com/MFS4711/Restaurant-Web-App/issues/46)
 
 ## Remaining Bugs
-There should (hopefully) be no remaining bugs in the project.
+There is currently one bug relating to staff cancelling a booking. This issue appears as the `StaffBookingForm` validation checks table availability before submission and so requires an available table to be assigned to the booking in order to submit the form. This is not ideal and so has been logged as a bug to be addressed. This does not impact a customer booking as the related forms do not require a table check. This bug can be seen below:
+
+- [BUG - Staff Booking Form - Due to current form validation - to cancel a confirmed booking - staff need to assign an available table to the booking to submit a cancellation](https://github.com/MFS4711/Restaurant-Web-App/issues/49)
 
 ---
 
