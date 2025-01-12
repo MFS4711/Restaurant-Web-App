@@ -1,28 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db import IntegrityError
 from .models import Table, Booking
 from .forms import BookingForm, StaffBookingForm, CustomerConfirmationForm
 from .utils import generate_time_slots, get_table_availability_for_day
-
-# Custom decorator to check if the user is a staff member
-
-
-def is_staff(user):
-    """
-    Check if the user is a staff member.
-
-    **Context:**
-
-    ``user``
-        The user to be checked.
-
-    **Returns:**
-        True if the user is a staff member, False otherwise.
-    """
-    return user.is_staff
 
 
 def book_table(request):
@@ -69,7 +52,7 @@ def book_table(request):
     return render(request, "booking/booking.html", context)
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 def booking_success(request, booking_id):
     """
     Display the booking success page.
@@ -112,8 +95,7 @@ def booking_success(request, booking_id):
 
 
 # Redirect to login page if not authenticated
-@login_required(login_url='/login/')
-@user_passes_test(is_staff, login_url='/unauthorized/')
+@login_required(login_url='/accounts/login/')
 def manage_bookings(request):
     """
     Display and manage all bookings, categorized by status.
@@ -145,6 +127,11 @@ def manage_bookings(request):
 
     :template:`booking/manage_bookings.html`
     """
+    if not request.user.is_staff:
+        # If the user is not a staff member, add an error message and redirect
+        messages.error(request, "You are not authorised to access this page.")
+        return redirect('/')
+
     confirmed_bookings = Booking.objects.filter(
         status=Booking.CONFIRMED).order_by('date', 'time')
 
@@ -191,6 +178,8 @@ def manage_bookings(request):
     return render(request, 'booking/manage_bookings.html', context)
 
 
+# Redirect to login page if not authenticated
+@login_required(login_url='/accounts/login/')
 def edit_booking(request, booking_id):
     """
     Edit an existing booking based on the user's role (customer or staff).

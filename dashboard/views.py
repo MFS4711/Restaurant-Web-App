@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Avg, Sum
 from django.http import Http404
@@ -16,7 +16,7 @@ from booking.utils import generate_time_slots, get_table_availability_for_day
 # Create your views here.
 
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def customer_dashboard(request, user_id):
     """
     Handles the customer dashboard view, displaying a list of upcoming, past,
@@ -34,8 +34,9 @@ def customer_dashboard(request, user_id):
     """
     # Ensure the logged-in user matches the user_id in the URL
     if request.user.id != int(user_id):
-        # If they don't match, raise a 404 error to prevent unauthorized access
-        raise Http404("You are not authorized to view this page.")
+        # add an error message and redirect to the homepage.
+        messages.error(request, "You are not authorised to access this page.")
+        return redirect('/')
 
     # Retrieve the user object, ensuring it exists in the database
     user = get_object_or_404(User, id=user_id)
@@ -75,23 +76,9 @@ def customer_dashboard(request, user_id):
 
     return render(request, 'dashboard/customer_dashboard.html', context)
 
-# Custom decorator to check if the user is a staff member
-
-
-def is_staff(user):
-    """
-    Custom function to check if the user has staff permissions.
-
-    **Returns:**
-    - True if the user is a staff member, else False.
-    """
-    return user.is_staff
-
 
 # Redirect to login if the user is not authenticated
-@login_required(login_url='/login/')
-# Ensure the user is a staff member
-@user_passes_test(is_staff, login_url='/unauthorized/')
+@login_required(login_url='/accounts/login/')
 def staff_dashboard(request):
     """
     Handles the staff dashboard view, displaying table availability for today,
@@ -106,6 +93,11 @@ def staff_dashboard(request):
     **Template:**
     :template:`dashboard/staff_dashboard.html`
     """
+    if not request.user.is_staff:
+        # If the user is not a staff member, add an error message and redirect
+        messages.error(request, "You are not authorised to access this page.")
+        return redirect('/')
+    
     # Generate time slots with dynamic opening hours 15-minute intervals
     time_slots = generate_time_slots(interval_minutes=15)
 
@@ -131,21 +123,8 @@ def staff_dashboard(request):
     return render(request, 'dashboard/staff_dashboard.html', context)
 
 
-# Custom decorator to check if the user is a superuser (admin)
-def is_superuser(user):
-    """
-    Custom function to check if the user is a superuser (admin).
-
-    **Returns:**
-    - True if the user is a superuser, else False.
-    """
-    return user.is_superuser
-
-
 # Redirect to login if the user is not authenticated
-@login_required(login_url='/login/')
-# Ensure the user is a superuser (admin)
-@user_passes_test(is_superuser, login_url='/unauthorized/')
+@login_required(login_url='/accounts/login/')
 def admin_dashboard(request):
     """
     Handles the admin dashboard view, providing an overview of booking
@@ -172,6 +151,11 @@ def admin_dashboard(request):
     **Template:**
     :template:`dashboard/admin_dashboard.html`
     """
+    if not request.user.is_superuser:
+        # If the user is not a superuser, add an error message and redirect
+        messages.error(request, "You are not authorised to access this page.")
+        return redirect('/')
+    
     # Get today's date for use in filtering and statistics calculations
     today = timezone.now().date()
 

@@ -42,6 +42,8 @@ def menu(request):
     return render(request, "menu/menu.html", context)
 
 
+# Redirect to login if the user is not authenticated
+@login_required(login_url='/accounts/login/')
 def create_menu_item(request, category_label):
     """
     Handle the creation of a new menu item for a specific category.
@@ -95,6 +97,8 @@ def create_menu_item(request, category_label):
     return render(request, "menu/create_menu_item.html", context)
 
 
+# Redirect to login if the user is not authenticated
+@login_required(login_url='/accounts/login/')
 def edit_menu_item(request, menu_item_id):
     """
     Edit an existing menu item.
