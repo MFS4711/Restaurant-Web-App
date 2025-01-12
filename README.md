@@ -1,11 +1,12 @@
 # Cedar & Flame
-<!-- Maybe create a header with html and css and use screenshot  -->
 
-A Restaurant Web-App created using Django
+![Logo Image](/readme_images/logo.png)
+
+A Restaurant Web-App developed using Django
 
 Source code can be found [here](https://github.com/MFS4711/Restaurant-Web-App)
 
-The live project can be viewed [here](Add link)
+The live project can be viewed [here](https://cedar-and-flame-8fe4b04c0330.herokuapp.com/)
 
 ---
 
@@ -39,7 +40,6 @@ The live project can be viewed [here](Add link)
 - [Validation Testing](#validation-testing)
 - [User Story Testing](#user-story-testing)
 - [Automated Testing](#automated-testing)
-    - [Django testing](#testing-django-views-models-and-forms)
 
 [**Bugs**](#Bugs)
 
@@ -1453,7 +1453,9 @@ This section highlights the key libraries, tools, and platforms utilised through
 8. [Photoroom](https://www.photoroom.com/tools/transparent-background)
     - Photoroom was used to transfomr images to have a transparent background
 9. [ChatGPT](https://chatgpt.com/)
-    - ChatGPT was the primary AI tool used to aid development through a variety of areas such as bug-fixing, tests devlopment, introduction to form and model methods, improving accessibility and code maintainability as well as initial planning such as outlining scope and developing Epics and Stories. 
+    - ChatGPT was the primary AI tool used to aid development through a variety of areas such as bug-fixing, tests devlopment, introduction to form and model methods, improving accessibility and code maintainability as well as initial planning such as outlining scope and developing Epics and Stories.
+10. [Pexels](https://www.pexels.com/)
+    - Pexels was used as the primary source of background images used in the project.
 
 ---
 
@@ -1525,9 +1527,6 @@ This section outlines the steps required to deploy your project to Heroku, ensur
 [Return to top](#cedar--flame)
 
 # Credits
-<!-- Add any code credits and give links -->
-<!-- Add any image credits -->
-<!-- Add any specific research that was beneficial -->
 
 - [Stack Overflow - How can I display a tuple field from a model to a template in Django?](https://stackoverflow.com/questions/67227949/how-can-i-display-a-tuple-field-from-a-model-to-a-template-in-django)
 - [Learn how to use the forEach method in JS!](https://dev.to/ziratsu/learn-how-to-use-the-foreach-method-in-js-3im)
@@ -1535,13 +1534,16 @@ This section outlines the steps required to deploy your project to Heroku, ensur
 - [Model Meta Options](https://docs.djangoproject.com/en/5.1/ref/models/options/)
 - [Time zones](https://docs.djangoproject.com/en/5.1/topics/i18n/timezones/)
 - [Form and field validation](https://docs.djangoproject.com/en/5.1/ref/forms/validation/)
+- [Pexel Images](https://www.pexels.com/)
+    - [Photo of Woods on Fire](https://www.pexels.com/photo/photo-of-woods-on-fire-3768841/)
+    - [Grayscale Photo of City Buildings during Nighttime](https://www.pexels.com/photo/grayscale-photo-of-city-buildings-during-nighttime-14508487/)
+    - [A Café Interior at Night](https://www.pexels.com/photo/a-cafe-interior-at-night-11279651/)
+
 
 # Acknowledgements
-<!-- Add a paragraph to show appreciation -->
-- SME Kevin - particularly for reviewing and resolving a UX feature related to table filtering
-- All of the Facilitators who have been invaluable throughout the course - Shelly, Vasi and Paul
-- The Coding Coaches - John and Roo - invaluable in resolving bugs
-- And my peers in my cohort as well Code Institute in general as my coding aptitude has exponentially increased in such a short space of time.
+
+I would like to express my sincere gratitude to Code Institute for significantly boosting my coding skills in such a short period of time. A special thank you to all the facilitators—Shelly, Vasi, and Paul—whose support has been invaluable throughout the course. I’m also grateful to SME Kevin for his help in reviewing and resolving a UX issue related to table filtering. Additionally, my heartfelt thanks go to the Coding Coaches, John and Roo, for their expertise in debugging and for offering valuable advice that greatly contributed to the development of this project.
+
 ---
 
 [Return to top](#cedar--flame)
