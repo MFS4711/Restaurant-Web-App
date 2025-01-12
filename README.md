@@ -62,8 +62,6 @@ The Restaurant Web App is designed to streamline the management of reservations,
 
 The primary users of the Restaurant Web App are customers, staff, and restaurant administrators. Customers use the platform to easily manage their reservations, browse menu items, and track their reservation status. Staff members interact with the app to manage and update reservations, ensure menu items are available, and assist with operational tasks. Administrators and managers utilise the app to oversee operations and analyse restaurant performance. Each group is provided with tailored functionality based on their role to ensure smooth and efficient restaurant operations.
 
-<!-- Paragraph may change based on functionality achieved at the end -->
-
 <!-- Photo from responsiveness website - check file path -->
 ![responsivenes_screenshot](/static/doc_images/responsiveness_screenshot.png)
 
@@ -78,7 +76,6 @@ This section outlines the key features available to different types of users wit
 ## All Users
 The following pages are visible to all users, logged in or not.
 
-<!-- Create dropdowns for different sections following below format -->
 <details>
 <summary>Homepage (landing page)</summary>
 
@@ -148,7 +145,6 @@ The following pages are visible to all users, logged in or not.
 
 </details>
 
-<!-- Any other pages that are visible to all users using same format -->
 <details>
 <summary>Menu Page</summary>
 
@@ -988,26 +984,8 @@ The User Epics and their related User Stories are as follows:
     - Story : [Admin Can Modify Existing Menu Items](https://github.com/MFS4711/Restaurant-Web-App/issues/42)
     - Story : [Admin Can Remove Menu Items](https://github.com/MFS4711/Restaurant-Web-App/issues/43)
 
-<!-- Include this section and add depth if time at the end -->
-<!-- ## Search Engine Optimization
-A set of long and short tail keywords was developed. 
-The initial set was generated from a combination of brainstorming and examining the related searches returned by Google for these terms. This was then culled back to a smaller set of more targeted short- and long-tail keywords, which were each trialled on [wordtracker.com](https://wordtracker.com). 
-This resulted in the following list of terms, ordered by volume:
-
-|Term|Short/long-tail|Volume|Competition|
-|---|---|---|---|
-|'Word'|Short|226000|55.44|
-
-After completing this research, I returned to the project's templates, and made the following changes:
-
-- &lt;title> tag in base.html:
-    - Set to '....'. This is one of the most important SEO locations ... -->
-<!-- Add any tags in same form and bullet point impact of change -->
-
 ## Data Model
 This section provides an overview of the data models used in the project, represented through Entity-Relationship Diagrams (ERDs) for each application. Each sub-heading corresponds to a specific app, detailing its database schema and the relationships between key entities. These ERDs were drawn using [Lucidchart](https://www.lucidchart.com/pages/) and offer a clear visualization of how data is structured and flows within the application.
-
-<!-- Add Apps and ERD Diagram for App -->
 
 ### Menu App
 
@@ -1470,6 +1448,12 @@ This section highlights the key libraries, tools, and platforms utilised through
     - Heroku was used for deploying the project.
 6. [pytest](https://docs.pytest.org/en/7.1.x/)
     - Pytest was used for automated testing of the project.
+7. [Canva](https://www.canva.com/ai-logo-generator/)
+    - Canva was used to generate the logo for this project
+8. [Photoroom](https://www.photoroom.com/tools/transparent-background)
+    - Photoroom was used to transfomr images to have a transparent background
+9. [ChatGPT](https://chatgpt.com/)
+    - ChatGPT was the primary AI tool used to aid development through a variety of areas such as bug-fixing, tests devlopment, introduction to form and model methods, improving accessibility and code maintainability as well as initial planning such as outlining scope and developing Epics and Stories. 
 
 ---
 
@@ -1477,7 +1461,36 @@ This section highlights the key libraries, tools, and platforms utilised through
 
 # Deployment
 
-This section provides a step-by-step guide for deploying your project to Heroku, ensuring that all necessary configurations and settings are in place for both development and production environments. Before deploying, you'll first clone the repository to your local machine to ensure that the original repo remains untouched during development. Follow these instructions to set up the app locally, deploy it to Heroku, and configure essential services like the database, social logins, and payment processing. By the end of this process, your app will be live and accessible on the web.
+This section outlines the steps required to deploy your project to Heroku, ensuring that all configurations and settings are properly set for both development and production environments. Before proceeding with deployment, you will clone the repository to your local machine to safely develop without modifying the original codebase. Follow these steps to set up the app locally, deploy it to Heroku, and configure essential services such as the database, social logins, and payment processing. By the end of this guide, your app will be live and accessible on the web.
+
+## Deploying to Heroku
+1. **Log into Heroku** and navigate to the Dashboard.
+2. Click the **'New'** button.
+3. Choose a **unique app name** and select the region relevant to you.
+4. **Create a Database** - As a student at Code Institute, I used [CI Database Maker](https://dbs.ci-dbs.net/) but this can also be achieved on Heroku by paying a monthly fee and following the below steps:
+    - Head to the Resources tab.
+    - Click on Find more add-ons.
+    - Search for Heroku Postgres and select it, then click Install Heroku Postgres.
+    - Pick a plan, then choose your app.
+    - Go back to the Resources tab, click on the Heroku Postgres icon, and open the Settings tab. Click Database Credentials and copy the URL to your clipboard.
+    - Paste this URL into your env.py file under the key DATABASE_URL. This ensures you’re using the same database for both development and production environments.
+
+5. Go to the **Settings** tab, and click **Reveal Config Vars**. Add the following config variables, if not already present:
+    - **Django secret key**
+    - **Database URL**
+    - **Cloudinary API**
+
+6. In your **local repository**, add a **Procfile** to the root directory with this content:
+
+    `web: gunicorn cedar_and_flame.wsgi`
+
+7. Add your Heroku app URL to the `ALLOWED_HOSTS` list in `settings.py`.
+
+8. Set `DEBUG` to `False` in `settings.py`, then commit and push your changes to GitHub.
+9. Navigate to the **Deploy** tab in the Dashboard. Under **Deployment Method**, click the **GitHub** icon to connect your Heroku app to your GitHub repository.
+    - Enter your repository name, click **Search**, then click **Connect**.
+10. Under the **Manual Deploy** section, click **Deploy Branch**. Once deployed, you should see the message **"Your app was successfully deployed"**.
+11. Click **Open App** to open the app in the browser.
 
 ## Making a Local Clone
 1. Open a terminal/command prompt on your local machine.
@@ -1486,39 +1499,26 @@ This section provides a step-by-step guide for deploying your project to Heroku,
 
     `git clone 'REPO_LINK'`
 
-<!-- May need to refactor section as maybe arrange it to first confirm  -->
 ## Running in Local Environment
-<!-- Add steps taken - packages installed to ensure local environment works -->
-<!-- Maybe remove common steps from heroku section -->
-
-## Deploying to Heroku
-1. **Log into Heroku** and navigate to the Dashboard.
-2. Click the **'New'** button.
-3. Choose a **unique app name** and select the region relevant to you.
-4. **Create a Database** - As a student at Code Institute, I used [CI Database Maker](https://dbs.ci-dbs.net/) but this can also be achieved on Heroku by paying a monthly fee and following the below steps:
-<!-- Add steps to create database here - i.e. Procfile and relevant code etc -->
-
-5. Go to the **Settings** tab, and click **Reveal Config Vars**. Add the following config variables, if not already present:
-    - **Django secret key**
-    - **Database URL**
-    - **Cloudinary API**
-    - etc
-    <!-- List all config vars visible - not giving their values -->
-6. In your **local repository**, add a **Procfile** to the root directory with this content:
-
-    `web: gunicorn strings-attached.wsgi`
-
-7. Add your Heroku app URL to the `ALLOWED_HOSTS` list in `settings.py`.
-8. Create ... social apps for Facebook and Google login:
-    - Add their API keys and Secrets to the database.
-    - Configure your application details and callback URLs in the Google and Facebook OAuth dashboards.
-    <!-- Amend this step based on if socials are used or not -->
-
-9. Set `DEBUG` to `False` in `settings.py`, then commit and push your changes to GitHub.
-10. Navigate to the **Deploy** tab in the Dashboard. Under **Deployment Method**, click the **GitHub** icon to connect your Heroku app to your GitHub repository.
-    - Enter your repository name, click **Search**, then click **Connect**.
-11. Under the **Manual Deploy** section, click **Deploy Branch**. Once deployed, you should see the message **"Your app was successfully deployed"**.
-12. Click **Open App** to open the app in the browser.
+1. Create a virtual environment in the newly cloned project folder using:
+    ```bash
+    python3 -m venv venv
+    ```
+2. Activate the virtual environment:
+    ```bash
+    source venv/bin/activate
+    ```
+3. Install the project dependencies:
+    ```bash
+    pip3 install -r requirements.txt
+    ```
+4. Create an `env.py` file with the following environment variables:
+    - `BASE_URL`: The root URL for the local dev project (usually `http://localhost:8000/`).
+    - `DATABASE_URL`: The URL generated by Heroku (see the deployment section).
+    - `CLOUDINARY_URL`: The URL provided by Cloudinary for storing media files. You can obtain this by signing up on [Cloudinary](https://cloudinary.com/) and generating your API credentials.
+    - `DEBUG`: Set this to `True` for local development.
+    - `PORT`: Default Django port, typically 8000.
+    - `SECRET_KEY`: The Django secret key.
 
 ---
 
