@@ -1595,6 +1595,8 @@ This section outlines the steps required to deploy your project to Heroku, ensur
     - [Photo of Woods on Fire](https://www.pexels.com/photo/photo-of-woods-on-fire-3768841/)
     - [Grayscale Photo of City Buildings during Nighttime](https://www.pexels.com/photo/grayscale-photo-of-city-buildings-during-nighttime-14508487/)
     - [A Café Interior at Night](https://www.pexels.com/photo/a-cafe-interior-at-night-11279651/)
+- [Code Institute LMS - Django Blog Walkthough](https://github.com/MFS4711/django-blog)
+- [Strings Attached README structure by John Rearden](https://github.com/johnrearden/strings_attached)
 
 
 # Acknowledgements
