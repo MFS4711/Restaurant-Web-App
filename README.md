@@ -677,6 +677,7 @@ When a superuser or admin is logged in, they have access to a form that allows t
 </details>
 
 ## Future Features
+- **Increased Staff Booking Form Validation and Testing**: Use/adjust clean methods and incorporate further widget attributes
 - **AJAX-Based Dynamic Form Filtering**: Use AJAX or similar technologies to dynamically filter one form field based on the selection in another, improving form usability and data accuracy.  
 - **Chart.js Integration for Admin Analytics**: Leverage Chart.js or similar libraries to provide detailed visual analytics for administrators, offering insights into orders, revenue, and customer behavior.  
 - **Guest Booking and Walk-In Booking Features**: Introduce features for guest bookings and walk-in reservations, ensuring flexibility and catering to diverse customer needs.  
@@ -1048,6 +1049,14 @@ The `Booking` table records reservations made by users for specific tables at ce
 2. **Table to Booking**: 
    - A one-to-many relationship exists between the `Table` and `Booking` tables. Each table can have multiple bookings over time, but each booking refers to one specific table.
 
+#### `on_delete` Considerations
+
+- **User Deletion**:  
+  If a user is deleted, the `Booking` records associated with that user are retained, and the `user` field in those records is set to `null`. This ensures that the historical booking data remains intact for analytics, but without a reference to a non-existent user.
+
+- **Table Deletion**:  
+  If a table is deleted, all bookings associated with that table will be deleted, ensuring no invalid references to missing tables exist in the system.
+
 These tables allow the system to manage users, track reservations, and ensure that tables are properly allocated based on availability and bookings.
 
 ### Dashboard App
@@ -1139,28 +1148,28 @@ The manual testing of features is organised by app below. Testing was carried ou
 
 |Page|Feature|Action|Effect|
 |---|---|---|---|
-|/customer-dashboard/<int:user_id>/|Unathorised user - attempt to access a customer dashboard |Search customer-dashboard/n (n is any integer) | User is redirected to the homepage - error message advising unauthorised access appear |
-|/customer-dashboard/<int:user_id>/|Authorised customer - unable to access another customers dashboard|Search customer-dashboard/n (n is any integer - not this user's id)| error message advising unauthorised access appear|
-|/customer-dashboard/<int:user_id>/| Authorised customer - access to personal dashboard | login as customer and click customer dashboard nav-link | Access personal customer dashboard |
-|/customer-dashboard/<int:user_id>/| View Upcoming/Past Bookings | Make a booking and return to dashboard | View Upcoming/Past Bookings in table sections |
-|/customer-dashboard/<int:user_id>/| If no bookings - message appears | No Bookings exist | Message appears advising no bookings exist |
-|/customer-dashboard/<int:user_id>/| Edit an upcoming booking | Click Edit button next to a booking | redirects to /edit-booking/<int:booking_id>/ 
-|/customer-dashboard/<int:user_id>/| Delete an upcoming booking | Click Delete button next to a booking | opens a delete modal requiring delete confirmation
-|/customer-dashboard/<int:user_id>/| customer confirmation required section - hidden | No Bookings exist in this status |Section is not visible |
-|/customer-dashboard/<int:user_id>/| View bookings requiring customer approval | Booking requiring Customer Action exists | Django message displayed in dashboard to indicate user action required
-|/customer-dashboard/<int:user_id>/| Book a table | click button to book a table | redirects to booking page
-|/customer-dashboard/<int:user_id>/| View Menu | click button to view | redirects to menu page
-|/staff-dashboard/| Unauthorised user|Access page via url|Redirects to homepage and message advising unauthorised is visible
-|/staff-dashboard/| Authenticated Staff - View Overview of today|Click Staff Dashboard in Navbar|View Bookings today in a table and dynamic table availability for today
-|/staff-dashboard/| Authenticated Staff - No bookings today|Access staff dashboard on day with no bookings|Table shows advising no bookings today
-|/staff-dashboard/| Authenticated Staff - Navigate to Manage all bookings page|Click 'Manage Bookings" button|Redirects to manage bookings page
-|/staff-dashboard/| Authenticated Staff - Edit a booking|Click Edit button|Redirects edit booking page
-|/staff-dashboard/| Authenticated Staff - Delete a booking|Click Delete button| delete modal appears requiring confirmation of deletion
-|/admin-dashboard/| Unauthorised user|Access page via url|Redirects to homepage and message advising unauthorised is visible
-|/admin-dashboard/| Authenticated Admin - View Analytics|Access page via navbar|View bootstrap cards with overall analytical information
-|/admin-dashboard/| Authenticated Admin - View Analytics by filter|Click relevant filter from dropdown and apply|Dispalys card for defined time perid as well as a table of all bookings in that time period.
-|/admin-dashboard/| Authenticated Admin - Navigate to Manage all bookings page|Click 'Manage Bookings" button|Redirects to manage bookings page
-|/admin-dashboard/| Authenticated Admin - Navigate to Menu page|Click 'Manage Menu" button|Redirects to menu page
+|/customer-dashboard/<int:user_id>/|Unauthorised user - attempt to access a customer dashboard|Search customer-dashboard/n (n is any integer)|User is redirected to the homepage with an error message advising unauthorised access|
+|/customer-dashboard/<int:user_id>/|Authorised customer - unable to access another customer's dashboard|Search customer-dashboard/n (n is any integer - not this user's id)|Error message advising unauthorised access appears|
+|/customer-dashboard/<int:user_id>/|Authorised customer - access to personal dashboard|Login as customer and click customer dashboard nav-link|Access personal customer dashboard|
+|/customer-dashboard/<int:user_id>/|View Upcoming/Past Bookings|Make a booking and return to dashboard|View Upcoming/Past Bookings in table sections|
+|/customer-dashboard/<int:user_id>/|If no bookings - message appears|No Bookings exist|Message appears advising no bookings exist|
+|/customer-dashboard/<int:user_id>/|Edit an upcoming booking|Click Edit button next to a booking|Redirects to /edit-booking/<int:booking_id>/|
+|/customer-dashboard/<int:user_id>/|Delete an upcoming booking|Click Delete button next to a booking|Open a delete modal requiring delete confirmation|
+|/customer-dashboard/<int:user_id>/|Customer confirmation required section - hidden|No Bookings exist in this status|Section is not visible|
+|/customer-dashboard/<int:user_id>/|View bookings requiring customer approval|Booking requiring Customer Action exists|Django message displayed in dashboard to indicate user action required|
+|/customer-dashboard/<int:user_id>/|Book a table|Click button to book a table|Redirects to booking page|
+|/customer-dashboard/<int:user_id>/|View Menu|Click button to view|Redirects to menu page|
+|/staff-dashboard/|Unauthorised user|Access page via URL|Redirects to homepage with message advising unauthorised access|
+|/staff-dashboard/|Authenticated Staff - View Overview of today|Click Staff Dashboard in Navbar|View Bookings for today in a table and dynamic table availability for today|
+|/staff-dashboard/|Authenticated Staff - No bookings today|Access staff dashboard on a day with no bookings|Table shows advising no bookings today|
+|/staff-dashboard/|Authenticated Staff - Navigate to Manage all bookings page|Click 'Manage Bookings' button|Redirects to manage bookings page|
+|/staff-dashboard/|Authenticated Staff - Edit a booking|Click Edit button|Redirects to edit booking page|
+|/staff-dashboard/|Authenticated Staff - Delete a booking|Click Delete button|Delete modal appears requiring confirmation of deletion|
+|/admin-dashboard/|Unauthorised user|Access page via URL|Redirects to homepage with message advising unauthorised access|
+|/admin-dashboard/|Authenticated Admin - View Analytics|Access page via navbar|View bootstrap cards with overall analytical information|
+|/admin-dashboard/|Authenticated Admin - View Analytics by filter|Click relevant filter from dropdown and apply|Displays card for defined time period as well as a table of all bookings in that time period|
+|/admin-dashboard/|Authenticated Admin - Navigate to Manage all bookings page|Click 'Manage Bookings' button|Redirects to manage bookings page|
+|/admin-dashboard/|Authenticated Admin - Navigate to Menu page|Click 'Manage Menu' button|Redirects to menu page|
 |||||
 </details>
 
@@ -1169,26 +1178,26 @@ The manual testing of features is organised by app below. Testing was carried ou
 
 |Page|Feature|Action|Effect|
 |---|---|---|---|
-|/menu/|All Users - view menu item in more detail |Click Menu Item Header|Menu Item Modal appears|
-|/menu/|Admin can edit a menu item | click edit button next to menu item |redirects to edit menu page|
-|/menu/|Admin can create a menu item|Click create button in relevant category|redirects to create menu item page|
-|/menu/|Admin can delete a menu item|click delete button next to menu item|opens a delete modal requiring delete confirmation|
-|/menu/create-menu-item/<str:category_label>/|Unathorised user|Access page via url|Redirects to homepage and message advising unauthorised is visible
-|/menu/create-menu-item/<str:category_label>/|Authenticated Admin - View form to create a menu item in the associated category|Click edit on any menu item in menu page|Form appears with name, description, image, price, is available
-|/menu/create-menu-item/<str:category_label>/|Authenticated Admin - Submit valid data|Fill name, name and set positive price value - click submit|Form submits and redirects to menu page - django message appears and menu item visible in associated category
-|/menu/create-menu-item/<str:category_label>/|Authenticated admin - can submit placeholder image |Leave image field empty and submit form|Default placeholder image applied to menu item
-|/menu/create-menu-item/<str:category_label>/|Authenticated admin - can submit new image |Add image file|Image is now shown when accessing menu item modal on menu page
-|/menu/create-menu-item/<str:category_label>/|Authenticated admin - cannot submit negative numbers |Add negative price|Form does not submit and validation error shown
-|/menu/create-menu-item/<str:category_label>/|Authenticated admin - cannot submit numbers to over 2 decimal places |Add number to 3 decimal places or more|Form does not submit and validation error shown
-|/menu/create-menu-item/<str:category_label>/|Authenticated admin - can submit price without defining decimal value |Add Integer/ float to 1dp in price field|Form submits and automatically rounds to 2 dp
-|/menu/create-menu-item/<str:category_label>/|Authenticated admin - Cancel creation of menu item |Click cancel button|Redirects to the menu page
-|/menu/edit-menu-item/<int:menu_item_id>/|Unauthorised user|Access page via url|Redirects to homepage and message advising unauthorised is visible
-|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated Admin - View form to edit a menu item in the associated category|Click edit on any menu item in menu page|Form appears with name, description, image, price, is available and current image preview prepopulated with existing data
-|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated admin - can leave image unchanged |Leave image field empty and submit form|Existing image will be applied
-|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated admin - cannot submit negative numbers |Add negative price|Form does not submit and validation error shown
-|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated admin - cannot submit numbers to over 2 decimal places |Add number to 3 decimal places or more|Form does not submit and validation error shown
-|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated admin - can submit price without defining decimal value |Add Integer/ float to 1dp in price field|Form submits and automatically rounds to 2 dp
-|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated admin - Cancel creation of menu item |Click cancel button|Redirects to the menu page
+|/menu/|All Users - view menu item in more detail|Click Menu Item Header|Menu Item Modal appears|
+|/menu/|Admin can edit a menu item|Click edit button next to menu item|Redirects to edit menu page|
+|/menu/|Admin can create a menu item|Click create button in relevant category|Redirects to create menu item page|
+|/menu/|Admin can delete a menu item|Click delete button next to menu item|Opens a delete modal requiring delete confirmation|
+|/menu/create-menu-item/<str:category_label>/|Unauthorised user|Access page via URL|Redirects to homepage with message advising unauthorised access|
+|/menu/create-menu-item/<str:category_label>/|Authenticated Admin - View form to create a menu item in the associated category|Click edit on any menu item in menu page|Form appears with name, description, image, price, and availability fields|
+|/menu/create-menu-item/<str:category_label>/|Authenticated Admin - Submit valid data|Fill name, description, and set positive price value - click submit|Form submits and redirects to menu page with Django message; menu item appears in associated category|
+|/menu/create-menu-item/<str:category_label>/|Authenticated Admin - Submit placeholder image|Leave image field empty and submit form|Default placeholder image is applied to menu item|
+|/menu/create-menu-item/<str:category_label>/|Authenticated Admin - Submit new image|Add image file|Image is shown when accessing menu item modal on the menu page|
+|/menu/create-menu-item/<str:category_label>/|Authenticated Admin - Cannot submit negative numbers|Add negative price|Form does not submit, and validation error is shown|
+|/menu/create-menu-item/<str:category_label>/|Authenticated Admin - Cannot submit numbers with more than 2 decimal places|Add number to 3 decimal places or more|Form does not submit, and validation error is shown|
+|/menu/create-menu-item/<str:category_label>/|Authenticated Admin - Submit price without defining decimal value|Add Integer/float to 1 decimal place in price field|Form submits and automatically rounds to 2 decimal places|
+|/menu/create-menu-item/<str:category_label>/|Authenticated Admin - Cancel creation of menu item|Click cancel button|Redirects to the menu page|
+|/menu/edit-menu-item/<int:menu_item_id>/|Unauthorised user|Access page via URL|Redirects to homepage with message advising unauthorised access|
+|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated Admin - View form to edit a menu item in the associated category|Click edit on any menu item in menu page|Form appears with name, description, image, price, availability fields, and current image preview prepopulated with existing data|
+|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated Admin - Leave image unchanged|Leave image field empty and submit form|Existing image is applied|
+|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated Admin - Cannot submit negative numbers|Add negative price|Form does not submit, and validation error is shown|
+|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated Admin - Cannot submit numbers with more than 2 decimal places|Add number to 3 decimal places or more|Form does not submit, and validation error is shown|
+|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated Admin - Submit price without defining decimal value|Add Integer/float to 1 decimal place in price field|Form submits and automatically rounds to 2 decimal places|
+|/menu/edit-menu-item/<int:menu_item_id>/|Authenticated Admin - Cancel creation of menu item|Click cancel button|Redirects to the menu page|
 |||||
 </details>
 
@@ -1197,43 +1206,45 @@ The manual testing of features is organised by app below. Testing was carried ou
 
 |Page|Feature|Action|Effect|
 |---|---|---|---|
-|/book-table/|Unauthenticated users - login required prompt|Access Book A Table page without logging in| See prompt to login/register to book a table
-|/book-table/|Unauthenticated users - login required prompt|click login| redirects to log in page
-|/book-table/|Unauthenticated users - login required prompt|click register| redirects to register page
-|/book-table/|Authenticated users - Booking Form appears|Access Book A Table page| displays booking form
-|/book-table/|Authenticated users - Select Date|Click Form Widget| Dates 2 days post current date show
-|/book-table/|Authenticated users - Select Valid Time|Click Time Widget| Dropdown of times matching opening hours appear
-|/book-table/|Authenticated users - Select Valid Number of People|Click Incrementer/type number| Number increments
-|/book-table/|Authenticated users - Select Valid Number of People|Click Incrementer down| Number min is 1
-|/book-table/|Authenticated users - Select Valid Number of People|Click Incrementer up repetitively| Number max is 12
-|/book-table/|Authenticated users - Select invalid Number of People|type number not between 1 and 12| Form alerts to invalid number and advises limits
-|/book-table/|Authenticated users - Additional Notes|add/don't add notes| No impact 
-|/book-table/|Authenticated users - Submit Valid Booking|Fill forms fields validly and click submit| redirected to booking success page
-|/book-table/|Authenticated users - Submit invalid Booking|Fill forms fields invalidly and click submit| Booking does not submit - form fields with invalid data will be highlighted
-|/booking-success/<int:booking_id>/|Authenticated users booking|Submit a valid booking| View booking overview and navigation buttons for dashboard or menu
-|/booking-success/<int:booking_id>/|Authenticated users booking - Navigate to Dashboard|Click "Your Dashboard" button| Redirects to customer specific dashboard or staff/admin dashboard depending on role.
-|/booking-success/<int:booking_id>/|Authenticated users booking - Navigate to Menu|Click "Menu" button| Redirects to menu page
-|/edit-booking/<int:booking_id>/|Authenticated users booking - Redefine booking details for an upcoming booking|Click Edit Button for upcoming booking in customer Dashboard| View existing booking details and booking form below
-|/edit-booking/<int:booking_id>/|Authenticated users booking - Redefine booking details for an upcoming booking - valid|Edit any form details and submit| redirects to customer dashboard and displays message updated booking status
-|/edit-booking/<int:booking_id>/|Authenticated users booking - Redefine booking details for an upcoming booking - valid - previously confirmed status|Edit any form details and submit| redirects to customer dashboard and displays message updated booking status - booking status changed to pending
-|/edit-booking/<int:booking_id>/|Authenticated users booking - customer confirmation required booking|click edit button in relevant table in customer dashboard| View Booking details and a form with only status field and submit button
-|/edit-booking/<int:booking_id>/|Authenticated users booking - customer confirmation required booking|click confirmed status and submit| redirected to customer dashboard and booking now shows in upcoming bookings as confirmed
-|/edit-booking/<int:booking_id>/|Authenticated users booking - customer confirmation required booking|click cancelled status and submit| redirected to customer dashboard and booking no longer visible in upcoming bookings
-|/edit-booking/<int:booking_id>/|Unauthenicated users booking|Attempt to access via url| redirects to homepage and message advising unauthorised is displayed.
-|/manage-booking/<int:booking_id>/|Unauthenicated users|Attempt to access via url| redirects to homepage and message advising unauthorised is displayed.
-|/manage-booking/<int:booking_id>/|Authenticated users but not staff|Attempt to access via url| redirects to homepage and message advising unauthorised is displayed.
-|/manage-booking/<int:booking_id>/|Authenticated Staff|Click button in staff dashboard/navigate via navbar| Displays bookings of all statuses in relevant tables - scrollable
-|/manage-booking/<int:booking_id>/|Authenticated Staff can edit a booking|Click edit button| redirects to edit booking page
-|/manage-booking/<int:booking_id>/|Authenticated Staff can delete a booking|Click delete button| opens a delete modal requiring confirmation of delete
-|/edit-booking/<int:booking_id>/|Authenticated Staff|Click edit button in manage bookings page| View particular booking details, table availability on the day and the update booking form.
-|/edit-booking/<int:booking_id>/|Authenticated Staff - amend booking time| Click time widget| View times associated with opening hours
-|/edit-booking/<int:booking_id>/|Authenticated Staff - can assign table|click dropdown of table field| View tables filtered to meet capacity size of booking
-|/edit-booking/<int:booking_id>/|Authenticated Staff - cannot assign occupied table - prevent double booking|select an occupied table and submit booking| Validation error and error message indicating table is occupied will appear
-|/edit-booking/<int:booking_id>/|Authenticated Staff - can see table availability in a table|Look at Table availability table| Green cells advise available and red is occupied for a particular time - staff can amend time as required
-|/edit-booking/<int:booking_id>/|Authenticated Staff - change booking status|click status form field| can select 'confirmed' (preselected), 'cancelled', 'completed', or 'customer confirmation required'
-|/edit-booking/<int:booking_id>/|Authenticated Staff - cancel a change to a booking|click cancel button| redirected to manage bookings page
-|/edit-booking/<int:booking_id>/|Authenticated users booking - cancel a change to a booking|click cancel button| redirected to customer dashboard page
-|/manage-booking/<int:booking_id>/|Bookings marked as confirmed - if time passes - marked as no show automatically if status not directly changed|Allow a confirmed booking time to pass| Booking status is automatically changed to no show
+|/book-table/|Unauthenticated users - login required prompt|Access Book A Table page without logging in|See prompt to login/register to book a table|
+|/book-table/|Unauthenticated users - login required prompt|Click login|Redirects to login page|
+|/book-table/|Unauthenticated users - login required prompt|Click register|Redirects to register page|
+|/book-table/|Authenticated users - Booking Form appears|Access Book A Table page|Displays booking form|
+|/book-table/|Authenticated users - Select Date|Click Date Widget|Calendar appears|
+|/book-table/|Authenticated users - Select Invalid Date|Click Date Widget|Invalid dates are not selectable|
+|/book-table/|Authenticated users - Select Valid Time|Click Time Widget|Dropdown of times matching opening hours appears|
+|/book-table/|Authenticated users - Select Invalid Time|Type a time outside opening hours|Validation error message appears|
+|/book-table/|Authenticated users - Select Valid Number of People|Click Incrementer/type number|Number increments|
+|/book-table/|Authenticated users - Select Valid Number of People|Click Incrementer down|Number min is 1|
+|/book-table/|Authenticated users - Select Valid Number of People|Click Incrementer up repetitively|Number max is 12|
+|/book-table/|Authenticated users - Select invalid Number of People|Type number not between 1 and 12|Form alerts to invalid number and advises limits|
+|/book-table/|Authenticated users - Additional Notes|Add/don't add notes|No impact|
+|/book-table/|Authenticated users - Submit Valid Booking|Fill form fields validly and click submit|Redirected to booking success page|
+|/book-table/|Authenticated users - Submit Invalid Booking|Fill form fields invalidly and click submit|Booking does not submit - form fields with invalid data will be highlighted|
+|/booking-success/<int:booking_id>/|Authenticated users booking|Submit a valid booking|View booking overview and navigation buttons for dashboard or menu|
+|/booking-success/<int:booking_id>/|Authenticated users booking - Navigate to Dashboard|Click "Your Dashboard" button|Redirects to customer-specific dashboard or staff/admin dashboard depending on role|
+|/booking-success/<int:booking_id>/|Authenticated users booking - Navigate to Menu|Click "Menu" button|Redirects to menu page|
+|/edit-booking/<int:booking_id>/|Authenticated users booking - Redefine booking details for an upcoming booking|Click Edit Button for upcoming booking in customer dashboard|View existing booking details and booking form below|
+|/edit-booking/<int:booking_id>/|Authenticated users booking - Redefine booking details for an upcoming booking - valid|Edit any form details and submit|Redirects to customer dashboard and displays message updated booking status|
+|/edit-booking/<int:booking_id>/|Authenticated users booking - Redefine booking details for an upcoming booking - valid - previously confirmed status|Edit any form details and submit|Redirects to customer dashboard and displays message updated booking status - booking status changed to pending|
+|/edit-booking/<int:booking_id>/|Authenticated users booking - customer confirmation required booking|Click Edit button in relevant table in customer dashboard|View booking details and a form with only status field and submit button|
+|/edit-booking/<int:booking_id>/|Authenticated users booking - customer confirmation required booking|Click confirmed status and submit|Redirected to customer dashboard and booking now shows in upcoming bookings as confirmed|
+|/edit-booking/<int:booking_id>/|Authenticated users booking - customer confirmation required booking|Click cancelled status and submit|Redirected to customer dashboard and booking no longer visible in upcoming bookings|
+|/edit-booking/<int:booking_id>/|Unauthenticated users booking|Attempt to access via URL|Redirects to homepage with message advising unauthorised access|
+|/manage-booking/<int:booking_id>/|Unauthenticated users|Attempt to access via URL|Redirects to homepage with message advising unauthorised access|
+|/manage-booking/<int:booking_id>/|Authenticated users but not staff|Attempt to access via URL|Redirects to homepage with message advising unauthorised access|
+|/manage-booking/<int:booking_id>/|Authenticated Staff|Click button in staff dashboard/navigate via navbar|Displays bookings of all statuses in relevant tables - scrollable|
+|/manage-booking/<int:booking_id>/|Authenticated Staff can edit a booking|Click edit button|Redirects to edit booking page|
+|/manage-booking/<int:booking_id>/|Authenticated Staff can delete a booking|Click delete button|Opens a delete modal requiring confirmation of delete|
+|/edit-booking/<int:booking_id>/|Authenticated Staff|Click edit button in manage bookings page|View particular booking details, table availability on the day, and the update booking form|
+|/edit-booking/<int:booking_id>/|Authenticated Staff - amend booking time|Click time widget|View times associated with opening hours|
+|/edit-booking/<int:booking_id>/|Authenticated Staff - can assign table|Click dropdown of table field|View tables filtered to meet capacity size of booking|
+|/edit-booking/<int:booking_id>/|Authenticated Staff - cannot assign occupied table - prevent double booking|Select an occupied table and submit booking|Validation error and error message indicating table is occupied will appear|
+|/edit-booking/<int:booking_id>/|Authenticated Staff - can see table availability in a table|Look at Table availability table|Green cells advise available and red is occupied for a particular time - staff can amend time as required|
+|/edit-booking/<int:booking_id>/|Authenticated Staff - change booking status|Click status form field|Can select 'confirmed' (preselected), 'cancelled', 'completed', or 'customer confirmation required'|
+|/edit-booking/<int:booking_id>/|Authenticated Staff - cancel a change to a booking|Click cancel button|Redirected to manage bookings page|
+|/edit-booking/<int:booking_id>/|Authenticated users booking - cancel a change to a booking|Click cancel button|Redirected to customer dashboard page|
+|/manage-booking/<int:booking_id>/|Bookings marked as confirmed - if time passes - marked as no show automatically if status not directly changed|Allow a confirmed booking time to pass|Booking status is automatically changed to no show|
 |||||
 </details>
 
