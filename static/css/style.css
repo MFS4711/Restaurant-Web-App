@@ -96,6 +96,11 @@ h1 {
 
 /* ---- Table Styling ---- */
 
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
 .table-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -265,7 +270,6 @@ footer .social-media a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
     animation: backgroundCarousel 15s infinite;
     transition: background-image 1s ease-in-out;
 }
@@ -384,6 +388,8 @@ footer .social-media a:hover {
     padding: 5px;
 }
 
+/* Availability table */
+
 .green {
     background-color: #28a745;
 }
@@ -412,11 +418,6 @@ table td.red {
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-}
-
-table {
-    width: 100%;
-    table-layout: fixed;
 }
 
 .sticky-column {
