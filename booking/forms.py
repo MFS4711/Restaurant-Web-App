@@ -13,7 +13,8 @@ from .models import Table, Booking
 from .utils import (
     generate_time_slots,
     is_table_available,
-    generate_conflicting_time_range
+    generate_conflicting_time_range,
+    OPENING_HOURS
 )
 
 
@@ -135,6 +136,34 @@ class BookingForm(forms.ModelForm):
                     "You cannot book a table for less than 2 days from today."
                 )
         return date
+
+    def clean_time(self):
+        """
+        Custom validation for the time field.
+
+        Ensures the selected time is within the restaurant's opening hours.
+        """
+        time = self.cleaned_data.get("time")
+
+        # Get the opening and closing times for today
+        open_time, close_time = (
+            OPENING_HOURS.get(datetime.now().weekday(),
+                              {"open": "16:00", "close": "22:00"})
+            .values()
+        )
+
+        # Convert to datetime objects for comparison
+        open_time = datetime.strptime(open_time, "%H:%M").time()
+        close_time = datetime.strptime(close_time, "%H:%M").time()
+
+        if time < open_time or time > close_time:
+            raise ValidationError(
+                f"The selected time must be between "
+                f"{open_time.strftime('%H:%M')} and "
+                f"{close_time.strftime('%H:%M')}."
+            )
+
+        return time
 
 
 class StaffBookingForm(forms.ModelForm):
