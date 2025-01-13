@@ -112,8 +112,8 @@ class Booking(models.Model):
         This includes the booking ID, the username of the user who made
         the booking, the date, and the time of the booking.
         """
-        return f"Booking {self.id} by {self.user.username} \
-        on {self.date} at {self.time}"
+        return (f"Booking {self.id} by {self.user.username} "
+                f"on {self.date} at {self.time}")
 
     def get_end_time(self):
         """

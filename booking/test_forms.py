@@ -45,11 +45,11 @@ class TestBookingForm(TestCase):
         self.assertTrue(form.is_valid(),
                         'Form should be valid with correct data')
 
-    # def test_form_is_invalid_due_to_date(self):
-    #     """Test that the form is invalid when the date is less than 2 days away"""
-    #     form = BookingForm(data=self.invalid_data_date)
-    #     self.assertFalse(
-    #         form.is_valid(), 'Form should be invalid if date is less than 2 days ahead')
+    def test_form_is_invalid_due_to_date(self):
+        """Test that the form is invalid when the date is less than 2 days away"""
+        form = BookingForm(data=self.invalid_data_date)
+        self.assertFalse(
+            form.is_valid(), 'Form should be invalid if date is less than 2 days ahead')
 
     def test_date_field_min_limit(self):
         """Ensure the date field enforces the minimum limit of 2 days ahead"""
