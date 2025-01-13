@@ -1433,9 +1433,31 @@ Several bugs encountered during development and their solutions are documented i
 - [BUG - Table not visible 2 hours + before an existing booking](https://github.com/MFS4711/Restaurant-Web-App/issues/46)
 
 ## Remaining Bugs
-There is currently one bug relating to staff cancelling a booking. This issue appears as the `StaffBookingForm` validation checks table availability before submission and so requires an available table to be assigned to the booking in order to submit the form. This is not ideal and so has been logged as a bug to be addressed. This does not impact a customer booking as the related forms do not require a table check. This bug can be seen below:
+### Bug: Staff Booking Form - Table Availability Check Issue
 
-- [BUG - Staff Booking Form - Due to current form validation - to cancel a confirmed booking - staff need to assign an available table to the booking to submit a cancellation](https://github.com/MFS4711/Restaurant-Web-App/issues/49)
+#### Description:
+There is a bug related to the process of amending or cancelling a booking that has an assigned table. The issue arises because the `StaffBookingForm` performs a table availability check during form validation, which requires an available table to be assigned to the booking in order for the form to be submitted. 
+
+When a staff member tries to change the status of a booking (e.g., from `Confirmed` to `Cancelled`, `No Show`, or other statuses), the form expects the table to be available. However, the table should be freed when the status is set to `Cancelled`. This results in a situation where staff cannot update or cancel a booking unless a valid, available table is assigned, which is not the intended behavior for handling status changes.
+
+#### Impact:
+This bug only affects the staff booking form. It prevents staff from updating the booking status (e.g., cancelling or changing the status of a booking) unless a table is assigned, even though the table should be cleared when the status is set to `Cancelled`.
+
+This issue does **not** impact customer bookings, as the related forms do not require a table availability check.
+
+#### Observed Bug:
+- **Issue**: To change the status of a booking (e.g., to cancel a booking or update its status), staff are required to assign an available table to the booking before submitting the form. This prevents staff from properly changing the status to `Cancelled`, `No Show`, etc., because a table needs to be available.
+- **GitHub Issue**: You can track the bug and potential fixes here:  
+  [BUG - Staff Booking Form - Staff need to assign an available table to change the booking status](https://github.com/MFS4711/Restaurant-Web-App/issues/49)
+
+#### Attempts at Fixing:
+- **First Approach**: A potential fix was explored by modifying the `clean_table` method to skip the table availability check when the booking status is `Cancelled` or being updated. Despite multiple attempts, this solution has not been successful in resolving the issue.
+  
+- **Second Approach**: Another potential solution considered is removing the `status` field from the `StaffBookingForm` and controlling the status assignment directly in the view instead. This approach has not been implemented yet, but it will be explored in future iterations.
+
+#### Next Steps:
+- Further investigation is needed to ensure that the table availability check is correctly bypassed when the booking status is set to `Cancelled` (so the table can be freed) or updated.
+- Future fixes will focus on handling the status field more appropriately, possibly removing it from the form or adjusting the validation logic to handle status changes without requiring a table to be assigned.
 
 ---
 
