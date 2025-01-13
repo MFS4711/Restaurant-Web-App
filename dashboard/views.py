@@ -63,8 +63,8 @@ def customer_dashboard(request, user_id):
     # If there are bookings requiring customer confirmation, add a message
     if customer_action_required_bookings.exists():
         messages.info(
-            request, "Your booking status has been updated. \
-            Please review and take necessary actions.")
+            request, "Your booking time has been updated. \
+            Please review and take the necessary actions.")
 
     # Pass all relevant data to the template context for rendering
     context = {

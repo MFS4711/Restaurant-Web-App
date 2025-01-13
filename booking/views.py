@@ -39,6 +39,12 @@ def book_table(request):
 
             # Redirect to the booking success page
             return redirect('booking_success', booking_id=booking.id)
+        else:
+            messages.error(
+                request,
+                "Oops! There was an issue with your booking. "
+                "Please check the errors below and try again."
+            )
 
     else:
         # Display the empty form for booking
