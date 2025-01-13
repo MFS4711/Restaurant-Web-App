@@ -232,18 +232,18 @@ This page simply shows the navbar and the footer which takes up the whole viewpo
 <details>
 <summary>Login Page</summary>
 
-![Login Page](/readme_images/feature_section/login.png)
+This is the standard allauth login page, styled with the site styling.
 
-- This is the standard allauth login page, styled with the site styling.
+![Login Page](/readme_images/feature_section/login.png)
 
 </details>
 
 <details>
 <summary>Register Page</summary>
 
-![Register Page](/readme_images/feature_section/signup.png)
+This is the standard allauth signup page, with fields for email, username, and password + password confirmation. All fields bar the email are required.
 
-- This is the standard allauth signup page, with fields for email, username, and password + password confirmation. All fields bar the email are required.
+![Register Page](/readme_images/feature_section/signup.png)
 
 </details>
 
@@ -298,7 +298,7 @@ For logged-in users, the booking success page displays the details of a successf
   - If the user is a **customer**, they are redirected to their customer dashboard.
 - **View Menu Button**: A clear and accessible button allows users to view the menu, labeled for accessibility with "View Cedar & Flame menu."
 
-### Authorization Check:
+### Authorisation Check:
 - **User Permission**: The page checks if the logged-in user is the owner of the booking or a staff member. If the user does not have the necessary permissions, they are redirected to their customer dashboard if a logged in user or the homepage if not.
 
 ### Page Flow:
@@ -325,8 +325,8 @@ The following page is only accessible by the individual customer:
     - **Actions**: Customers can **Edit** or **Delete** bookings directly from this table, allowing them to easily manage their upcoming reservations.
 
 - **Customer Action Required** (Appears Only When Applicable):  
-  - **Table Reassignment**: If the original table is unavailable for a booking, staff may assign a new table to the customer.  
-  - **Customer Approval**: When a reassignment occurs, the customer is notified with a **Django message** and prompted to approve or decline the new table. This section only appears when table reassignment is necessary.
+  - **Time Reassignment**: If the original time is unavailable for a booking, staff may assign a new time to the customer booking.  
+  - **Customer Approval**: When a reassignment occurs, the customer is notified with a **Django message** and prompted to approve or decline the new time. This section only appears when time reassignment occurs.
 
 - **Booking History**:  
   - **Past Bookings Table**: Displays a record of past bookings, allowing customers to view their booking history.
@@ -334,11 +334,11 @@ The following page is only accessible by the individual customer:
 ### **Interactive Features**
 
 - **Edit or Delete Bookings**: Customers can modify or cancel upcoming bookings directly from the dashboard.  
-- **Approval Requests**: If a table reassignment is required, customers receive a notification and can approve or decline the new table assignment.
+- **Approval Requests**: If a time reassignment is required, customers receive a notification and can approve or decline the new time assignment.
 
 ### **Visual Design**
 
-- **Table Layout**: Clear, well-organized tables for both upcoming and past bookings, with essential details such as dates, times, and statuses.  
+- **Table Layout**: Clear, well-organised tables for both upcoming and past bookings, with essential details such as dates, times, and statuses.  
 - **Actionable Buttons**: **Edit** and **Delete** options are clearly displayed, allowing customers to easily manage their bookings.  
 - **Notifications**: The **Customer Action Required** section only appears when necessary, accompanied by a prominent message informing the customer of any table reassignment and requiring their approval.
 
@@ -677,7 +677,6 @@ When a superuser or admin is logged in, they have access to a form that allows t
 </details>
 
 ## Future Features
-- **Increased Staff Booking Form Validation and Testing**: Use/adjust clean methods and incorporate further widget attributes
 - **AJAX-Based Dynamic Form Filtering**: Use AJAX or similar technologies to dynamically filter one form field based on the selection in another, improving form usability and data accuracy.  
 - **Chart.js Integration for Admin Analytics**: Leverage Chart.js or similar libraries to provide detailed visual analytics for administrators, offering insights into orders, revenue, and customer behavior.  
 - **Guest Booking and Walk-In Booking Features**: Introduce features for guest bookings and walk-in reservations, ensuring flexibility and catering to diverse customer needs.  
