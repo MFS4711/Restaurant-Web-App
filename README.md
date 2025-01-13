@@ -62,8 +62,7 @@ The Restaurant Web App is designed to streamline the management of reservations,
 
 The primary users of the Restaurant Web App are customers, staff, and restaurant administrators. Customers use the platform to easily manage their reservations, browse menu items, and track their reservation status. Staff members interact with the app to manage and update reservations, ensure menu items are available, and assist with operational tasks. Administrators and managers utilise the app to oversee operations and analyse restaurant performance. Each group is provided with tailored functionality based on their role to ensure smooth and efficient restaurant operations.
 
-<!-- Photo from responsiveness website - check file path -->
-![responsivenes_screenshot](/static/doc_images/responsiveness_screenshot.png)
+![responsivenes_screenshot](/readme_images/responsiveness_image.png)
 
 ---
 

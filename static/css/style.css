@@ -39,18 +39,16 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* Distribute space between child elements */
     flex-grow: 1;
-    /* Allow child-container to grow and fill available space */
 }
 
 .child-container>div {
     flex: 1;
-    /* Make each div inside .child-container take equal height */
     padding: 20px;
     overflow-y: auto;
-    /* Ensure content can scroll if it exceeds available space */
 }
+
+/* ---- Button Styling ---- */
 
 .buttons .btn {
     background-color: #FFD700;
@@ -62,9 +60,7 @@ h1 {
     text-decoration: none;
     border-radius: 5px;
     border: 2px solid transparent;
-    /* Transparent border initially */
     box-sizing: border-box;
-    /* Include padding and border in element's total size */
 }
 
 .buttons .btn:hover {
@@ -73,26 +69,46 @@ h1 {
     border: 2px solid #FFD700;
 }
 
+.btn-container .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.btn-submit {
+    background-color: #FFD700;
+    color: #333;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-submit:hover {
+    background-color: #333;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+}
+
+/* ---- Table Styling ---- */
+
 .table-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    /* For smooth scrolling on iOS */
     margin-bottom: 20px;
-    /* Optional, to give space below the table */
 }
 
 .custom-table th,
 .custom-table td {
     width: 100px;
-    /* Fixed width for uniform cells */
     height: 60px;
-    /* Fixed height for uniform cells */
     text-align: center;
-    /* Center the content */
     vertical-align: middle;
-    /* Center text vertically */
     padding: 0;
-    /* Remove extra padding */
 }
 
 .custom-scrollable {
@@ -100,7 +116,10 @@ h1 {
     overflow-y: auto;
 }
 
-/* --------------------- Header Styling --------------------- */
+/* -------------------------- Base Styling -------------------------- */
+
+/* ---- Header Styling ---- */
+
 header {
     position: sticky;
     top: 0;
@@ -127,9 +146,7 @@ header {
 
 .navbar-brand img {
     width: 100px;
-    /* Adjust width */
     height: auto;
-    /* Maintain aspect ratio */
 }
 
 .navbar-nav .nav-link {
@@ -153,7 +170,8 @@ header {
     border-radius: 5px;
 }
 
-/* ------------------- Footer Section ---------------------- */
+/* ---- Footer Section ---- */
+
 footer {
     background-color: #212121;
     padding: 40px 0;
@@ -182,9 +200,6 @@ footer ul {
 
 footer.bg-dark img {
     width: 100%;
-    /* max-width: 320px; */
-    /* height: auto; 
-    object-fit: contain;  */
 }
 
 footer .social-media a {
@@ -253,7 +268,6 @@ footer .social-media a:hover {
     text-align: center;
     animation: backgroundCarousel 15s infinite;
     transition: background-image 1s ease-in-out;
-    /* Smooth transition for image change */
 }
 
 /* Keyframes for changing background images */
@@ -292,36 +306,19 @@ footer .social-media a:hover {
     margin-bottom: 20px;
 }
 
-.description {
-    font-size: 1.25rem;
-    margin-bottom: 30px;
-}
-
-/* .buttons .btn {
-    background-color: #FFD700;
-    color: #333;
-    padding: 12px 30px;
-    margin: 10px 15px;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.buttons .btn:hover {
-    background-color: #333;
-    color: #FFD700;
-} */
-
 .hero-content h1,
 .hero-content p {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
+.description {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+}
+
 /* -------------------- Features Section (Cards) ------------------- */
 .features .card {
     background-color: #444444;
-    /* color: #F5F5F5; */
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 20px;
@@ -348,12 +345,11 @@ footer .social-media a:hover {
     line-height: 1.5;
 }
 
-/* No hover effect on cards */
 .features .card:hover {
     box-shadow: none;
 }
 
-/* --------------------- About Section ------------------- */
+/* ---- About Section ---- */
 .our-story-card {
     background-color: #444444;
     border-radius: 10px;
@@ -375,19 +371,9 @@ footer .social-media a:hover {
     margin-bottom: 15px;
 }
 
-/* --------------------- Button Section ------------------- */
-.btn-container .buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 30px;
-}
-
-
-
 /* -------------------------------- Dashboard Specific ----------------------------------- */
 /* --------------------- Staff Dashboard ------------------- */
-/* Key for availability status */
+
 .key {
     margin-bottom: 20px;
     font-size: 14px;
@@ -400,41 +386,29 @@ footer .social-media a:hover {
 
 .green {
     background-color: #28a745;
-    /* Green color */
 }
 
 .red {
     background-color: #dc3545;
-    /* Red color */
 }
 
 table td.green {
     background-color: #28a745;
-    /* Green for Available */
-
 }
 
 table td.red {
     background-color: #dc3545;
-    /* Red for Occupied */
 }
 
-/* Equal size for each cell */
 .table-availability th,
 .table-availability td {
     width: 60px;
-    /* Fixed width for uniform cells */
     height: 60px;
-    /* Fixed height for uniform cells */
     text-align: center;
-    /* Center the content */
     vertical-align: middle;
-    /* Center text vertically */
     padding: 0;
-    /* Remove extra padding */
 }
 
-/* Table Responsive (horizontal scrolling) */
 .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -443,7 +417,6 @@ table td.red {
 table {
     width: 100%;
     table-layout: fixed;
-    /* Ensures columns have uniform width */
 }
 
 .sticky-column {
@@ -454,7 +427,6 @@ table {
   }
 
 /* -------------------------------- Menu Specific ----------------------------------- */
-
 
 .menu-item {
     background-color: #444444;
@@ -475,7 +447,6 @@ table {
 
 .menu-item p {
     font-size: 1rem;
-    /* color: #F5F5F5; */
     margin-bottom: 10px;
     line-height: 1.6;
 }
@@ -503,7 +474,6 @@ table {
 }
 
 #menuItemForm {
-    /* background-color: #444444; */
     padding: 15px;
     margin-top: 20px;
     border-radius: 8px;
@@ -539,25 +509,6 @@ textarea:focus {
     outline: none;
 }
 
-.btn-submit {
-    background-color: #FFD700;
-    color: #333;
-    font-weight: bold;
-    padding: 12px 25px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.btn-submit:hover {
-    background-color: #333;
-    color: #FFD700;
-    border: 2px solid #FFD700;
-}
-
-/* Modal */
 .modal-content {
     background-color: #444444;
 }
@@ -647,8 +598,8 @@ textarea:focus {
     }
 }
 
-/* --------------- Laptop and up (920px and up) */
-@media (min-width:768px) {
+/* --------------- Laptop and up (992px and up) */
+@media (min-width:992px) {
 
     .hero-content {
         max-height: 600px;
