@@ -12,47 +12,47 @@ The live project can be viewed [here](https://cedar-and-flame-8fe4b04c0330.herok
 
 ## Table of Contents
 
-[**Purpose of Project**](#purpose-of-project)
+1. [**Purpose of Project**](#purpose-of-project)
 
-[**Features**](#features)
-- [All Users](#all-users)
-- [Authenticated (Logged in) Users](#authenticated-logged-in-users)
-- [Staff (Authenticated)](#staff-authenticated)
-- [Future Features](#future-features)
+2. [**Features**](#features)
+    - [All Users](#all-users)
+    - [Authenticated (Logged in) Users](#authenticated-logged-in-users)
+    - [Staff (Authenticated)](#staff-authenticated)
+    - [Future Features](#future-features)
 
-[**User Experience**](#User-Experience)
-- [Design](#design)
-    - [Fonts](#fonts)
-    - [Colour](#colour)
-    - [Wireframes](#wireframes)
+3. [**User Experience**](#User-Experience)
+    - [Design](#design)
+        - [Fonts](#fonts)
+        - [Colour](#colour)
+        - [Wireframes](#wireframes)
 
-[**Development Process**](#development-process)
-- [Project Planning](#project-planning-and-documentation-using-gitHub)
-- [Search Engine Optimization](#search-engine-optimization)
-- [Data Model](#data-model)
-- [Data Validation](#data-validation)
+4. [**Development Process**](#development-process)
+    - [Project Planning](#project-planning-and-documentation-using-gitHub)
+    - [Search Engine Optimization](#search-engine-optimization)
+    - [Data Model](#data-model)
+    - [Data Validation](#data-validation)
 
-[**Testing**](#Testing)
-- [Manual Testing](#manual-testing)
-    - [Feature Testing](#feature-testing)
-    - [Responsiveness](#responsiveness)
-    - [Lighthouse](#lighthouse)
-- [Validation Testing](#validation-testing)
-- [User Story Testing](#user-story-testing)
-- [Automated Testing](#automated-testing)
+5. [**Testing**](#Testing)
+    - [Manual Testing](#manual-testing)
+        - [Feature Testing](#feature-testing)
+        - [Responsiveness](#responsiveness)
+        - [Lighthouse](#lighthouse)
+    - [Validation Testing](#validation-testing)
+    - [User Story Testing](#user-story-testing)
+    - [Automated Testing](#automated-testing)
 
-[**Bugs**](#Bugs)
+6. [**Bugs**](#Bugs)
 
-[**Libraries and Programs Used**](#libraries-and-programs-used)
+7. [**Libraries and Programs Used**](#libraries-and-programs-used)
 
-[**Deployment**](#Deployment)
-- [Making a Local Clone](#making-a-local-clone)
-- [Running in Local Environment](#running-in-local-environment)
-- [Deploying to Heroku](#deploying-to-heroku)
+8. [**Deployment**](#Deployment)
+    - [Making a Local Clone](#making-a-local-clone)
+    - [Running in Local Environment](#running-in-local-environment)
+    - [Deploying to Heroku](#deploying-to-heroku)
 
-[**Credits**](#credits)
+9. [**Credits**](#credits)
 
-[**Acknowledgements**](#acknowledgements)
+10. [**Acknowledgements**](#acknowledgements)
 
 ---
 
