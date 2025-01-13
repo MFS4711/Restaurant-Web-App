@@ -1326,9 +1326,19 @@ All python code is validated by the [Flake8 linter](https://flake8.pycqa.org/en/
 
 ![booking_views_python_validation](/readme_images/python_validation/booking_views_python_validation.png)
 
+- admin.py
+
+![booking_admin.py_python_validation](/readme_images/python_validation/booking_admin.py_python_validation.png)
+
 - utils.py
 
 ![booking_utils_python_validation](/readme_images/python_validation/booking_utils_python_validation.png)
+
+- test_models.py
+
+![booking_test_models_python_validation](/readme_images/python_validation/booking_test_models_python_validation.png)
+
+Validation of test_forms.py and test_views.py to be completed once the referenced bug has been fixed - see [Remaining Bugs](#remaining-bugs)
 
 </details>
 
@@ -1346,6 +1356,22 @@ All python code is validated by the [Flake8 linter](https://flake8.pycqa.org/en/
 - views.py
 
 ![menu_views_python_validation](/readme_images/python_validation/menu_views_python_validation.png)
+
+- admin.py
+
+![menu_admin_python_validation](/readme_images/python_validation/menu_admin_python_validation.png)
+
+- test_models.py
+
+![menu_test_models_python_validation](/readme_images/python_validation/menu_test_models_python_validation.png)
+
+- test_forms.py
+
+![menu_test_forms_python_validation](/readme_images/python_validation/menu_test_forms_python_validation.png)
+
+- test_views.py
+
+![menu_test_views_python_validation](/readme_images/python_validation/menu_test_views_python_validation.png)
 
 </details>
 

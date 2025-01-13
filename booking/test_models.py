@@ -14,7 +14,8 @@ class TableModelTest(TestCase):
         """
         Set up a test instance of Table to be used in the following test cases.
 
-        This method creates a `Table` object that will be available for all test methods.
+        This method creates a `Table` object that will be available for
+        all test methods.
         """
         self.table = Table.objects.create(
             table_number="A1",
@@ -24,7 +25,7 @@ class TableModelTest(TestCase):
 
     def test_table_creation(self):
         """
-        Test that a Table object is correctly created and its fields 
+        Test that a Table object is correctly created and its fields
         match the given data.
         """
         self.assertEqual(self.table.table_number, "A1")
@@ -35,7 +36,7 @@ class TableModelTest(TestCase):
         """
         Test the `__str__` method of the Table model.
 
-        The `__str__` method should return a string representation of the Table 
+        The `__str__` method should return a string representation of the Table
         based on the table number and its capacity.
         """
         self.assertEqual(str(self.table), "Table A1 --- 4 seats")
@@ -55,7 +56,8 @@ class BookingModelTest(TestCase):
 
     def setUp(self):
         """
-        Set up test instances of User, Table, and Booking for the following test cases.
+        Set up test instances of User, Table, and Booking for the following
+        test cases.
         """
         self.user = User.objects.create_user(
             username="testuser", password="password")
@@ -101,7 +103,7 @@ class BookingModelTest(TestCase):
         """
         expected_end_time = timezone.make_aware(
             datetime.combine(self.booking.date,
-                                self.booking.time) + timedelta(hours=2)
+                             self.booking.time) + timedelta(hours=2)
         )
         self.assertEqual(self.booking.get_end_time(), expected_end_time)
 
@@ -109,15 +111,19 @@ class BookingModelTest(TestCase):
         """
         Test the `__str__` method of the Booking model.
 
-        The `__str__` method should return a string representation of the booking 
-        including the booking ID, user, date, and time.
+        The `__str__` method should return a string representation of the
+        booking including the booking ID, user, date, and time.
         """
-        self.assertEqual(str(self.booking),
-        f"Booking {self.booking.id} by testuser on {self.booking.date} at {self.booking.time}")
+        self.assertEqual(
+            str(self.booking),
+            f"Booking {self.booking.id} by testuser "
+            f"on {self.booking.date} at {self.booking.time}"
+        )
 
     def test_booking_status_choices(self):
         """
-        Test that the `status` field of the Booking model is limited to the defined choices.
+        Test that the `status` field of the Booking model is limited to the
+        defined choices.
         """
         valid_statuses = [choice[0] for choice in Booking.STATUS_CHOICES]
         self.assertIn(self.booking.status, valid_statuses)
@@ -151,7 +157,7 @@ class BookingModelTest(TestCase):
 
     def test_table_availability_check(self):
         """
-        Test that a booking cannot be created for a table that is not available.
+        Test that a booking cannot be created for a table that is not available
         """
         # Mark the table as unavailable
         self.table.is_available = False

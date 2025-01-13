@@ -10,11 +10,12 @@ class TestMenuViews(TestCase):
 
     def setUp(self):
         """
-        Set up a superuser and some test menu items for the following test cases.
+        Set up a superuser and some test menu items for the following test
+        cases.
 
-        This method creates a superuser and several `MenuItem` objects that will be 
-        used across the tests to verify view behavior, such as creating, editing, 
-        and deleting menu items.
+        This method creates a superuser and several `MenuItem` objects that
+        will be used across the tests to verify view behavior,
+        such as creating, editing, and deleting menu items.
         """
         self.superuser = User.objects.create_superuser(
             username="superuser",
@@ -40,9 +41,9 @@ class TestMenuViews(TestCase):
         """
         Test that the menu view renders correctly with the expected context.
 
-        This test ensures that the `menu` view loads the appropriate template, 
-        includes the `categorised_items` context variable, and correctly categorizes
-        the menu items (e.g., into 'Mains' category).
+        This test ensures that the `menu` view loads the appropriate template,
+        includes the `categorised_items` context variable, and correctly
+        categorizes the menu items (e.g., into 'Mains' category).
         """
         response = self.client.get(reverse('menu'))
         self.assertEqual(response.status_code, 200)
@@ -54,7 +55,9 @@ class TestMenuViews(TestCase):
 
         # Ensure categories contain the menu items
         mains_category = next(
-            (items for label, items in categorised_items if label == 'Mains'), None)
+            (items for label, items in categorised_items if label == 'Mains'),
+            None
+        )
 
         self.assertIsNotNone(mains_category)
 
@@ -66,9 +69,9 @@ class TestMenuViews(TestCase):
         """
         Test the creation of a new menu item by a superuser.
 
-        This test verifies that a superuser can successfully create a new menu item
-        via the `create_menu_item` view, that the user is redirected, and the correct
-        success message is displayed.
+        This test verifies that a superuser can successfully create a new menu
+        item via the `create_menu_item` view, that the user is redirected,
+        and the correct success message is displayed.
         """
         self.client.login(username="superuser", password="password")
         url = reverse('create_menu_item', args=["Mains"])
@@ -92,8 +95,9 @@ class TestMenuViews(TestCase):
         """
         Test that a non-superuser cannot create a menu item.
 
-        This test ensures that a non-superuser cannot create a new menu item and 
-        receives the appropriate error message indicating insufficient permissions.
+        This test ensures that a non-superuser cannot create a new menu item
+        and receives the appropriate error message indicating insufficient
+        permissions.
         """
         # Create and log in a non-superuser
         self.client.login(username="superuser", password="password")
@@ -116,7 +120,9 @@ class TestMenuViews(TestCase):
         self.assertRedirects(response, reverse('menu'))
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(
-            str(messages[0]), "You do not have permission to create menu items.")
+            str(messages[0]),
+            "You do not have permission to create menu items."
+        )
 
         # Ensure the menu item was not created
         self.assertFalse(MenuItem.objects.filter(name="Hummus").exists())
@@ -125,9 +131,9 @@ class TestMenuViews(TestCase):
         """
         Test editing an existing menu item by a superuser.
 
-        This test checks that a superuser can successfully edit an existing menu 
-        item, that the user is redirected after the edit, and that the correct 
-        success message is displayed.
+        This test checks that a superuser can successfully edit an existing
+        menu item, that the user is redirected after the edit, and that the
+        correct success message is displayed.
         """
         self.client.login(username="superuser", password="password")
         url = reverse('edit_menu_item', args=[self.menu_item1.id])
@@ -151,8 +157,9 @@ class TestMenuViews(TestCase):
         """
         Test that a non-superuser cannot edit a menu item.
 
-        This test ensures that a non-superuser cannot edit an existing menu item 
-        and receives the appropriate error message indicating insufficient permissions.
+        This test ensures that a non-superuser cannot edit an existing
+        menu item and receives the appropriate error message indicating
+        insufficient permissions.
         """
         # Create and log in a non-superuser
         self.client.login(username="superuser", password="password")
@@ -185,8 +192,9 @@ class TestMenuViews(TestCase):
         """
         Test deleting a menu item by a superuser.
 
-        This test ensures that a superuser can delete a menu item successfully, 
-        the user is redirected, and the correct success message is shown after deletion.
+        This test ensures that a superuser can delete a menu item successfully,
+        the user is redirected, and the correct success message is shown
+        after deletion.
         """
         self.client.login(username="superuser", password="password")
         url = reverse('delete_menu_item', args=[self.menu_item1.id])
@@ -204,8 +212,9 @@ class TestMenuViews(TestCase):
         """
         Test that a non-superuser cannot delete a menu item.
 
-        This test ensures that a non-superuser cannot delete a menu item and 
-        receives the appropriate error message indicating insufficient permissions.
+        This test ensures that a non-superuser cannot delete a menu item and
+        receives the appropriate error message indicating insufficient
+        permissions.
         """
         # Create and log in a non-superuser
         self.client.login(username="superuser", password="password")
@@ -222,7 +231,9 @@ class TestMenuViews(TestCase):
         self.assertRedirects(response, reverse('menu'))
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(
-            str(messages[0]), "There was an error deleting the Item. Please try again.")
+            str(messages[0]),
+            "There was an error deleting the Item. Please try again."
+        )
 
         # Ensure the item was not deleted
         self.assertTrue(MenuItem.objects.filter(
